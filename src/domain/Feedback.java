@@ -1,6 +1,7 @@
 package domain;
 
 public class Feedback {
+<<<<<<< HEAD
     private int feedbackId;
     private int score;
     private User user;
@@ -44,4 +45,6 @@ public class Feedback {
     public void setDescription(String description) {
         this.description = description;
     }
+=======
+>>>>>>> origin/master
 }
