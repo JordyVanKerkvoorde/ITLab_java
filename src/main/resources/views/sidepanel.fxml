@@ -7,7 +7,7 @@
 
 <VBox prefHeight="806" prefWidth="178.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.SidePanelController">
     <children>
-        <ImageView fitHeight="127.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="127.0" fitWidth="226.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@/images/itlab.png" />
             </image>

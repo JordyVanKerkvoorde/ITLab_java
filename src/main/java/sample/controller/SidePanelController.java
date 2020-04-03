@@ -36,6 +36,7 @@ public class SidePanelController implements Initializable {
         switch (btn.getText()) {
             case "Color 1":
                 callback.loadCalendar();
+                System.out.println(btn.getWidth());
                 break;
             case "Color 2":
                 callback.unloadCalendar();
