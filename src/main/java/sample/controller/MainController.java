@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,6 +25,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import jfxtras.icalendarfx.VCalendar;
+import jfxtras.internal.scene.control.skin.agenda.AgendaMonthSkin;
+import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import sample.Main;
 
@@ -36,8 +41,8 @@ public class MainController implements Initializable, Callback {
 
     @FXML
     private AnchorPane root;
-    private VCalendar vCalendar;
-    private ICalendarAgenda agenda;
+
+    private AnchorPane agendaPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,11 +74,17 @@ public class MainController implements Initializable, Callback {
         });
         drawer.open();
     }
-
     private void setupCalendar() {
-        vCalendar = new VCalendar();
-        agenda = new ICalendarAgenda(vCalendar);
-        AnchorPane.setLeftAnchor(agenda, 226.0);
+
+        try {
+            FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/layout_main.fxml"));
+            URL resource = getClass().getClassLoader().getResource("stylesheet/stylesheet_main.fxml");
+            root.getStylesheets().add(String.valueOf(resource));
+            agendaPane = agenda.load();
+            AnchorPane.setLeftAnchor(agendaPane, 226.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // useless splashscreen into code
@@ -119,16 +130,17 @@ public class MainController implements Initializable, Callback {
         root.setStyle("-fx-background-color:" + newColor);
     }
 
+
     @Override
     public void loadCalendar() {
-        if(!root.getChildren().contains(agenda)){
-            root.getChildren().add(agenda);
+        if(!root.getChildren().contains(agendaPane)){
+            root.getChildren().add(agendaPane);
         }
 
     }
     public void unloadCalendar(){
         try{
-            root.getChildren().remove(agenda);
+            root.getChildren().remove(agendaPane);
         } catch (Exception e) {
             e.printStackTrace();
         }
