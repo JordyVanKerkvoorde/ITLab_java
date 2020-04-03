@@ -1,9 +1,12 @@
-sample\Controller.class
 domain\UserType.class
+sample\controller\ColorChangeCallback.class
+sample\controller\SplashController.class
 domain\Announcement.class
+sample\controller\SidePanelController.class
 domain\Media.class
 domain\CampusEnum.class
 domain\Guest.class
+sample\controller\MainController.class
 domain\UserStatus.class
 domain\Feedback.class
 domain\Location.class
