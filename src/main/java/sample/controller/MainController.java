@@ -20,9 +20,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import jfxtras.icalendarfx.VCalendar;
+import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import sample.Main;
 
-public class MainController implements Initializable, ColorChangeCallback {
+public class MainController implements Initializable, Callback {
 
     @FXML
     private JFXDrawer drawer;
@@ -32,6 +34,8 @@ public class MainController implements Initializable, ColorChangeCallback {
 
     @FXML
     private AnchorPane root;
+    private VCalendar vCalendar;
+    private ICalendarAgenda agenda;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -40,6 +44,7 @@ public class MainController implements Initializable, ColorChangeCallback {
         }
 
         try {
+            setupCalendar();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/sidepanel.fxml"));
             VBox box = loader.load();
             SidePanelController controller = loader.getController();
@@ -50,7 +55,7 @@ public class MainController implements Initializable, ColorChangeCallback {
         }
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
+        transition.setRate(1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             transition.setRate(transition.getRate() * -1);
             transition.play();
@@ -61,8 +66,16 @@ public class MainController implements Initializable, ColorChangeCallback {
                 drawer.open();
             }
         });
+        drawer.open();
     }
 
+    private void setupCalendar() {
+        vCalendar = new VCalendar();
+        agenda = new ICalendarAgenda(vCalendar);
+        AnchorPane.setLeftAnchor(agenda, 226.0);
+    }
+
+    // useless splashscreen into code
     private void loadSplashScreen() {
         try {
             Main.isSplashLoaded = true;
@@ -70,12 +83,12 @@ public class MainController implements Initializable, ColorChangeCallback {
             StackPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("views/splash.fxml")));
             root.getChildren().setAll(pane);
 
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(3), pane);
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), pane);
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
             fadeIn.setCycleCount(1);
 
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), pane);
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), pane);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
             fadeOut.setCycleCount(1);
@@ -103,5 +116,20 @@ public class MainController implements Initializable, ColorChangeCallback {
     @Override
     public void updateColor(String newColor) {
         root.setStyle("-fx-background-color:" + newColor);
+    }
+
+    @Override
+    public void loadCalendar() {
+        if(!root.getChildren().contains(agenda)){
+            root.getChildren().add(agenda);
+        }
+
+    }
+    public void unloadCalendar(){
+        try{
+            root.getChildren().remove(agenda);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
