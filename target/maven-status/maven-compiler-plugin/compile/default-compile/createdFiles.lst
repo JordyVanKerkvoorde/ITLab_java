@@ -1,5 +1,4 @@
 domain\UserType.class
-sample\controller\ColorChangeCallback.class
 sample\controller\SplashController.class
 domain\Announcement.class
 sample\controller\SidePanelController.class
@@ -9,6 +8,7 @@ domain\Guest.class
 sample\controller\MainController.class
 domain\UserStatus.class
 domain\Feedback.class
+sample\controller\Callback.class
 domain\Location.class
 domain\MediaType.class
 domain\User.class
