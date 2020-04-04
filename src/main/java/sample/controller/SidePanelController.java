@@ -34,9 +34,8 @@ public class SidePanelController implements Initializable {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
         switch (btn.getText()) {
-            case "Color 1":
+            case "Calendar":
                 callback.loadCalendar();
-                System.out.println(btn.getWidth());
                 break;
             case "Color 2":
                 callback.unloadCalendar();

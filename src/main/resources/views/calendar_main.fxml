@@ -14,8 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="568.0" prefWidth="650.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.ControllerMain">
+<AnchorPane prefHeight="703.0" prefWidth="989.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.CalendarController">
     <children>
+        <!--    section months on left    -->
         <AnchorPane prefHeight="568.0" prefWidth="124.0" style="-fx-background-color: #4285f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane layoutX="84.0" prefHeight="514.0" prefWidth="14.0" style="-fx-background-color: #4285f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -24,7 +25,7 @@
                             <children>
                                 <ImageView fx:id="janNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -36,7 +37,7 @@
                             <children>
                                 <ImageView fx:id="febNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -48,7 +49,7 @@
                             <children>
                                 <ImageView fx:id="marNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -60,7 +61,7 @@
                             <children>
                                 <ImageView fx:id="aprNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -72,7 +73,7 @@
                             <children>
                                 <ImageView fx:id="mayNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -84,7 +85,7 @@
                             <children>
                                 <ImageView fx:id="junNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -96,7 +97,7 @@
                             <children>
                                 <ImageView fx:id="julNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -108,7 +109,7 @@
                             <children>
                                 <ImageView fx:id="augNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -120,7 +121,7 @@
                             <children>
                                 <ImageView fx:id="sepNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -132,7 +133,7 @@
                             <children>
                                 <ImageView fx:id="octNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -144,7 +145,7 @@
                             <children>
                                 <ImageView fx:id="novNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -156,7 +157,7 @@
                             <children>
                                 <ImageView fx:id="decNav" fitHeight="37.6" fitWidth="12.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                     <image>
-                                        <Image url="@../images/triangle.png" />
+                                        <Image url="@/images/triangle.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D height="37.6" minY="37.6" />
@@ -228,35 +229,39 @@
                 </JFXButton>
             </children>
         </AnchorPane>
-        <Pane layoutX="124.0" prefHeight="55.0" prefWidth="526.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 1 0;">
+        <!--    end section months on left    -->
+        <!-- section of controls on top  -->
+        <Pane layoutX="124.0" prefHeight="55.0" prefWidth="865.0" style="-fx-border-color: #CCCCCC; -fx-border-width: 0 0 1 0;">
             <children>
                 <Label fx:id="labelMonth" layoutX="37.0" layoutY="10.0" prefHeight="22.0" text="June," textFill="#1a08d4">
                     <font>
                         <Font name="Franklin Gothic Medium" size="30.0" />
                     </font>
                 </Label>
-                <Label fx:id="labelYear" layoutX="403.0" layoutY="11.0" prefHeight="22.0" text="2018" textFill="#919192">
+                <Label fx:id="labelYear" layoutX="714.0" layoutY="11.0" prefHeight="22.0" text="0000" textFill="#919192">
                     <font>
                         <Font name="HoloLens MDL2 Assets" size="30.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="btnNextYear" layoutX="487.0" layoutY="16.0" onAction="#onButtonNextYearClicked" prefHeight="25.0" prefWidth="25.0" style="-fx-border-radius: 4em; -fx-text-fill: #FFFFFF; -fx-background-radius: 4em; -fx-background-color: #CCCCCC;" text="&gt;">
+                <JFXButton fx:id="btnNextYear" layoutX="786.0" layoutY="16.0" onAction="#onButtonNextYearClicked" prefHeight="25.0" prefWidth="25.0" style="-fx-border-radius: 4em; -fx-text-fill: #FFFFFF; -fx-background-radius: 4em; -fx-background-color: #CCCCCC;" text="&gt;">
                     <font>
                         <Font name="Arial Black" size="12.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="btnLastYear" layoutX="359.0" layoutY="16.0" onAction="#onButtonLastYearClicked" prefHeight="25.0" prefWidth="25.0" style="-fx-border-radius: 4em; -fx-text-fill: #FFFFFF; -fx-background-radius: 4em; -fx-background-color: #CCCCCC;" text="&lt;">
+                <JFXButton fx:id="btnLastYear" layoutX="683.0" layoutY="16.0" onAction="#onButtonLastYearClicked" prefHeight="25.0" prefWidth="25.0" style="-fx-border-radius: 4em; -fx-text-fill: #FFFFFF; -fx-background-radius: 4em; -fx-background-color: #CCCCCC;" text="&lt;">
                     <font>
                         <Font name="Arial Black" size="12.0" />
                     </font>
                 </JFXButton>
             </children>
         </Pane>
-        <Pane layoutX="124.0" layoutY="55.0" prefHeight="514.0" prefWidth="526.0" AnchorPane.bottomAnchor="0.0">
+        <!-- end section of controls on top  -->
+        
+        <Pane layoutX="124.0" layoutY="55.0" prefHeight="648.0" prefWidth="865.0" AnchorPane.bottomAnchor="0.0">
             <children>
-                <AnchorPane layoutY="58.0" prefHeight="455.0" prefWidth="526.0">
+                <AnchorPane layoutY="58.0" prefHeight="590.0" prefWidth="865.0">
                     <children>
-                        <GridPane fx:id="gridPane" layoutX="34.0" layoutY="93.0" styleClass="gridPaneBorder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane fx:id="gridPane" layoutX="34.0" layoutY="93.0" prefHeight="590.0" prefWidth="865.0" styleClass="gridPaneBorder" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
                                 <ColumnConstraints fx:id="row" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -467,37 +472,37 @@
                         </GridPane>
                     </children>
                 </AnchorPane>
-                <Label layoutX="27.0" layoutY="25.0" text="Sun" textFill="#ff6262">
+                <Label layoutX="48.0" layoutY="25.0" text="Sun" textFill="#ff6262">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="97.0" layoutY="25.0" text="Mon" textFill="#706f74">
+                <Label layoutX="162.0" layoutY="25.0" text="Mon" textFill="#706f74">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="173.0" layoutY="25.0" text="Tue" textFill="#706f74">
+                <Label layoutX="290.0" layoutY="25.0" text="Tue" textFill="#706f74">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="244.0" layoutY="25.0" text="Wed" textFill="#706f74">
+                <Label layoutX="413.0" layoutY="25.0" text="Wed" textFill="#706f74">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="323.0" layoutY="25.0" text="Thu" textFill="#706f74">
+                <Label layoutX="541.0" layoutY="25.0" text="Thu" textFill="#706f74">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="397.0" layoutY="25.0" text="Fri" textFill="#706f74">
+                <Label layoutX="667.0" layoutY="25.0" text="Fri" textFill="#706f74">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="471.0" layoutY="25.0" text="Sat" textFill="#7f6ad5">
+                <Label layoutX="787.0" layoutY="25.0" text="Sat" textFill="#7f6ad5">
                     <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                     </font>

@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class ControllerMain implements Initializable {
+public class CalendarController implements Initializable {
 
     @FXML
     Label labelMonth;
@@ -42,7 +42,7 @@ public class ControllerMain implements Initializable {
         hideShowNav(getCurrentMonth()); //get the current month and show only the navigation on it.
         labelMonth.setText(String.valueOf(LocalDate.now().getMonth()));
         selectedMonth = String.valueOf(LocalDate.now().getMonth());
-
+        labelYear.setText(String.valueOf(LocalDate.now().getYear()));
         //Add AnchorPane to GridView
         for (int i = 0; i < 6; i++) { //Row has 6, means we only shows six weeks on calendar, change it to your needs.
             for (int j = 0; j < 7; j++) { //Column has 7, for 7 days a week
@@ -50,7 +50,6 @@ public class ControllerMain implements Initializable {
                 AnchorPaneNode anchorPane = new AnchorPaneNode();
                 anchorPane.setPrefSize(200,200);
                 anchorPane.setPadding(new Insets(10));
-
                 JFXRippler rippler = new JFXRippler(anchorPane);
                 rippler.setRipplerFill(Paint.valueOf("#CCCCCC"));
                 gridPane.add(rippler, j, i);
@@ -63,11 +62,11 @@ public class ControllerMain implements Initializable {
 
     }
 
-    /**Method that populate the date of moth in GridPane**/
+    /**Method that populate the date of month in GridPane**/
     private void populateDate(YearMonth yearMonthNow){
-        YearMonth yearMonth = yearMonthNow;
         // Get the date we want to start with on the calendar
-        LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
+        System.out.println("current year is" + yearMonthNow.getYear());
+        LocalDate calendarDate = LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonthValue(), 1);
         // Dial back the day until it is SUNDAY (unless the month starts on a sunday)
         while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY") ) {
             calendarDate = calendarDate.minusDays(1);
@@ -84,10 +83,10 @@ public class ControllerMain implements Initializable {
             label.setText(String.valueOf(calendarDate.getDayOfMonth()));
             label.setFont(Font.font("Roboto",16)); //set the font of Text
             label.getStyleClass().add("notInRangeDays");
-            if(isDateInRange(yearMonth, anchorPane.getDate())){
+            if(isDateInRange(yearMonthNow, anchorPane.getDate())){
                 label.getStyleClass().remove("notInRangeDays");
             }
-            if (anchorPane.getDate().equals(LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), yearMonth.lengthOfMonth()))){
+            if (anchorPane.getDate().equals(LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonth(), yearMonthNow.lengthOfMonth()))){
                 label.getStyleClass().remove("notInRangeDays");
             }
 

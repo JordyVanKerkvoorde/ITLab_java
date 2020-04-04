@@ -1,9 +1,9 @@
 sample\controller\AnchorPaneNode.class
 sample\controller\SplashController.class
 domain\Announcement.class
-sample\controller\ControllerMain.class
 domain\Media.class
 domain\UserStatus.class
+sample\controller\CalendarController.class
 domain\Session.class
 sample\Main.class
 domain\UserType.class

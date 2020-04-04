@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -41,6 +42,9 @@ public class MainController implements Initializable, Callback {
 
     @FXML
     private AnchorPane root;
+
+    @FXML
+    private HBox body;
 
     private AnchorPane agendaPane;
 
@@ -77,11 +81,10 @@ public class MainController implements Initializable, Callback {
     private void setupCalendar() {
 
         try {
-            FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/layout_main.fxml"));
+            FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/calendar_main.fxml"));
             URL resource = getClass().getClassLoader().getResource("stylesheet/stylesheet_main.fxml");
             root.getStylesheets().add(String.valueOf(resource));
             agendaPane = agenda.load();
-            AnchorPane.setLeftAnchor(agendaPane, 226.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,14 +136,14 @@ public class MainController implements Initializable, Callback {
 
     @Override
     public void loadCalendar() {
-        if(!root.getChildren().contains(agendaPane)){
-            root.getChildren().add(agendaPane);
+        if(!body.getChildren().contains(agendaPane)){
+            body.getChildren().add(agendaPane);
         }
 
     }
     public void unloadCalendar(){
         try{
-            root.getChildren().remove(agendaPane);
+            body.getChildren().remove(agendaPane);
         } catch (Exception e) {
             e.printStackTrace();
         }
