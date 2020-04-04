@@ -1,4 +1,4 @@
-package sample.controller;
+package ITLab.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

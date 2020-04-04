@@ -42,7 +42,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>sample.Main</mainClass>
+                    <mainClass>ITLab.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,4 +1,4 @@
-package sample.controller;
+package ITLab.controller;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;

@@ -1,4 +1,4 @@
-package sample.controller;
+package ITLab.controller;
 
 import com.jfoenix.controls.JFXRippler;
 import javafx.event.ActionEvent;
@@ -11,16 +11,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -77,26 +74,38 @@ public class CalendarController implements Initializable {
             }
 
             anchorPane.setDate(calendarDate); //set date into AnchorPaneNode
-
             Label label = createLabel(yearMonthNow, calendarDate, anchorPane);
             styleLabel(anchorPane, label);
-
-            anchorPane.setOnMouseClicked(event -> { //Handle click event of AnchorPane
-                System.out.println(anchorPane.getDate());
-                for(AnchorPaneNode anchorPaneNode : dateList){
-                    anchorPaneNode.getStyleClass().remove("selectedDate");
-                }
-                anchorPane.getStyleClass().add("selectedDate");
-                for (var style : anchorPane.getStyleClass()
-                     ) {
-                    System.out.println(style);
-                }
-            });
+            // session test
+            Label session = new Label();
+            /* TODO: dus momenteel werkt setMaxWidth niet en kweet niet waarom
+             * TODO: dus als je een session title toevoegd moet je met new lines werken en zorgen dat het niet te lang wordt
+             * TODO: dit fixen somehow, kdenk dat met de normale Pane te maken heeft ma idk.
+            */
+            session.setText("Session title\ntest second");
+            session.setFont(Font.font("Roboto",11)); //set the font of Text
+            session.getStyleClass().add("session");
+            AnchorPane.setTopAnchor(session, 26.0);
+            AnchorPane.setLeftAnchor(session, 5.0);
+            anchorPane.getChildren().add(session);
+            // end session test
+            setMouseClicked(anchorPane);
 
             calendarDate = calendarDate.plusDays(1);
             System.out.println(anchorPane.getDate());
 
         }
+    }
+
+    private void setMouseClicked(AnchorPaneNode anchorPane) {
+        anchorPane.setOnMouseClicked(event -> { //Handle click event of AnchorPane
+            System.out.println(anchorPane.getDate());
+            for(AnchorPaneNode anchorPaneNode : dateList){
+                anchorPaneNode.getStyleClass().remove("selectedDate");
+            }
+            anchorPane.getStyleClass().add("selectedDate");
+            System.out.println(anchorPane.getWidth());
+        });
     }
 
     private Label createLabel(YearMonth yearMonthNow, LocalDate calendarDate, AnchorPaneNode anchorPane) {
