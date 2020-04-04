@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -58,17 +59,12 @@ public class CalendarController implements Initializable {
                 dateList.add(anchorPane); //add the AnchorPane in a list
             }
         }
-
-        labelYear.setText(Year.now().toString());
-
         populateDate(YearMonth.now());
-
     }
 
     /**Method that populate the date of month in GridPane**/
     private void populateDate(YearMonth yearMonthNow){
         // Get the date we want to start with on the calendar
-        System.out.println("current year is" + yearMonthNow.getYear());
         LocalDate calendarDate = LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonthValue(), 1);
         // Dial back the day until it is SUNDAY (unless the month starts on a sunday)
         while (!calendarDate.getDayOfWeek().toString().equals("SUNDAY") ) {
@@ -80,38 +76,51 @@ public class CalendarController implements Initializable {
                 anchorPane.getChildren().clear(); //remove the label in AnchorPane
             }
 
-            anchorPane.setDate(calendarDate); //set date into AnchorPane
+            anchorPane.setDate(calendarDate); //set date into AnchorPaneNode
 
-            Label label = new Label();
-            label.setText(String.valueOf(calendarDate.getDayOfMonth()));
-            label.setFont(Font.font("Roboto",16)); //set the font of Text
-            label.getStyleClass().add("notInRangeDays");
-            if(isDateInRange(yearMonthNow, anchorPane.getDate())){
-                label.getStyleClass().remove("notInRangeDays");
-            }
-            if (anchorPane.getDate().equals(LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonth(), yearMonthNow.lengthOfMonth()))){
-                label.getStyleClass().remove("notInRangeDays");
-            }
+            Label label = createLabel(yearMonthNow, calendarDate, anchorPane);
+            styleLabel(anchorPane, label);
 
-            anchorPane.setTopAnchor(label, 5.0);
-            anchorPane.setLeftAnchor(label, 5.0);
-            anchorPane.getChildren().add(label);
-            anchorPane.getStyleClass().remove("selectedDate"); //remove selection on date change
-            anchorPane.getStyleClass().remove("dateNow"); //remove selection on current date
-            if(anchorPane.getDate().equals(LocalDate.now())){ //if date is equal to current date now, then add a defualt color to pane
-                anchorPane.getStyleClass().add("dateNow");
-            }
             anchorPane.setOnMouseClicked(event -> { //Handle click event of AnchorPane
                 System.out.println(anchorPane.getDate());
                 for(AnchorPaneNode anchorPaneNode : dateList){
                     anchorPaneNode.getStyleClass().remove("selectedDate");
                 }
                 anchorPane.getStyleClass().add("selectedDate");
+                for (var style : anchorPane.getStyleClass()
+                     ) {
+                    System.out.println(style);
+                }
             });
 
             calendarDate = calendarDate.plusDays(1);
             System.out.println(anchorPane.getDate());
 
+        }
+    }
+
+    private Label createLabel(YearMonth yearMonthNow, LocalDate calendarDate, AnchorPaneNode anchorPane) {
+        Label label = new Label();
+        label.setText(String.valueOf(calendarDate.getDayOfMonth()));
+        label.setFont(Font.font("Roboto",16)); //set the font of Text
+        label.getStyleClass().add("notInRangeDays");
+        if(isDateInRange(yearMonthNow, anchorPane.getDate())){
+            label.getStyleClass().remove("notInRangeDays");
+        }
+        if (anchorPane.getDate().equals(LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonth(), yearMonthNow.lengthOfMonth()))){
+            label.getStyleClass().remove("notInRangeDays");
+        }
+        return label;
+    }
+
+    private void styleLabel(AnchorPaneNode anchorPane, Label label) {
+        AnchorPane.setTopAnchor(label, 5.0);
+        AnchorPane.setLeftAnchor(label, 5.0);
+        anchorPane.getChildren().add(label);
+        anchorPane.getStyleClass().remove("selectedDate"); //remove selection on date change
+        anchorPane.getStyleClass().remove("dateNow"); //remove selection on current date
+        if(anchorPane.getDate().equals(LocalDate.now())){ //if date is equal to current date now, then add a default colour to pane
+            anchorPane.getStyleClass().add("dateNow");
         }
     }
 

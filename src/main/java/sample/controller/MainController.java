@@ -90,8 +90,7 @@ public class MainController implements Initializable, Callback {
 
         try {
             FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/calendar_main.fxml"));
-            URL resource = getClass().getClassLoader().getResource("stylesheet/stylesheet_main.fxml");
-            root.getStylesheets().add(String.valueOf(resource));
+            root.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/stylesheet_main.css")).toExternalForm());
             agendaPane = agenda.load();
         } catch (IOException e) {
             e.printStackTrace();
