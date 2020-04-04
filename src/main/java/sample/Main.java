@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
+import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -15,10 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("main.fxml")));
-
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("views/main.fxml")));
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.setTitle("ITLab");
         stage.show();

@@ -18,14 +18,14 @@ public class SidePanelController implements Initializable {
     @FXML
     private JFXButton exit;
 
-    private ColorChangeCallback callback;
+    private Callback callback;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-    public void setCallback(ColorChangeCallback callback) {
+    public void setCallback(Callback callback) {
         this.callback = callback;
     }
 
@@ -34,14 +34,14 @@ public class SidePanelController implements Initializable {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
         switch (btn.getText()) {
-            case "Color 1":
-                callback.updateColor("#00FF00");
+            case "Calendar":
+                callback.loadCalendar();
                 break;
             case "Color 2":
-                callback.updateColor("#0000FF");
+                callback.unloadCalendar();
                 break;
             case "Color 3":
-                callback.updateColor("#FF0000");
+                callback.unloadCalendar();
                 break;
         }
     }
