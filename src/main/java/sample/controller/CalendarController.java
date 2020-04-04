@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -57,6 +58,8 @@ public class CalendarController implements Initializable {
                 dateList.add(anchorPane); //add the AnchorPane in a list
             }
         }
+
+        labelYear.setText(Year.now().toString());
 
         populateDate(YearMonth.now());
 
