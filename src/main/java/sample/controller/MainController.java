@@ -53,9 +53,15 @@ public class MainController implements Initializable, Callback {
         if (!Main.isSplashLoaded) {
             loadSplashScreen();
         }
+        setupCalendar();
+        loadSidepanel();
+        setupHamburgerTransition();
+        drawer.open();
+        loadCalendar();
+    }
 
+    private void loadSidepanel() {
         try {
-            setupCalendar();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/sidepanel.fxml"));
             VBox box = loader.load();
             SidePanelController controller = loader.getController();
@@ -64,7 +70,9 @@ public class MainController implements Initializable, Callback {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    private void setupHamburgerTransition() {
         var transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
@@ -76,8 +84,8 @@ public class MainController implements Initializable, Callback {
                 drawer.open();
             }
         });
-        drawer.open();
     }
+
     private void setupCalendar() {
 
         try {
