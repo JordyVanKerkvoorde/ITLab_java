@@ -6,7 +6,8 @@ public class Location {
     private CampusEnum campus;
     private int Capacity;
 
-    public Location(CampusEnum campus, int capacity) {
+    public Location(String locationId, CampusEnum campus, int capacity) {
+        this.locationId = locationId;
         this.campus = campus;
         Capacity = capacity;
     }

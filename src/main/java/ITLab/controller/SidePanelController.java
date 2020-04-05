@@ -1,4 +1,4 @@
-package sample.controller;
+package ITLab.controller;
 
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
@@ -34,7 +34,7 @@ public class SidePanelController implements Initializable {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
         switch (btn.getText()) {
-            case "Calendar":
+            case "Calendar": // calendar
                 callback.loadCalendar();
                 break;
             case "Color 2":

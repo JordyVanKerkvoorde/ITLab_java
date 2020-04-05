@@ -7,3 +7,8 @@
 .dateNow{
     -fx-background-color:  #4285f5
 }
+.session{
+    -fx-border-color: #4285f5;
+    -fx-border-width: 2px;
+    -fx-text-overrun: ellipsis;
+}
