@@ -8,17 +8,56 @@ public class User {
     private UserStatus userStatus;
     //private Media avatar;
     private int penalties;
+    private String userName;
+    private String email;
+    private boolean EmailConfirmed;
 
-    public User(String firstName, String lastName, UserType userType, UserStatus userStatus, int penalties) {
+    public User(String userId, String firstName, String lastName, UserType userType, UserStatus userStatus, int penalties, String userName, String email, boolean emailConfirmed) {
+        setUserId(userId);
         setFirstName(firstName);
         setLastName(lastName);
         setUserStatus(userStatus);
         setUserType(userType);
         setPenalties(penalties);
+        setUserName(userName);
+        setEmail(email);
+        setEmailConfirmed(emailConfirmed);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isEmailConfirmed() {
+        return EmailConfirmed;
+    }
+
+    public void setEmailConfirmed(boolean emailConfirmed) {
+        EmailConfirmed = emailConfirmed;
     }
 
     //JPA
     public User() {
+    }
+
+    private void setUserId(String userId) {
+        userId = userId;
     }
 
     public String getUserId() {

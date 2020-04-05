@@ -1,6 +1,8 @@
 package ITLab.controller;
 
 import com.jfoenix.controls.JFXRippler;
+import domain.MockData;
+import domain.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,14 +14,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+import java.beans.beancontext.BeanContext;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CalendarController implements Initializable {
 
@@ -72,29 +77,35 @@ public class CalendarController implements Initializable {
             if (anchorPane.getChildren().size() != 0) {
                 anchorPane.getChildren().clear(); //remove the label in AnchorPane
             }
-
             anchorPane.setDate(calendarDate); //set date into AnchorPaneNode
             Label label = createLabel(yearMonthNow, calendarDate, anchorPane);
             styleLabel(anchorPane, label);
-            // session test
-            Label session = new Label();
-            /* TODO: dus momenteel werkt setMaxWidth niet en kweet niet waarom
-             * TODO: dus als je een session title toevoegd moet je met new lines werken en zorgen dat het niet te lang wordt
-             * TODO: dit fixen somehow, kdenk dat met de normale Pane te maken heeft ma idk.
-            */
-            session.setText("Session title\ntest second");
-            session.setFont(Font.font("Roboto",11)); //set the font of Text
-            session.getStyleClass().add("session");
-            AnchorPane.setTopAnchor(session, 26.0);
-            AnchorPane.setLeftAnchor(session, 5.0);
-            anchorPane.getChildren().add(session);
-            // end session test
             setMouseClicked(anchorPane);
-
+            addSessionsOnDate(anchorPane);
             calendarDate = calendarDate.plusDays(1);
             System.out.println(anchorPane.getDate());
-
         }
+    }
+
+    private void addSessionsOnDate(AnchorPaneNode anchorPane) {
+        for (Session session: getSessionOnDate(anchorPane.getDate())
+             ) {
+            Label label = new Label();
+            // TODO: make this use new lines if possible
+            label.setText(session.getTitle().substring(0, 20));
+            label.setFont(Font.font("Roboto",11)); //set the font of Text
+            label.getStyleClass().add("session");
+            AnchorPane.setTopAnchor(label, 26.0);
+            anchorPane.getChildren().add(label);
+        }
+    }
+
+    private List<Session> getSessionOnDate(LocalDate date){
+        for (Session session: MockData.mockSessions
+             ) {
+            System.out.println(session.getTitle()+'\n' + session.getStart().toLocalDate() + ' ' + date);
+        }
+        return MockData.mockSessions.stream().filter(s -> s.getStart().toLocalDate().compareTo(date)==0).collect(Collectors.toList());
     }
 
     private void setMouseClicked(AnchorPaneNode anchorPane) {
