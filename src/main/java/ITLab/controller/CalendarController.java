@@ -1,5 +1,6 @@
 package ITLab.controller;
 
+import ITLab.components.SessionLabel;
 import ITLab.components.VBoxNode;
 import com.jfoenix.controls.JFXRippler;
 import domain.MockData;
@@ -36,13 +37,16 @@ public class CalendarController implements Initializable {
     GridPane gridPane;
     @FXML
     Label labelYear;
+    @FXML
+    AnchorPane rootAnchor;
+
+    private Callback callback;
 
     private String selectedMonth;
     private  ArrayList<VBoxNode> dateList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         hideShowNav(getCurrentMonth()); //get the current month and show only the navigation on it.
         labelMonth.setText(String.valueOf(LocalDate.now().getMonth()));
         selectedMonth = String.valueOf(LocalDate.now().getMonth());
@@ -62,6 +66,14 @@ public class CalendarController implements Initializable {
             }
         }
         populateDate(YearMonth.now());
+    }
+    // use this to get access to main functions to load sessions
+    public Callback getCallback() {
+        return callback;
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     /**Method that populate the date of month in GridPane**/
@@ -83,18 +95,16 @@ public class CalendarController implements Initializable {
             setMouseClicked(dateNode);
             addSessionsOnDate(dateNode);
             calendarDate = calendarDate.plusDays(1);
-            System.out.println(dateNode.getDate());
         }
     }
 
     private void addSessionsOnDate(VBoxNode dateNode) {
-        for (Session session: getSessionOnDate(dateNode.getDate())
-             ) {
-            Label label = new Label();
-            // TODO: make this use new lines if possible
+        for (Session session: getSessionOnDate(dateNode.getDate())) {
+            SessionLabel label = new SessionLabel(session);
             label.setText(session.getTitle());
             label.setFont(Font.font("Roboto",11)); //set the font of Text
             label.getStyleClass().add("session");
+            label.setOnMouseClicked(e -> this.callback.loadSession(label.getSession()));
             dateNode.getChildren().add(label);
         }
     }
@@ -105,12 +115,11 @@ public class CalendarController implements Initializable {
 
     private void setMouseClicked(VBoxNode dateNode) {
         dateNode.setOnMouseClicked(event -> { //Handle click event of AnchorPane
-            System.out.println(dateNode.getDate());
+            //System.out.println(dateNode.getDate());
             for(VBoxNode anchorPaneNode : dateList){
                 anchorPaneNode.getStyleClass().remove("selectedDate");
             }
             dateNode.getStyleClass().add("selectedDate");
-            System.out.println(dateNode.getWidth());
         });
     }
 

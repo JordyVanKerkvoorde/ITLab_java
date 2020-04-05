@@ -11,10 +11,13 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import domain.Session;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -53,6 +56,7 @@ public class MainController implements Initializable, Callback {
 
     private void loadSidepanel() {
         try {
+            System.out.println("calling sidepanel");
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/sidepanel.fxml"));
             VBox box = loader.load();
             SidePanelController controller = loader.getController();
@@ -80,9 +84,12 @@ public class MainController implements Initializable, Callback {
     private void setupCalendar() {
 
         try {
+            System.out.println("calling setupcalendar");
             FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/calendar_main.fxml"));
             root.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/stylesheet_main.css")).toExternalForm());
             agendaPane = agenda.load();
+            CalendarController calendarController = agenda.getController();
+            calendarController.setCallback(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,7 +133,18 @@ public class MainController implements Initializable, Callback {
         }
     }
 
-
+    public void loadSession(Session session) {
+        try{
+            body.getChildren().remove(agendaPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/session.fxml"));
+            ScrollPane sessionPane = loader.load();
+            SessionController sessionController = loader.getController();
+            sessionController.setSession(session);
+            body.getChildren().add(sessionPane);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void loadCalendar() {
         if(!body.getChildren().contains(agendaPane)){
