@@ -12,3 +12,22 @@
     -fx-border-width: 2px;
     -fx-text-overrun: ellipsis;
 }
+.edit-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}
+@font-face {
+    src: url('Roboto-Medium.ttf');
+}
+
+.text {
+    -fx-font-family: "Roboto";
+}
+.scroll-pane{
+    -fx-border-width: 0;
+}
+.scroll-pane .scroll-bar:vertical {
+    -fx-unit-increment: 100 ;
+    -fx-block-increment: 500 ;
+}

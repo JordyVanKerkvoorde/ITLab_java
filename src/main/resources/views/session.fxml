@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="989.0" minHeight="-Infinity" minViewportHeight="703.0" minViewportWidth="989.0" minWidth="-Infinity" prefViewportHeight="Infinity" prefViewportWidth="989.0" prefWidth="989.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.SessionController">
+   <content>
+      <VBox prefHeight="887.0" prefWidth="988.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cover Image" wrappingWidth="871.4700317382812">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" />
+               </VBox.margin>
+            </Text>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="coverImage" fitHeight="296.0" fitWidth="506.0" layoutX="241.0" layoutY="1.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/gettyimages-664767584-612x612.jpg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="imageEditButton" buttonType="RAISED" layoutX="74.0" layoutY="130.0" prefHeight="37.0" prefWidth="93.0" ripplerFill="#a7a7a7" styleClass="edit-button" text="Edit...">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="titleTextField" maxWidth="-Infinity" prefHeight="51.0" prefWidth="925.0" promptText="Enter event title...">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="30.0" right="30.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter event description...">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+               </VBox.margin>
+            </TextArea>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ingeschreven studenten" wrappingWidth="874.8032836914062">
+               <font>
+                  <Font size="40.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="30.0" top="5.0" />
+               </VBox.margin>
+            </Text>
+            <JFXListView fx:id="ingeschrevenList">
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="5.0" />
+               </VBox.margin></JFXListView>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
