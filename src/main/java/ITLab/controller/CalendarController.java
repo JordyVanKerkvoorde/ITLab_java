@@ -1,5 +1,6 @@
 package ITLab.controller;
 
+import ITLab.components.VBoxNode;
 import com.jfoenix.controls.JFXRippler;
 import domain.MockData;
 import domain.Session;
@@ -14,7 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-import java.beans.beancontext.BeanContext;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -38,7 +38,7 @@ public class CalendarController implements Initializable {
     Label labelYear;
 
     private String selectedMonth;
-    private  ArrayList<AnchorPaneNode> dateList = new ArrayList<>();
+    private  ArrayList<VBoxNode> dateList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,14 +51,14 @@ public class CalendarController implements Initializable {
         for (int i = 0; i < 6; i++) { //Row has 6, means we only shows six weeks on calendar, change it to your needs.
             for (int j = 0; j < 7; j++) { //Column has 7, for 7 days a week
                 //Layout of AnchorPane
-                AnchorPaneNode anchorPane = new AnchorPaneNode();
-                anchorPane.setPrefSize(200,200);
-                anchorPane.setPadding(new Insets(10));
-                JFXRippler rippler = new JFXRippler(anchorPane);
+                VBoxNode dateNode = new VBoxNode();
+                dateNode.setPrefSize(200,200);
+                dateNode.setPadding(new Insets(10));
+                JFXRippler rippler = new JFXRippler(dateNode);
                 rippler.setRipplerFill(Paint.valueOf("#CCCCCC"));
                 gridPane.add(rippler, j, i);
 
-                dateList.add(anchorPane); //add the AnchorPane in a list
+                dateList.add(dateNode); //add the AnchorPane in a list
             }
         }
         populateDate(YearMonth.now());
@@ -73,74 +73,67 @@ public class CalendarController implements Initializable {
             calendarDate = calendarDate.minusDays(1);
         }
         // Populate the calendar with day numbers
-        for (AnchorPaneNode anchorPane : dateList) {
-            if (anchorPane.getChildren().size() != 0) {
-                anchorPane.getChildren().clear(); //remove the label in AnchorPane
+        for (VBoxNode dateNode : dateList) {
+            if (dateNode.getChildren().size() != 0) {
+                dateNode.getChildren().clear(); //remove the label in AnchorPane
             }
-            anchorPane.setDate(calendarDate); //set date into AnchorPaneNode
-            Label label = createLabel(yearMonthNow, calendarDate, anchorPane);
-            styleLabel(anchorPane, label);
-            setMouseClicked(anchorPane);
-            addSessionsOnDate(anchorPane);
+            dateNode.setDate(calendarDate); //set date into AnchorPaneNode
+            Label label = createLabel(yearMonthNow, calendarDate, dateNode);
+            styleLabel(dateNode, label);
+            setMouseClicked(dateNode);
+            addSessionsOnDate(dateNode);
             calendarDate = calendarDate.plusDays(1);
-            System.out.println(anchorPane.getDate());
+            System.out.println(dateNode.getDate());
         }
     }
 
-    private void addSessionsOnDate(AnchorPaneNode anchorPane) {
-        for (Session session: getSessionOnDate(anchorPane.getDate())
+    private void addSessionsOnDate(VBoxNode dateNode) {
+        for (Session session: getSessionOnDate(dateNode.getDate())
              ) {
             Label label = new Label();
             // TODO: make this use new lines if possible
-            label.setText(session.getTitle().substring(0, 20));
+            label.setText(session.getTitle());
             label.setFont(Font.font("Roboto",11)); //set the font of Text
             label.getStyleClass().add("session");
-            AnchorPane.setTopAnchor(label, 26.0);
-            anchorPane.getChildren().add(label);
+            dateNode.getChildren().add(label);
         }
     }
 
     private List<Session> getSessionOnDate(LocalDate date){
-        for (Session session: MockData.mockSessions
-             ) {
-            System.out.println(session.getTitle()+'\n' + session.getStart().toLocalDate() + ' ' + date);
-        }
         return MockData.mockSessions.stream().filter(s -> s.getStart().toLocalDate().compareTo(date)==0).collect(Collectors.toList());
     }
 
-    private void setMouseClicked(AnchorPaneNode anchorPane) {
-        anchorPane.setOnMouseClicked(event -> { //Handle click event of AnchorPane
-            System.out.println(anchorPane.getDate());
-            for(AnchorPaneNode anchorPaneNode : dateList){
+    private void setMouseClicked(VBoxNode dateNode) {
+        dateNode.setOnMouseClicked(event -> { //Handle click event of AnchorPane
+            System.out.println(dateNode.getDate());
+            for(VBoxNode anchorPaneNode : dateList){
                 anchorPaneNode.getStyleClass().remove("selectedDate");
             }
-            anchorPane.getStyleClass().add("selectedDate");
-            System.out.println(anchorPane.getWidth());
+            dateNode.getStyleClass().add("selectedDate");
+            System.out.println(dateNode.getWidth());
         });
     }
 
-    private Label createLabel(YearMonth yearMonthNow, LocalDate calendarDate, AnchorPaneNode anchorPane) {
+    private Label createLabel(YearMonth yearMonthNow, LocalDate calendarDate, VBoxNode dateNode) {
         Label label = new Label();
         label.setText(String.valueOf(calendarDate.getDayOfMonth()));
         label.setFont(Font.font("Roboto",16)); //set the font of Text
         label.getStyleClass().add("notInRangeDays");
-        if(isDateInRange(yearMonthNow, anchorPane.getDate())){
+        if(isDateInRange(yearMonthNow, dateNode.getDate())){
             label.getStyleClass().remove("notInRangeDays");
         }
-        if (anchorPane.getDate().equals(LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonth(), yearMonthNow.lengthOfMonth()))){
+        if (dateNode.getDate().equals(LocalDate.of(yearMonthNow.getYear(), yearMonthNow.getMonth(), yearMonthNow.lengthOfMonth()))){
             label.getStyleClass().remove("notInRangeDays");
         }
         return label;
     }
 
-    private void styleLabel(AnchorPaneNode anchorPane, Label label) {
-        AnchorPane.setTopAnchor(label, 5.0);
-        AnchorPane.setLeftAnchor(label, 5.0);
-        anchorPane.getChildren().add(label);
-        anchorPane.getStyleClass().remove("selectedDate"); //remove selection on date change
-        anchorPane.getStyleClass().remove("dateNow"); //remove selection on current date
-        if(anchorPane.getDate().equals(LocalDate.now())){ //if date is equal to current date now, then add a default colour to pane
-            anchorPane.getStyleClass().add("dateNow");
+    private void styleLabel(VBoxNode dateNode, Label label) {
+        dateNode.getChildren().add(label);
+        dateNode.getStyleClass().remove("selectedDate"); //remove selection on date change
+        dateNode.getStyleClass().remove("dateNow"); //remove selection on current date
+        if(dateNode.getDate().equals(LocalDate.now())){ //if date is equal to current date now, then add a default colour to pane
+            dateNode.getStyleClass().add("dateNow");
         }
     }
 

@@ -1,8 +1,10 @@
-package ITLab.controller;
+package ITLab.components;
 
 import domain.Session;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * Create an anchor pane that can store additional data.
  */
-public class AnchorPaneNode extends AnchorPane {
+public class VBoxNode extends VBox {
 
     // Date associated with this pane
     private LocalDate date;
@@ -22,7 +24,7 @@ public class AnchorPaneNode extends AnchorPane {
      * Create a anchor pane node. Date is not assigned in the constructor.
      * @param children children of the anchor pane
      */
-    public AnchorPaneNode(Node... children) {
+    public VBoxNode(Node... children) {
         super(children);
         sessions = new ArrayList<>();
     }
