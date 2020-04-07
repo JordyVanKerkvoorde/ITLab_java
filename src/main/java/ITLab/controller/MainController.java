@@ -1,30 +1,31 @@
 package ITLab.controller;
 
-
+import ITLab.Main;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import domain.Session;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import ITLab.Main;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainController implements Initializable, Callback {
 
@@ -38,18 +39,23 @@ public class MainController implements Initializable, Callback {
     private AnchorPane root;
 
     @FXML
-    private HBox body;
+    private StackPane body;
 
-    private AnchorPane agendaPane;
+    private CalendarView calendarView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (!Main.isSplashLoaded) {
-            loadSplashScreen();
-        }
+//        if (!Main.isSplashLoaded) {
+//            loadSplashScreen();
+//        }
+        root.setBorder(new Border(new BorderStroke(Color.BLUE,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        body.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        Bindings.bindBidirectional(root.prefHeightProperty(), body.prefHeightProperty());
+        Bindings.bindBidirectional(root.prefWidthProperty(), body.prefWidthProperty());
         setupCalendar();
         loadSidepanel();
-        setupHamburgerTransition();
         drawer.open();
         loadCalendar();
     }
@@ -67,32 +73,43 @@ public class MainController implements Initializable, Callback {
         }
     }
 
-    private void setupHamburgerTransition() {
-        var transition = new HamburgerBackArrowBasicTransition(hamburger);
-        transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            transition.setRate(transition.getRate() * -1);
-            transition.play();
-            if (drawer.isOpened()) {
-                drawer.close();
-            } else {
-                drawer.open();
-            }
-        });
-    }
 
     private void setupCalendar() {
+        calendarView = new CalendarView();
+        Calendar birthdays = new Calendar("Birthdays");
+        Calendar holidays = new Calendar("holidays");
+        birthdays.setStyle(Calendar.Style.STYLE1);
+        holidays.setStyle(Calendar.Style.STYLE2);
 
-        try {
-            System.out.println("calling setupcalendar");
-            FXMLLoader agenda = new FXMLLoader(getClass().getClassLoader().getResource("views/calendar_main.fxml"));
-            root.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/stylesheet_main.css")).toExternalForm());
-            agendaPane = agenda.load();
-            CalendarController calendarController = agenda.getController();
-            calendarController.setCallback(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(birthdays, holidays);
+
+        calendarView.getCalendarSources().addAll(myCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        calendarView.setToday(LocalDate.now());
+                        calendarView.setTime(LocalTime.now());
+                    });
+
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            ;
+        };
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
     }
 
     // useless splashscreen into code
@@ -135,7 +152,7 @@ public class MainController implements Initializable, Callback {
 
     public void loadSession(Session session) {
         try{
-            body.getChildren().remove(agendaPane);
+            body.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/session.fxml"));
             ScrollPane sessionPane = loader.load();
             SessionController sessionController = loader.getController();
@@ -145,16 +162,29 @@ public class MainController implements Initializable, Callback {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void loadCalendarFX() {
+        try{
+            body.getChildren().clear();
+            body.getChildren().add(calendarView);
+
+
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
     @Override
     public void loadCalendar() {
-        if(!body.getChildren().contains(agendaPane)){
-            body.getChildren().add(agendaPane);
+        if(!body.getChildren().contains(calendarView)){
+            body.getChildren().add(calendarView);
         }
 
     }
     public void unloadCalendar(){
         try{
-            body.getChildren().remove(agendaPane);
+            body.getChildren().remove(calendarView);
         } catch (Exception e) {
             e.printStackTrace();
         }
