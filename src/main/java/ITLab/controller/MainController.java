@@ -3,9 +3,12 @@ package ITLab.controller;
 import ITLab.Main;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import domain.MockData;
 import domain.Session;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -17,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import jdk.jshell.EvalException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,32 +64,33 @@ public class MainController implements Initializable, Callback {
         loadCalendar();
     }
 
-    private void loadSidepanel() {
-        try {
-            System.out.println("calling sidepanel");
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/sidepanel.fxml"));
-            VBox box = loader.load();
-            SidePanelController controller = loader.getController();
-            controller.setCallback(this);
-            drawer.setSidePane(box);
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 
     private void setupCalendar() {
         calendarView = new CalendarView();
-        Calendar birthdays = new Calendar("Birthdays");
-        Calendar holidays = new Calendar("holidays");
-        birthdays.setStyle(Calendar.Style.STYLE1);
-        holidays.setStyle(Calendar.Style.STYLE2);
+        calendarView.setShowAddCalendarButton(false);
+        calendarView.setShowPageToolBarControls(false);
+        Calendar sessionCalendar = new Calendar("Sessions");
+        sessionCalendar.setStyle(Calendar.Style.STYLE1);
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-        myCalendarSource.getCalendars().addAll(birthdays, holidays);
+        myCalendarSource.getCalendars().add(sessionCalendar);
+
+        for (Session session: MockData.mockSessions) {
+            Entry<Session> sessionEntry = new Entry<>();
+            sessionEntry.setId(String.valueOf(session.getSessionId()));
+            sessionEntry.setTitle(session.getTitle());
+            sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
+                    session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
+            sessionEntry.setLocation(session.getLocation().getCampus().name());
+            sessionCalendar.addEntry(sessionEntry);
+        }
 
         calendarView.getCalendarSources().addAll(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
+        setUpdateThread();
+    }
+
+    private void setUpdateThread() {
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
             public void run() {
@@ -113,6 +118,7 @@ public class MainController implements Initializable, Callback {
     }
 
     // useless splashscreen into code
+
     private void loadSplashScreen() {
         try {
             Main.isSplashLoaded = true;
@@ -149,7 +155,6 @@ public class MainController implements Initializable, Callback {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public void loadSession(Session session) {
         try{
             body.getChildren().clear();
@@ -164,29 +169,28 @@ public class MainController implements Initializable, Callback {
     }
 
     @Override
-    public void loadCalendarFX() {
-        try{
-            body.getChildren().clear();
-            body.getChildren().add(calendarView);
-
-
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
-    @Override
     public void loadCalendar() {
         if(!body.getChildren().contains(calendarView)){
             body.getChildren().add(calendarView);
         }
 
     }
+
     public void unloadCalendar(){
-        try{
+        if(!body.getChildren().contains(calendarView)){
             body.getChildren().remove(calendarView);
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+    }
+    private void loadSidepanel() {
+        try {
+            System.out.println("calling sidepanel");
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/sidepanel.fxml"));
+            VBox box = loader.load();
+            SidePanelController controller = loader.getController();
+            controller.setCallback(this);
+            drawer.setSidePane(box);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

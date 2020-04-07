@@ -39,9 +39,7 @@ public class SidePanelController implements Initializable {
                 break;
             case "Color 2":
                 callback.unloadCalendar();
-                break;
             case "Color 3":
-                callback.loadCalendarFX();
                 break;
         }
     }

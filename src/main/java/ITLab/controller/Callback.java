@@ -9,6 +9,4 @@ public interface Callback {
     void unloadCalendar();
 
     void loadSession(Session session);
-
-    void loadCalendarFX();
 }
