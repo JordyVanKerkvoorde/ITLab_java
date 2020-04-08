@@ -3,6 +3,8 @@ package ITLab.controller;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import domain.MockData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +41,9 @@ public class SidePanelController implements Initializable {
                 break;
             case "Color 2":
                 callback.unloadCalendar();
+                break;
             case "Color 3":
+                MockData.mockSessions.forEach(e -> System.out.println(e));
                 break;
         }
     }

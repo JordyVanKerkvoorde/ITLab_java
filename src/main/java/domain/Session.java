@@ -29,6 +29,8 @@ public class Session {
         this.location = location;
     }
 
+
+
     public Session() {
     }
 
@@ -130,5 +132,24 @@ public class Session {
 
     public void setPresentUsers(List<User> presentUsers) {
         this.presentUsers = presentUsers;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "sessionId=" + sessionId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", responsible=" + responsible +
+                ", start=" + start +
+                ", end=" + end +
+                ", Capacity=" + Capacity +
+                ", location=" + location +
+                ", media=" + media +
+                ", guests=" + guests +
+                ", feedback=" + feedback +
+                ", isOpened=" + isOpened +
+                ", presentUsers=" + presentUsers +
+                '}';
     }
 }

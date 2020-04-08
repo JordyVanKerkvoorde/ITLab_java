@@ -25,6 +25,7 @@ import jdk.jshell.EvalException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -76,15 +77,23 @@ public class MainController implements Initializable, Callback {
         myCalendarSource.getCalendars().add(sessionCalendar);
 
         for (Session session: MockData.mockSessions) {
+            // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
+            sessionEntry.setUserObject(session);
             sessionEntry.setId(String.valueOf(session.getSessionId()));
             sessionEntry.setTitle(session.getTitle());
             sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
                     session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
             sessionEntry.setLocation(session.getLocation().getCampus().name());
+            sessionEntry.titleProperty().addListener((observable, oldValue, newValue) -> {
+                sessionEntry.getUserObject().setTitle(newValue);
+            });
+            sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> {
+                sessionEntry.getUserObject().setStart(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()));
+                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
+            }));
             sessionCalendar.addEntry(sessionEntry);
         }
-
         calendarView.getCalendarSources().addAll(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
         setUpdateThread();
