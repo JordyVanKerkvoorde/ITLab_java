@@ -34,6 +34,10 @@ public class Session {
     public Session() {
     }
 
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
     public int getSessionId() {
         return sessionId;
     }

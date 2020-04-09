@@ -1,18 +1,20 @@
 package ITLab.controller;
 
 import ITLab.Main;
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
+import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import domain.CampusEnum;
+import domain.Location;
 import domain.MockData;
 import domain.Session;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +33,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.calendarfx.model.CalendarEvent.ENTRY_CALENDAR_CHANGED;
 
 public class MainController implements Initializable, Callback {
 
@@ -94,9 +98,36 @@ public class MainController implements Initializable, Callback {
             }));
             sessionCalendar.addEntry(sessionEntry);
         }
-        calendarView.getCalendarSources().addAll(myCalendarSource);
+        sessionCalendar.addEventHandler(event -> handelCalendarEvent(event));
+        calendarView.getCalendarSources().clear();
+        calendarView.getCalendarSources().add(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
         setUpdateThread();
+    }
+
+    private void handelCalendarEvent(CalendarEvent event) {
+        if(event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()){
+            try{
+                // this method gets called when a new event is created in the calendar
+                // a new Session has to be created and listeners have to be added to the new
+                // Entry<Session> that updates the Session object that has to be in the db
+                // session.sessionId won't be set because that has to happen in db
+                Entry entry = event.getEntry();
+                Session session = new Session();
+                entry.setUserObject(session);
+                session.setTitle(entry.getTitle());
+                Location location = new Location();
+                //System.out.println(entry.getLocation().toUpperCase());
+                //location.setCampus(Enum.valueOf(CampusEnum.class, entry.getLocation().toUpperCase()));
+                session.setLocation(location);
+                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
+                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
+                MockData.mockSessions.add(session);
+                System.out.println(session);
+            }catch (Exception e ){
+                System.out.println(e);
+            }
+        }
     }
 
     private void setUpdateThread() {
