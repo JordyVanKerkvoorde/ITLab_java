@@ -1,10 +1,18 @@
 package domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@Entity
+@Table(name="Announcements")
 public class Announcement {
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private int id;
+    @Column(name="PostTime")
     private LocalDateTime postTime;
+    @Column(name="Message")
     private String message;
 
     public Announcement(LocalDateTime postTime, String message) {

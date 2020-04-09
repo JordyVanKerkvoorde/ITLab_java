@@ -1,9 +1,18 @@
 package domain;
 
-public class Location {
+import javax.persistence.*;
 
+@Entity
+@Table(name="Locations")
+public class Location {
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private String locationId;
+    @Column(name="Campus")
     private CampusEnum campus;
+    @Column(name="Capacity")
     private int Capacity;
 
     public Location(String locationId, CampusEnum campus, int capacity) {

@@ -1,17 +1,28 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name= "Feedback")
 public class Feedback {
-
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private int feedbackId;
+    @Column(name="Score")
     private int score;
-    private User user;
+    @Column(name="Description")
     private String description;
+    private User user;
+    private Session session;
 
 
-    public Feedback(int score, User user, String description) {
+    public Feedback(int score, User user, String description, Session session) {
         this.score = score;
         this.user = user;
         this.description = description;
+        this.session = session;
     }
 
     //JPA
