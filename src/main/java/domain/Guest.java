@@ -1,10 +1,20 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Guest")
 public class Guest {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GuestId")
     private int guestId;
+    @Column(name = "Name")
     private String name;
+    @Column(name = "Email")
     private String email;
+    @Column(name = "PhoneNumber")
     private String phoneNumber;
 
     public Guest(String name, String email, String phoneNumber) {

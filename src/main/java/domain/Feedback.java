@@ -14,7 +14,9 @@ public class Feedback {
     private int score;
     @Column(name="Description")
     private String description;
+    @ManyToOne
     private User user;
+    @ManyToOne
     private Session session;
 
 
