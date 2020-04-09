@@ -1,16 +1,39 @@
 package domain;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "AspNetUsers")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private String id;
+    @Column(name = "UserId")
     private String userId;
+    @Column(name = "FirstName")
     private String firstName;
+    @Column(name = "LastName")
     private String lastName;
+    @Column(name = "UserType")
     private UserType userType;
+    @Column(name = "UserStatus")
     private UserStatus userStatus;
-    //private Media avatar;
+    @Column(name = "AvatarMediaId")
+    @OneToOne
+    private Media avatar;
+    @Column(name = "Penalties")
     private int penalties;
+    @Column(name = "UserName")
     private String userName;
+    @Column(name = "Email")
     private String email;
-    private boolean EmailConfirmed;
+    @Column(name = "EmailConfirmed")
+    private boolean emailConfirmed;
+    @OneToMany
+    private List<UserSession> userSessions;
 
     public User(String userId, String firstName, String lastName, UserType userType, UserStatus userStatus, int penalties, String userName, String email, boolean emailConfirmed) {
         setUserId(userId);
@@ -45,11 +68,11 @@ public class User {
     }
 
     public boolean isEmailConfirmed() {
-        return EmailConfirmed;
+        return emailConfirmed;
     }
 
     public void setEmailConfirmed(boolean emailConfirmed) {
-        EmailConfirmed = emailConfirmed;
+        this.emailConfirmed = emailConfirmed;
     }
 
     //JPA
@@ -99,5 +122,15 @@ public class User {
     public void setPenalties(int penalties) {
         this.penalties = penalties;
     }
+
+    public List<UserSession> getUserSessions() {
+        return userSessions;
+    }
+
+    public void addUserSession(UserSession userSession){
+        userSessions.add(userSession);
+    }
+
+
 }
 

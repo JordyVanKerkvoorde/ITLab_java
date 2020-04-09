@@ -1,9 +1,18 @@
 package domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Media")
 public class Media {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MediaId")
     private int mediaId;
+    @Column(name = "Type")
     private MediaType type;
+    @Column(name = "Path")
     private String path;
 
     public Media(MediaType type, String path) {

@@ -1,23 +1,43 @@
 package domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Table(name = "Session")
 public class Session {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SessionId")
     private int sessionId;
+    @Column(name = "Title")
     private String title;
+    @Column(name = "Description")
     private String description;
+    @ManyToOne
     private User responsible;
+    @Column(name = "Start")
     private LocalDateTime start;
+    @Column(name = "End")
     private LocalDateTime end;
+    @Column(name = "Capacity")
     private int Capacity;
+    @ManyToOne
     private Location location;
+    @OneToMany
     private List<Media> media;
+    @OneToMany
     private List<Guest> guests;
+    @OneToMany
     private List<Feedback> feedback;
+    @Column(name = "IsOpened")
     private boolean isOpened;
+    @ManyToMany
     private List<User> presentUsers;
+    @OneToMany
+    private List<UserSession> userSessions;
 
     public Session(String title, String description, User responsible, LocalDateTime start, LocalDateTime end, int capacity, Location location) {
         this.title = title;
@@ -29,13 +49,7 @@ public class Session {
         this.location = location;
     }
 
-
-
     public Session() {
-    }
-
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
     }
 
     public int getSessionId() {
@@ -136,6 +150,14 @@ public class Session {
 
     public void setPresentUsers(List<User> presentUsers) {
         this.presentUsers = presentUsers;
+    }
+
+    public List<UserSession> getUserSessions() {
+        return userSessions;
+    }
+
+    public void addUserSession(UserSession userSession){
+        userSessions.add(userSession);
     }
 
     @Override
