@@ -4,6 +4,12 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>domain.Session</class>
         <class>domain.User</class>
+        <class>domain.Announcement</class>
+        <class>domain.Feedback</class>
+        <class>domain.UserSession</class>
+        <class>domain.Media</class>
+        <class>domain.Guest</class>
+
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://178.62.206.127:1433;databaseName=ITLab"/>
