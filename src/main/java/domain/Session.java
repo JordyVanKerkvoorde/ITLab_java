@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "Session.findAll", query="Select s from Session s")
 @Table(name = "Session")
 public class Session {
 
