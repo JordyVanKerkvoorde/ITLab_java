@@ -9,6 +9,7 @@
         <class>domain.UserSession</class>
         <class>domain.Media</class>
         <class>domain.Guest</class>
+        <class>domain.Location</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
