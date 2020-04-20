@@ -41,13 +41,13 @@ public class Session {
     private List<UserSession> userSessions;
 
     public Session(String title, String description, User responsible, LocalDateTime start, LocalDateTime end, int capacity, Location location) {
-        this.title = title;
-        this.description = description;
-        this.responsible = responsible;
-        this.start = start;
-        this.end = end;
-        Capacity = capacity;
-        this.location = location;
+        setTitle(title);
+        setDescription(description);
+        setResponsible(responsible);
+        setStart(start);
+        setEnd(end);
+        setLocation(location);
+        setCapacity(capacity);
     }
 
     public Session() {
@@ -62,7 +62,12 @@ public class Session {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title.isEmpty() || title.length() > 50) {
+            throw new IllegalArgumentException("Titel moet tussen de 1 en 50 characters zijn.");
+        }
+        else {
+            this.title = title;
+        }
     }
 
     public String getDescription() {
@@ -70,7 +75,12 @@ public class Session {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Beschrijving mag niet leeg zijn.");
+        }
+        else {
+            this.description = description;
+        }
     }
 
     public User getResponsible() {
@@ -78,7 +88,15 @@ public class Session {
     }
 
     public void setResponsible(User responsible) {
-        this.responsible = responsible;
+        if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
+            throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+        }
+        else{
+            if(responsible.getUserType().equals(UserType.USER)){
+                responsible.setUserType(UserType.RESPONSIBLE);
+            }
+            this.responsible = responsible;
+        }
     }
 
     public LocalDateTime getStart() {
@@ -86,7 +104,12 @@ public class Session {
     }
 
     public void setStart(LocalDateTime start) {
-        this.start = start;
+        if(start.isAfter(end)){
+            throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
+        }
+        else {
+            this.start = start;
+        }
     }
 
     public LocalDateTime getEnd() {
@@ -94,7 +117,12 @@ public class Session {
     }
 
     public void setEnd(LocalDateTime end) {
-        this.end = end;
+        if(end.isBefore(start)){
+            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
+        }
+        else {
+            this.end = end;
+        }
     }
 
     public int getCapacity() {
@@ -102,7 +130,9 @@ public class Session {
     }
 
     public void setCapacity(int capacity) {
-        Capacity = capacity;
+        if(location.getCapacity() < capacity){
+            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan.");
+        }
     }
 
     public Location getLocation() {
@@ -110,6 +140,7 @@ public class Session {
     }
 
     public void setLocation(Location location) {
+        //checken of locatie vrij is
         this.location = location;
     }
 
@@ -121,6 +152,10 @@ public class Session {
         this.media = media;
     }
 
+    public void addMedia(Media media){
+        this.media.add(media);
+    }
+
     public List<Guest> getGuests() {
         return guests;
     }
@@ -129,12 +164,20 @@ public class Session {
         this.guests = guests;
     }
 
+    public void addGuest(Guest guest){
+        this.guests.add(guest);
+    }
+
     public List<Feedback> getFeedback() {
         return feedback;
     }
 
     public void setFeedback(List<Feedback> feedback) {
         this.feedback = feedback;
+    }
+
+    public void addFeedback(Feedback feedback){
+        this.feedback.add(feedback);
     }
 
     public boolean isOpened() {
@@ -158,6 +201,14 @@ public class Session {
     }
 
     public void addUserSession(UserSession userSession){
+        for (UserSession us: userSessions ) {
+            if (us.getUser().equals(userSession.getUser())) {
+                throw new IllegalArgumentException("De gebruiker is al ingeschreven op de sessie.");
+            }
+        }
+        if(!userSession.getSession().equals(this)){
+            throw new IllegalArgumentException("Dit is niet de juiste sessie waaraan de usersessie moet toegevoegd worden.");
+        }
         userSessions.add(userSession);
     }
 

@@ -26,4 +26,15 @@ public class UserSession {
         this.sessionId = session.getSessionId();
     }
 
+    public UserSession(){
+
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Session getSession() {
+        return session;
+    }
 }
