@@ -31,6 +31,8 @@ public class Feedback {
     public Feedback() {
     }
 
+//    hebben we hier setters nodig?
+
     public int getFeedbackId() {
         return feedbackId;
     }
