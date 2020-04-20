@@ -1,5 +1,7 @@
 package domain;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.persistence.*;
 import java.util.List;
 
@@ -47,8 +49,21 @@ public class User {
         setEmailConfirmed(emailConfirmed);
     }
 
+    //JPA
+    public User() {
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        if (firstName.isEmpty() || firstName.length() > 20) {
+            throw new IllegalArgumentException("Voornaam moet tussen de 1 en 20 characters zijn.");
+        }
+        else {
+            this.firstName = firstName;
+        }
     }
 
     public String getUserName() {
@@ -64,6 +79,12 @@ public class User {
     }
 
     public void setEmail(String email) {
+        try{
+            InternetAddress adress = new InternetAddress(email);
+            adress.validate();
+        } catch (AddressException e) {
+            throw new IllegalArgumentException("Emailadres is niet van juiste formaat.");
+        }
         this.email = email;
     }
 
@@ -75,20 +96,12 @@ public class User {
         this.emailConfirmed = emailConfirmed;
     }
 
-    //JPA
-    public User() {
+    public String getUserId() {
+        return userId;
     }
 
     private void setUserId(String userId) {
-        userId = userId;
-    }
-
-    public String getUserId() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.userId = userId;
     }
 
     public String getLastName() {
@@ -96,7 +109,12 @@ public class User {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (lastName.isEmpty() || lastName.length() > 20) {
+            throw new IllegalArgumentException("Voornaam moet tussen de 1 en 20 characters zijn.");
+        }
+        else {
+            this.lastName = lastName;
+        }
     }
 
     public UserType getUserType() {
@@ -120,16 +138,29 @@ public class User {
     }
 
     public void setPenalties(int penalties) {
-        this.penalties = penalties;
+        if (penalties < 0) {
+            throw new IllegalArgumentException("Aantal penalties kan niet kleiner zijn dan 0.");
+        }
+        else {
+            this.penalties = penalties;
+        }
     }
 
     public List<UserSession> getUserSessions() {
         return userSessions;
     }
 
-    public void addUserSession(UserSession userSession){
-        userSessions.add(userSession);
-    }
+//    public void addUserSession(UserSession userSession){
+//        for (UserSession us: userSessions ) {
+//            if (us.getUser().equals(userSession.getUser())) {
+//                throw new IllegalArgumentException("De gebruiker is al ingeschreven op de sessie.");
+//            }
+//        }
+//        if(!userSession.getSession().equals(this)){
+//            throw new IllegalArgumentException("Dit is niet de juiste sessie waaraan de usersessie moet toegevoegd worden.");
+//        }
+//        userSessions.add(userSession);
+//    }
 
 
 }
