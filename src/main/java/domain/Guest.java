@@ -1,6 +1,10 @@
 package domain;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.persistence.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "Guest")
@@ -18,9 +22,9 @@ public class Guest {
     private String phoneNumber;
 
     public Guest(String name, String email, String phoneNumber) {
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        setName(name);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
     }
 
     public Guest() {
@@ -43,6 +47,12 @@ public class Guest {
     }
 
     public void setEmail(String email) {
+        try{
+            InternetAddress adress = new InternetAddress(email);
+            adress.validate();
+        } catch (AddressException e) {
+            throw new IllegalArgumentException("Emailadres is niet van juiste formaat.");
+        }
         this.email = email;
     }
 
@@ -50,7 +60,17 @@ public class Guest {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber)
+    {
+        final String PHONE_REGEX = "^\\\\d{8,9}$";
+        final Pattern pattern = Pattern.compile(PHONE_REGEX);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        if (!matcher.matches()){
+            throw new IllegalArgumentException("Telefoonnummer is niet van juiste formaat");
+        }
+        else {
+            this.phoneNumber = phoneNumber;
+        }
+
     }
 }

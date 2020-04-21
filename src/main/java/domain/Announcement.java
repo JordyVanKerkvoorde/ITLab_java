@@ -19,9 +19,9 @@ public class Announcement {
 
     public Announcement(LocalDateTime postTime, String message) {
         //Is de postTime niet gelijk aan LocalDateTime.now()?
-
+        setPostTime(postTime);
 //        this.postTime = postTime;
-        this.message = message;
+        setMessage(message);
     }
 
     //JPA
@@ -38,7 +38,7 @@ public class Announcement {
 
     public void setPostTime(LocalDateTime postTime) {
 //        this.postTime = postTime;
-        this.postTime = LocalDateTime.now();
+
     }
 
     public String getMessage() {
