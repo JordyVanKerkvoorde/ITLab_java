@@ -62,7 +62,7 @@ public class Session {
     }
 
     public void setTitle(String title) {
-        if (title.isEmpty() || title.length() > 50) {
+        if (title.isEmpty() || title.length() > 100) {
             throw new IllegalArgumentException("Titel moet tussen de 1 en 50 characters zijn.");
         }
         else {
@@ -104,7 +104,7 @@ public class Session {
     }
 
     public void setStart(LocalDateTime start) {
-        if(start.isAfter(end)){
+        if(end != null && start.isAfter(end)){
             throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
         }
         else {
@@ -117,7 +117,7 @@ public class Session {
     }
 
     public void setEnd(LocalDateTime end) {
-        if(end.isBefore(start)){
+        if(start != null && end.isBefore(start)){
             throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
         }
         else {
