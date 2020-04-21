@@ -24,7 +24,7 @@ public class Session {
     @Column(name = "End")
     private LocalDateTime end;
     @Column(name = "Capacity")
-    private int Capacity;
+    private int capacity;
     @ManyToOne
     private Location location;
     @OneToMany
@@ -126,13 +126,14 @@ public class Session {
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(int capacity) {
         if(location.getCapacity() < capacity){
             throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan.");
         }
+        this.capacity = capacity;
     }
 
     public Location getLocation() {
@@ -221,7 +222,7 @@ public class Session {
                 ", responsible=" + responsible +
                 ", start=" + start +
                 ", end=" + end +
-                ", Capacity=" + Capacity +
+                ", Capacity=" + capacity +
                 ", location=" + location +
                 ", media=" + media +
                 ", guests=" + guests +
