@@ -17,9 +17,9 @@ public class Announcement {
     @Column(name="Message")
     private String message;
 
-    public Announcement(LocalDateTime postTime, String message) {
+    public Announcement(String message) {
         //Is de postTime niet gelijk aan LocalDateTime.now()?
-        setPostTime(postTime);
+        setPostTime();
 //        this.postTime = postTime;
         setMessage(message);
     }
@@ -36,9 +36,8 @@ public class Announcement {
         return postTime;
     }
 
-    public void setPostTime(LocalDateTime postTime) {
-//        this.postTime = postTime;
-
+    public void setPostTime() {
+        this.postTime = LocalDateTime.now();
     }
 
     public String getMessage() {
