@@ -140,7 +140,7 @@ public class Session {
     }
 
     public void setLocation(Location location) {
-        //checken of locatie vrij is
+        //checken of locatie vrij is wanneer je deze set uitvoert
         this.location = location;
     }
 

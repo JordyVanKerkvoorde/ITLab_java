@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Entity
 @Table(name="Announcements")
@@ -17,7 +18,9 @@ public class Announcement {
     private String message;
 
     public Announcement(LocalDateTime postTime, String message) {
-        this.postTime = postTime;
+        //Is de postTime niet gelijk aan LocalDateTime.now()?
+
+//        this.postTime = postTime;
         this.message = message;
     }
 
@@ -34,7 +37,8 @@ public class Announcement {
     }
 
     public void setPostTime(LocalDateTime postTime) {
-        this.postTime = postTime;
+//        this.postTime = postTime;
+        this.postTime = LocalDateTime.now();
     }
 
     public String getMessage() {
@@ -42,6 +46,11 @@ public class Announcement {
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        if (message.isEmpty()) {
+            throw new IllegalArgumentException("De aankondiging mag niet leeg zijn.");
+        }
+        else {
+            this.message = message;
+        }
     }
 }
