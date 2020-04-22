@@ -1,7 +1,6 @@
 package domain;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+import org.apache.commons.validator.routines.EmailValidator;
 import javax.persistence.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,11 +46,8 @@ public class Guest {
     }
 
     public void setEmail(String email) {
-        try{
-            InternetAddress adress = new InternetAddress(email);
-            adress.validate();
-        } catch (AddressException e) {
-            throw new IllegalArgumentException("Emailadres is niet van juiste formaat.");
+        if(!EmailValidator.getInstance().isValid(email)){
+            throw new IllegalArgumentException("E-mail niet van juiste formaat");
         }
         this.email = email;
     }

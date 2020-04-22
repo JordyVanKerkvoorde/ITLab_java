@@ -1,7 +1,6 @@
 package domain;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
+import org.apache.commons.validator.routines.EmailValidator;
 import javax.persistence.*;
 import java.util.List;
 
@@ -58,8 +57,8 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-        if (firstName.isEmpty() || firstName.length() > 20) {
-            throw new IllegalArgumentException("Voornaam moet tussen de 1 en 20 characters zijn.");
+        if (firstName == null || firstName.isEmpty()) {
+            throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
         }
         else {
             this.firstName = firstName;
@@ -79,11 +78,8 @@ public class User {
     }
 
     public void setEmail(String email) {
-        try{
-            InternetAddress adress = new InternetAddress(email);
-            adress.validate();
-        } catch (AddressException e) {
-            throw new IllegalArgumentException("Emailadres is niet van juiste formaat.");
+        if(!EmailValidator.getInstance().isValid(email)){
+            throw new IllegalArgumentException("E-mail niet van juiste formaat");
         }
         this.email = email;
     }
@@ -109,8 +105,8 @@ public class User {
     }
 
     public void setLastName(String lastName) {
-        if (lastName.isEmpty() || lastName.length() > 20) {
-            throw new IllegalArgumentException("Voornaam moet tussen de 1 en 20 characters zijn.");
+        if (lastName == null || lastName.isEmpty()) {
+            throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
         }
         else {
             this.lastName = lastName;
@@ -138,8 +134,8 @@ public class User {
     }
 
     public void setPenalties(int penalties) {
-        if (penalties < 0) {
-            throw new IllegalArgumentException("Aantal penalties kan niet kleiner zijn dan 0.");
+        if (penalties < 0 || penalties > 3) {
+            throw new IllegalArgumentException("Aantal penalties kan niet kleiner zijn dan 0 of je hebt het maximaal aantal penalties overschreden (max 3).");
         }
         else {
             this.penalties = penalties;
