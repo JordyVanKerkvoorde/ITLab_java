@@ -62,8 +62,8 @@ public class Session {
     }
 
     public void setTitle(String title) {
-        if (title.isEmpty() || title.length() > 100) {
-            throw new IllegalArgumentException("Titel moet tussen de 1 en 50 characters zijn.");
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Titel mag niet leeg zijn.");
         }
         else {
             this.title = title;
@@ -75,7 +75,7 @@ public class Session {
     }
 
     public void setDescription(String description) {
-        if (description.isEmpty()) {
+        if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Beschrijving mag niet leeg zijn.");
         }
         else {
@@ -130,8 +130,8 @@ public class Session {
     }
 
     public void setCapacity(int capacity) {
-        if(location.getCapacity() < capacity){
-            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan.");
+        if(location.getCapacity() < capacity || capacity <= 0){
+            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
         this.capacity = capacity;
     }
