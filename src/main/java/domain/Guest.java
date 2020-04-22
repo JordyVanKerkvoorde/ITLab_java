@@ -38,7 +38,19 @@ public class Guest {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null) {
+            throw new IllegalArgumentException("Dit is geen naam");
+        }
+        String regx = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regx,Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+        if (!matcher.find()){
+            throw new IllegalArgumentException("Dit is geen naam");
+        }
+        else {
+            this.name = name;
+        }
+
     }
 
     public String getEmail() {
@@ -58,10 +70,13 @@ public class Guest {
 
     public void setPhoneNumber(String phoneNumber)
     {
-        final String PHONE_REGEX = "^\\\\d{8,9}$";
-        final Pattern pattern = Pattern.compile(PHONE_REGEX);
+        if (phoneNumber == null) {
+            throw new IllegalArgumentException("Telefoonnummer is niet van juiste formaat");
+        }
+        String PHONE_REGEX = "^\\d{9,10}$";
+        Pattern pattern = Pattern.compile(PHONE_REGEX);
         Matcher matcher = pattern.matcher(phoneNumber);
-        if (!matcher.matches()){
+        if (!matcher.find()){
             throw new IllegalArgumentException("Telefoonnummer is niet van juiste formaat");
         }
         else {
