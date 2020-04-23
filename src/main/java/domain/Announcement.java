@@ -1,7 +1,6 @@
 package domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Entity
 @Table(name="Announcements")
