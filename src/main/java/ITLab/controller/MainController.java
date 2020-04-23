@@ -117,8 +117,6 @@ public class MainController implements Initializable, Callback {
                 entry.setUserObject(session);
                 session.setTitle(entry.getTitle());
                 Location location = new Location();
-                //System.out.println(entry.getLocation().toUpperCase());
-                //location.setCampus(Enum.valueOf(CampusEnum.class, entry.getLocation().toUpperCase()));
                 session.setLocation(location);
                 session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
                 session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
@@ -157,44 +155,6 @@ public class MainController implements Initializable, Callback {
         updateTimeThread.start();
     }
 
-    // useless splashscreen into code
-
-    private void loadSplashScreen() {
-        try {
-            Main.isSplashLoaded = true;
-
-            StackPane pane = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("views/splash.fxml")));
-            root.getChildren().setAll(pane);
-
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1.5), pane);
-            fadeIn.setFromValue(0);
-            fadeIn.setToValue(1);
-            fadeIn.setCycleCount(1);
-
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), pane);
-            fadeOut.setFromValue(1);
-            fadeOut.setToValue(0);
-            fadeOut.setCycleCount(1);
-
-            fadeIn.play();
-
-            fadeIn.setOnFinished((e) -> {
-                fadeOut.play();
-            });
-
-            fadeOut.setOnFinished((e) -> {
-                try {
-                    AnchorPane parentContent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("views/main.fxml")));
-                    root.getChildren().setAll(parentContent);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     public void loadSession(Session session) {
         try{
             body.getChildren().clear();
