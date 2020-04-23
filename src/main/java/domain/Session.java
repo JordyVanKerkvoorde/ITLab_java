@@ -62,12 +62,11 @@ public class Session {
     }
 
     public void setTitle(String title) {
-        if (title == null || title.isEmpty()) {
+        if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Titel mag niet leeg zijn.");
         }
-        else {
-            this.title = title;
-        }
+
+        this.title = title;
     }
 
     public String getDescription() {
@@ -75,12 +74,11 @@ public class Session {
     }
 
     public void setDescription(String description) {
-        if (description == null || description.isEmpty()) {
+        if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("Beschrijving mag niet leeg zijn.");
         }
-        else {
-            this.description = description;
-        }
+
+        this.description = description;
     }
 
     public User getResponsible() {
@@ -91,12 +89,11 @@ public class Session {
         if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
             throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
         }
-        else{
-            if(responsible.getUserType().equals(UserType.USER)){
-                responsible.setUserType(UserType.RESPONSIBLE);
-            }
-            this.responsible = responsible;
+        if(responsible.getUserType().equals(UserType.USER)){
+            responsible.setUserType(UserType.RESPONSIBLE);
         }
+
+        this.responsible = responsible;
     }
 
     public LocalDateTime getStart() {
@@ -107,9 +104,8 @@ public class Session {
         if(end != null && start.isAfter(end)){
             throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
         }
-        else {
-            this.start = start;
-        }
+
+        this.start = start;
     }
 
     public LocalDateTime getEnd() {
@@ -120,9 +116,8 @@ public class Session {
         if(start != null && end.isBefore(start)){
             throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
         }
-        else {
-            this.end = end;
-        }
+
+        this.end = end;
     }
 
     public int getCapacity() {
@@ -133,6 +128,7 @@ public class Session {
         if(location.getCapacity() < capacity || capacity <= 0){
             throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
+
         this.capacity = capacity;
     }
 
@@ -210,6 +206,7 @@ public class Session {
         if(!userSession.getSession().equals(this)){
             throw new IllegalArgumentException("Dit is niet de juiste sessie waaraan de usersessie moet toegevoegd worden.");
         }
+
         userSessions.add(userSession);
     }
 

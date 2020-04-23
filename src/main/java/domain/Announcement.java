@@ -44,11 +44,10 @@ public class Announcement {
     }
 
     public void setMessage(String message) {
-        if (message.isEmpty()) {
+        if (message.isBlank()) {
             throw new IllegalArgumentException("De aankondiging mag niet leeg zijn.");
         }
-        else {
-            this.message = message;
-        }
+
+        this.message = message;
     }
 }
