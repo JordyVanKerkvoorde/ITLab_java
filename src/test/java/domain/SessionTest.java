@@ -75,53 +75,53 @@ class SessionTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> session.setResponsible(inactiveuser));
     }
 
-    @Test
-    void setStartWithEndAlreadyDefined() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        session.setEnd(dateTime.plusHours(2));
-        session.setStart(dateTime);
-        Assertions.assertEquals(dateTime, session.getStart());
-    }
-
-    @Test
-    void setStartWithEndNotDefined() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        LocalDateTime start = dateTime.plusMinutes(30);
-        session.setStart(start);
-        Assertions.assertEquals(start, session.getStart());
-    }
-
-    @Test
-    void setStartWithEndAlreadyDefinedOngeldig() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        session.setEnd(dateTime);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusHours(3)));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusSeconds(1)));
-    }
-
-    @Test
-    void setEndWithStartAlreadyDefined() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        session.setStart(dateTime.minusHours(2));
-        session.setEnd(dateTime);
-        Assertions.assertEquals(dateTime, session.getEnd());
-    }
-
-    @Test
-    void setEndWithStartNotDefined() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        LocalDateTime end = dateTime.plusDays(5);
-        session.setEnd(end);
-        Assertions.assertEquals(end, session.getEnd());
-    }
-
-    @Test
-    void setEndWithStartAlreadyDefinedOngeldig() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        session.setStart(dateTime);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusHours(3)));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusSeconds(1)));
-    }
+//    @Test
+//    void setStartWithEndAlreadyDefined() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        session.setEnd(dateTime.plusHours(2));
+//        session.setStart(dateTime);
+//        Assertions.assertEquals(dateTime, session.getStart());
+//    }
+//
+//    @Test
+//    void setStartWithEndNotDefined() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        LocalDateTime start = dateTime.plusMinutes(30);
+//        session.setStart(start);
+//        Assertions.assertEquals(start, session.getStart());
+//    }
+//
+//    @Test
+//    void setStartWithEndAlreadyDefinedOngeldig() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        session.setEnd(dateTime);
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusHours(3)));
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusSeconds(1)));
+//    }
+//
+//    @Test
+//    void setEndWithStartAlreadyDefined() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        session.setStart(dateTime.minusHours(2));
+//        session.setEnd(dateTime);
+//        Assertions.assertEquals(dateTime, session.getEnd());
+//    }
+//
+//    @Test
+//    void setEndWithStartNotDefined() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        LocalDateTime end = dateTime.plusDays(5);
+//        session.setEnd(end);
+//        Assertions.assertEquals(end, session.getEnd());
+//    }
+//
+//    @Test
+//    void setEndWithStartAlreadyDefinedOngeldig() {
+//        LocalDateTime dateTime = LocalDateTime.now();
+//        session.setStart(dateTime);
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusHours(3)));
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusSeconds(1)));
+//    }
 
     @ParameterizedTest
     @ValueSource(ints= { 1, 2, 10, 30, 50, 60 })

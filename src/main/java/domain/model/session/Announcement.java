@@ -1,10 +1,11 @@
 package domain.model.session;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 @Entity
 @Table(name="Announcements")
-public class Announcement {
+public class Announcement implements Serializable {
 
     @Id
     @GeneratedValue(

@@ -1,6 +1,8 @@
 package domain.model.session;
 
-public enum MediaType {
+import java.io.Serializable;
+
+public enum MediaType implements Serializable {
 
     IMAGE,
     VIDEO,

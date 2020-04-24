@@ -2,12 +2,13 @@ package domain.model.session;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "Guest")
-public class Guest {
+public class Guest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

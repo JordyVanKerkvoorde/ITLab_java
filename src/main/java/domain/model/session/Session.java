@@ -6,18 +6,17 @@ import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Session.findAll", query="Select s from Session s"),
-        @NamedQuery(name = "Session.findById",
-                query = "Select s from Session s where s.id = :sessionID")
+        @NamedQuery(name = "Session.findAll", query="Select s from Session s")
 })
 
 @Table(name = "Session")
-public class Session {
+public class Session implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

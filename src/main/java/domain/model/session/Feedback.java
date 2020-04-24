@@ -3,10 +3,11 @@ package domain.model.session;
 import domain.model.user.User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name= "Feedback")
-public class Feedback {
+public class Feedback implements Serializable {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY

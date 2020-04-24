@@ -1,6 +1,8 @@
 package domain.model.session;
 
-public enum CampusEnum {
+import java.io.Serializable;
+
+public enum CampusEnum implements Serializable {
 
     SCHOONMEERSEN,
     MERCATOR,

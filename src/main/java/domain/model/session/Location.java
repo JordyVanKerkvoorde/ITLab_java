@@ -1,10 +1,11 @@
 package domain.model.session;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="Locations")
-public class Location {
+public class Location implements Serializable {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
