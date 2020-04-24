@@ -53,6 +53,10 @@ public class User {
     public User() {
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -158,5 +162,22 @@ public class User {
 //    }
 
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userType=" + userType +
+                ", userStatus=" + userStatus +
+                ", avatar=" + avatar +
+                ", penalties=" + penalties +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", emailConfirmed=" + emailConfirmed +
+                ", userSessions=" + userSessions +
+                '}';
+    }
 }
 

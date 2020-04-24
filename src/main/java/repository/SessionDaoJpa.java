@@ -12,12 +12,19 @@ public class SessionDaoJpa extends GenericDaoJpa<Session> implements SessionDao 
     }
 
     @Override
-    public void createSession(Session session) throws Exception {
+    public void createSession(Session session){
+        try{
+            em.getTransaction().begin();
+            em.persist(session);
+            em.getTransaction().commit();
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updateSession(Session oldValue, Session newValue) throws Exception {
+    public void updateSession(Session oldValue, Session newValue){
 
     }
 }

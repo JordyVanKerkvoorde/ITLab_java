@@ -14,7 +14,7 @@ public class SessionController {
 
     public SessionController() {
         this.sessionDao = new SessionDaoJpa();
-        getSessions();
+        loadSessions();
     }
 
     public void setSessionDao(SessionDao sessionDao) {
@@ -29,7 +29,19 @@ public class SessionController {
         return sessions.stream().filter(p -> p.getSessionId() == id).findFirst().orElse(null);
     }
 
-    private void getSessions() {
+    public Session getSessionByTitle(String title){
+        return sessions.stream().filter(p -> p.getTitle().equals(title)).findFirst().orElse(null);
+    }
+
+    public List<Session> getSessions(){
+        return sessions;
+    }
+
+    private void loadSessions() {
         sessions = sessionDao.findAll();
+    }
+
+    public void addSession(Session session){
+        sessionDao.createSession(session);
     }
 }

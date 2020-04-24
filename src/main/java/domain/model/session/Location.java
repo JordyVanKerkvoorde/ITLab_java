@@ -44,4 +44,13 @@ public class Location{
     public void setCapacity(int capacity) {
         Capacity = capacity;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "locationId='" + locationId + '\'' +
+                ", campus=" + campus +
+                ", Capacity=" + Capacity +
+                '}';
+    }
 }
