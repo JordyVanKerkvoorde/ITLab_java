@@ -1,5 +1,6 @@
-package domain;
+package domain.model.user;
 
+import domain.model.session.Media;
 import org.apache.commons.validator.routines.EmailValidator;
 import javax.persistence.*;
 import java.util.List;

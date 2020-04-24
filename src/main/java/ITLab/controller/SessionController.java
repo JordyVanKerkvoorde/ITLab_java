@@ -2,8 +2,8 @@ package ITLab.controller;
 
 import com.jfoenix.controls.JFXListView;
 import domain.MockData;
-import domain.Session;
-import domain.User;
+import domain.model.session.Session;
+import domain.model.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;

@@ -1,4 +1,4 @@
-package domain;
+package domain.model.session;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import javax.persistence.*;

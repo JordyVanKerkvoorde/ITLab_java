@@ -1,4 +1,6 @@
-package domain;
+package domain.model.session;
+
+import domain.model.user.User;
 
 import javax.persistence.*;
 

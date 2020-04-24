@@ -1,6 +1,6 @@
 package ITLab.controller;
 
-        import domain.Session;
+        import domain.model.session.Session;
 
 public interface Callback {
 

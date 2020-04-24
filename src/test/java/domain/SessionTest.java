@@ -1,5 +1,11 @@
 package domain;
 
+import domain.model.session.CampusEnum;
+import domain.model.session.Location;
+import domain.model.session.Session;
+import domain.model.user.User;
+import domain.model.user.UserStatus;
+import domain.model.user.UserType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +14,6 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SessionTest {
 

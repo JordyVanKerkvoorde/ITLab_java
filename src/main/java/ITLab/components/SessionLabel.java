@@ -1,7 +1,6 @@
 package ITLab.components;
 
-import ITLab.controller.Callback;
-import domain.Session;
+import domain.model.session.Session;
 import javafx.scene.control.Label;
 
 

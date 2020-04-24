@@ -1,4 +1,4 @@
-package domain;
+package domain.model.session;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -1,35 +1,25 @@
 package ITLab.controller;
 
-import ITLab.Main;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import domain.CampusEnum;
-import domain.Location;
+import domain.model.session.Location;
 import domain.MockData;
-import domain.Session;
-import javafx.animation.FadeTransition;
+import domain.model.session.Session;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.collections.ListChangeListener;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
-import jdk.jshell.EvalException;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,13 +44,6 @@ public class MainController implements Initializable, Callback {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        if (!Main.isSplashLoaded) {
-//            loadSplashScreen();
-//        }
-        root.setBorder(new Border(new BorderStroke(Color.BLUE,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        body.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         Bindings.bindBidirectional(root.prefHeightProperty(), body.prefHeightProperty());
         Bindings.bindBidirectional(root.prefWidthProperty(), body.prefWidthProperty());
         setupCalendar();
@@ -84,7 +67,6 @@ public class MainController implements Initializable, Callback {
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             sessionEntry.setUserObject(session);
-            sessionEntry.setId(String.valueOf(session.getSessionId()));
             sessionEntry.setTitle(session.getTitle());
             sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
                     session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
@@ -120,8 +102,6 @@ public class MainController implements Initializable, Callback {
                 session.setTitle(entry.getTitle());
                 Location location = new Location();
                 session.setLocation(location);
-//                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
-//                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
                 session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
                 session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
                 MockData.mockSessions.add(session);
@@ -130,6 +110,7 @@ public class MainController implements Initializable, Callback {
                 System.out.println(e);
             }
         }
+
     }
 
     private void setUpdateThread() {

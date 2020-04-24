@@ -1,11 +1,21 @@
-package domain;
+package domain.model.session;
+
+import domain.model.user.User;
+import domain.model.user.UserSession;
+import domain.model.user.UserStatus;
+import domain.model.user.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@NamedQuery(name = "Session.findAll", query="Select s from Session s")
+@NamedQueries({
+        @NamedQuery(name = "Session.findAll", query="Select s from Session s"),
+        @NamedQuery(name = "Session.findById",
+                query = "Select s from Session s where s.id = :sessionID")
+})
+
 @Table(name = "Session")
 public class Session {
 

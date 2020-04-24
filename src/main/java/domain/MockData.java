@@ -1,5 +1,12 @@
 package domain;
 
+import domain.model.session.CampusEnum;
+import domain.model.session.Location;
+import domain.model.session.Session;
+import domain.model.user.User;
+import domain.model.user.UserStatus;
+import domain.model.user.UserType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
