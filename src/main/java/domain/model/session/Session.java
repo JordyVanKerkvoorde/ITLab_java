@@ -54,9 +54,9 @@ public class Session {
         setTitle(title);
         setDescription(description);
         setResponsible(responsible);
-        setStart(start);
-        setEnd(end);
-//        setStartAndEnd(start, end);
+//        setStart(start);
+//        setEnd(end);
+        setStartAndEnd(start, end);
         setLocation(location);
         setCapacity(capacity);
     }
@@ -111,41 +111,41 @@ public class Session {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
-        if(end != null && start.isAfter(end)){
-            throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
-        }
-
-        this.start = start;
-    }
+//    public void setStart(LocalDateTime start) {
+//        if(end != null && start.isAfter(end)){
+//            throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
+//        }
+//
+//        this.start = start;
+//    }
 
     public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
-        if(start != null && end.isBefore(start)){
-            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
-        }
-
-        this.end = end;
-    }
-
-//    public void setStartAndEnd(LocalDateTime start, LocalDateTime end) {
-//        LocalDateTime oldStart = getStart();
-//        this.start = start;
-//
-//        if (start == null || end == null) {
-//            throw  new NullPointerException();
-//        }
-//
-//        if (end.isBefore(start)) {
-//            this.start = oldStart;
-//            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen!");
+//    public void setEnd(LocalDateTime end) {
+//        if(start != null && end.isBefore(start)){
+//            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
 //        }
 //
 //        this.end = end;
 //    }
+
+    public void setStartAndEnd(LocalDateTime start, LocalDateTime end) {
+        LocalDateTime oldStart = getStart();
+        this.start = start;
+
+        if (start == null || end == null) {
+            throw  new NullPointerException();
+        }
+
+        if (end.isBefore(start)) {
+            this.start = oldStart;
+            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen!");
+        }
+
+        this.end = end;
+    }
 
     public int getCapacity() {
         return capacity;
