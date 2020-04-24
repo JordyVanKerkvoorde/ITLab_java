@@ -84,7 +84,6 @@ public class MainController implements Initializable, Callback {
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             sessionEntry.setUserObject(session);
-            sessionEntry.setId(String.valueOf(session.getSessionId()));
             sessionEntry.setTitle(session.getTitle());
             sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
                     session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
@@ -93,10 +92,10 @@ public class MainController implements Initializable, Callback {
                 sessionEntry.getUserObject().setTitle(newValue);
             });
             sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> {
-//                sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
-//                        LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
-                sessionEntry.getUserObject().setStart(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()));
-                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
+                sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
+                        LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
+//                sessionEntry.getUserObject().setStart(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()));
+//                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
             }));
             sessionCalendar.addEntry(sessionEntry);
         }
@@ -120,10 +119,10 @@ public class MainController implements Initializable, Callback {
                 session.setTitle(entry.getTitle());
                 Location location = new Location();
                 session.setLocation(location);
-//                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
-//                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
-                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
+                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
+                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
+//                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
+//                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
                 MockData.mockSessions.add(session);
                 System.out.println(session);
             }catch (Exception e ){
