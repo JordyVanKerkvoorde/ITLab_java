@@ -6,7 +6,6 @@ import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 })
 
 @Table(name = "Session")
-public class Session implements Serializable {
+public class Session {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +26,16 @@ public class Session implements Serializable {
     @Column(name = "Description")
     private String description;
     @ManyToOne
+    @JoinColumn(name="ResponsibleId")
     private User responsible;
-    @Column(name = "Start")
+    @Column(name = "StartTime", columnDefinition = "TIMESTAMP")
     private LocalDateTime start;
-    @Column(name = "End")
+    @Column(name = "EndTime", columnDefinition = "TIMESTAMP")
     private LocalDateTime end;
     @Column(name = "Capacity")
     private int capacity;
     @ManyToOne
+    @JoinColumn(name = "LocationId")
     private Location location;
     @OneToMany
     private List<Media> media;

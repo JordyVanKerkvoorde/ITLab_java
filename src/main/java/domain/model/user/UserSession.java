@@ -14,10 +14,8 @@ public class UserSession {
     @Id
     @Column(name = "UserId")
     private String userId;
-    @Transient
     @ManyToOne
     private User user;
-    @Transient
     @ManyToOne
     private Session session;
 

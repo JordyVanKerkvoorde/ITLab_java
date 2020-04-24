@@ -23,7 +23,7 @@ public class User {
     private UserType userType;
     @Column(name = "UserStatus")
     private UserStatus userStatus;
-    @Column(name = "AvatarMediaId")
+    @JoinColumn(name = "AvatarMediaId")
     @OneToOne
     private Media avatar;
     @Column(name = "Penalties")

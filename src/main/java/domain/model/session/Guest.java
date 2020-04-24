@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "Guest")
-public class Guest implements Serializable {
+public class Guest{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
