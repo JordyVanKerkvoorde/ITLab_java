@@ -81,6 +81,8 @@ public class MainController implements Initializable, Callback {
 //                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
             }));
             sessionCalendar.addEntry(sessionEntry);
+
+            //calendarView.setEntryDetailsPopOverContentCallback(param -> new PopOverController(sessionEntry));
         }
         sessionCalendar.addEventHandler(event -> handelCalendarEvent(event));
         calendarView.getCalendarSources().clear();
