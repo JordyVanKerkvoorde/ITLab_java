@@ -69,7 +69,7 @@ public class Guest{
 
     public void setPhoneNumber(String phoneNumber)
     {
-        if (phoneNumber == null || phoneNumber.isBlank()) {
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
             throw new IllegalArgumentException("Telefoonnummer is niet van juiste formaat");
         }
         String PHONE_REGEX = "^\\d{9,10}$";
