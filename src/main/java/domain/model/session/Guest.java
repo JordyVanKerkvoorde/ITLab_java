@@ -39,7 +39,7 @@ public class Guest{
     }
 
     public void setName(String name) {
-        if (name == null || name.isBlank()) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Dit is geen naam");
         }
         String regx = "^[\\p{L} .'-]+$";
