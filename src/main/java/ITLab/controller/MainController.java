@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXHamburger;
 import domain.model.session.Location;
 import domain.MockData;
 import domain.model.session.Session;
+import domain.model.session.SessionEntry;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -65,7 +66,7 @@ public class MainController implements Initializable, Callback {
 
         for (Session session: MockData.mockSessions) {
             // id, title, start/end date
-            Entry<Session> sessionEntry = new Entry<>();
+            SessionEntry<Session> sessionEntry = new SessionEntry<>();
             sessionEntry.setUserObject(session);
             sessionEntry.setTitle(session.getTitle());
             sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
@@ -80,9 +81,14 @@ public class MainController implements Initializable, Callback {
 //                sessionEntry.getUserObject().setStart(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()));
 //                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
             }));
+            System.out.println(session.getDescription());
+            //data toevoegen aan sessionEntry
+            sessionEntry.setDescription(session.getDescription());
+            //sessionEntry adden aan cal
             sessionCalendar.addEntry(sessionEntry);
+            //nieuwe popover
+            calendarView.setEntryDetailsPopOverContentCallback(param -> new PopOverController(sessionEntry));
 
-            //calendarView.setEntryDetailsPopOverContentCallback(param -> new PopOverController(sessionEntry));
         }
         sessionCalendar.addEventHandler(event -> handelCalendarEvent(event));
         calendarView.getCalendarSources().clear();

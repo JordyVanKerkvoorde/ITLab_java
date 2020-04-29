@@ -6,11 +6,12 @@ import domain.model.session.Session;
 import domain.model.session.SessionEntry;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PopOverController implements Initializable {
+public class PopOverController extends Node implements Initializable {
     @FXML
     private JFXTextField title;
     @FXML
