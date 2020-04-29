@@ -45,7 +45,7 @@ public class Announcement{
     }
 
     public void setMessage(String message) {
-        if (message.isBlank()) {
+        if (message.trim().isEmpty()) {
             throw new IllegalArgumentException("De aankondiging mag niet leeg zijn.");
         }
 
