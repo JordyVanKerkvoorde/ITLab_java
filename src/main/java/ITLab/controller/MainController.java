@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXHamburger;
 import domain.model.session.Location;
 import domain.MockData;
 import domain.model.session.Session;
+import domain.model.session.SessionEntry;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,8 +83,16 @@ public class MainController implements Initializable, Callback {
 //                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
             }));
             sessionCalendar.addEntry(sessionEntry);
+            //PopOverController popOverController = new PopOverController(sessionEntry);
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
+            try {
+                VBox popup = loader.load();
+                calendarView.setEntryDetailsPopOverContentCallback(param -> popup);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            //calendarView.setEntryDetailsPopOverContentCallback(param -> new PopOverController(sessionEntry));
+
         }
         sessionCalendar.addEventHandler(event -> handelCalendarEvent(event));
         calendarView.getCalendarSources().clear();
@@ -150,6 +160,17 @@ public class MainController implements Initializable, Callback {
             sessionController.setSession(session);
             body.getChildren().add(sessionPane);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadEntry(){
+        try {
+            body.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
+            VBox popup = loader.load();
+            PopOverController popOverController = loader.getController();
+            body.getChildren().add(popup);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

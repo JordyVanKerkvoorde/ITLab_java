@@ -62,7 +62,7 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-        if (firstName == null || firstName.isBlank()) {
+        if (firstName == null || firstName.trim().isEmpty()) {
             throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
         }
         this.firstName = firstName;

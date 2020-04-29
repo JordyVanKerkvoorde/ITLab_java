@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="ITLab" uuid="cae6aaf9-72ba-4698-b3b9-399c43761a06">
-      <database-info product="Microsoft SQL Server" version="15.00.4033" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 7.4 for SQL Server" driver-version="7.4.1.0" dbms="MSSQL" exact-version="15.0.4033" exact-driver-version="7.4">
+      <database-info product="Microsoft SQL Server" version="15.00.4033" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 8.2 for SQL Server" driver-version="8.2.2.0" dbms="MSSQL" exact-version="15.0.4033" exact-driver-version="8.2">
         <extra-name-characters>$#@</extra-name-characters>
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>

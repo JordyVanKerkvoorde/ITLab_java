@@ -43,7 +43,7 @@ public class SidePanelController implements Initializable {
                 callback.unloadCalendar();
                 break;
             case "Color 3":
-                MockData.mockSessions.forEach(e -> System.out.println(e));
+                callback.loadEntry();
                 break;
         }
     }

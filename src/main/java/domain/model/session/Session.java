@@ -73,7 +73,7 @@ public class Session {
     }
 
     public void setTitle(String title) {
-        if (title == null || title.isBlank()) {
+        if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Titel mag niet leeg zijn.");
         }
 
@@ -85,7 +85,7 @@ public class Session {
     }
 
     public void setDescription(String description) {
-        if (description == null || description.isBlank()) {
+        if (description == null || description.trim().isEmpty()) {
             throw new IllegalArgumentException("Beschrijving mag niet leeg zijn.");
         }
 
