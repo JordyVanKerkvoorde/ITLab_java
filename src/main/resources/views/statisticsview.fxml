@@ -10,5 +10,5 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ITLab.controller.StatisticsViewController"
             prefHeight="400.0" prefWidth="600.0">
-<Label>Statistics</Label>
+    <Label>Statistics</Label>
 </AnchorPane>

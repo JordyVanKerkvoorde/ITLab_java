@@ -22,6 +22,7 @@ public class Main extends Application {
         stage.setMinHeight(800);
         stage.setMaximized(true);
         stage.show();
+        System.out.println("javafx version" + com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
     }
 
 

@@ -3,11 +3,9 @@ package ITLab.controller;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import domain.model.session.Location;
 import domain.MockData;
 import domain.model.session.Session;
-import domain.model.session.SessionEntry;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -32,9 +30,6 @@ public class MainController implements Initializable, Callback {
 
     @FXML
     private JFXDrawer drawer;
-
-    @FXML
-    private JFXHamburger hamburger;
 
     @FXML
     private AnchorPane root;
@@ -79,14 +74,13 @@ public class MainController implements Initializable, Callback {
             sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> {
                 sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
                         LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
-//                sessionEntry.getUserObject().setStart(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()));
-//                sessionEntry.getUserObject().setEnd(LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
             }));
             sessionCalendar.addEntry(sessionEntry);
-            //PopOverController popOverController = new PopOverController(sessionEntry);
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
             try {
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
                 VBox popup = loader.load();
+                PopOverController popOverController = loader.getController();
+                popOverController.setSessionEntry(sessionEntry);
                 calendarView.setEntryDetailsPopOverContentCallback(param -> popup);
             } catch (IOException e) {
                 e.printStackTrace();
