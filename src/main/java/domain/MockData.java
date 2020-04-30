@@ -47,7 +47,7 @@ public class MockData {
             Arrays.asList(
                     new Announcement("Door het COVID-19 virus zijn alle evenementen afgelast tot nader order!"),
                     new Announcement("We houden jullie op de hoogte van vorderingen omtrent COVID-19"),
-                    new Announcement("Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.")
+                    new Announcement("Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.")
             )
     );
 }
