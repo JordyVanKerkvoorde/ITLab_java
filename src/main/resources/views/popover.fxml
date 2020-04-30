@@ -55,5 +55,11 @@
             <JFXComboBox fx:id="responsible" prefHeight="25.0" prefWidth="493.0"/>
          </children>
       </HBox>
+      <HBox prefHeight="44.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="gastSprekerLabel" prefHeight="30.0" styleClass="text" text="Gast: "/>
+            <JFXComboBox fx:id="gastSpreker" prefHeight="25.0" prefWidth="493.0"/>
+         </children>
+      </HBox>
    </children>
 </VBox>

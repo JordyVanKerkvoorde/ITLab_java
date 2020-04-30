@@ -1,4 +1,4 @@
-package ITLab.controller;
+package ITLab.components;
 
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXTextArea;
