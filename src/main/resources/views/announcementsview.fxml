@@ -8,15 +8,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.AnnouncementsViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.251"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.AnnouncementsViewController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="18.0" prefWidth="600.0" text="Aankondigingen" />
+            <Label prefHeight="18.0" prefWidth="600.0" text="Aankondigingen"/>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXTextArea fx:id="inputArea" />
-                  <JFXButton fx:id="commitButton" text="Plaats" />
+                  <JFXTextArea fx:id="inputArea"/>
+                  <JFXButton fx:id="commitButton" text="Plaats"/>
                </children>
             </HBox>
             <JFXListView fx:id="announcementsListView" />
