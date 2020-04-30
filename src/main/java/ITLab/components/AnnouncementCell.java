@@ -42,7 +42,6 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
                     e.printStackTrace();
                 }
             }
-
             Bindings.bindBidirectional(minHeightProperty(), hbox.prefHeightProperty());
             addListenerToAnnouncementListView();
             setHandleCellClicked();
@@ -71,6 +70,7 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
             hbox.getChildren().remove(messageLabel);
             if (!hbox.getChildren().contains(textArea)) {
                 textArea = new JFXTextArea(msg);
+                textArea.setPrefHeight(minHeightProperty().doubleValue());
                 hbox.getChildren().add(0, textArea);
             }
             submitButton.setVisible(true);
