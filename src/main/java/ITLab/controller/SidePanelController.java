@@ -18,6 +18,8 @@ public class SidePanelController implements Initializable {
     @FXML
     private JFXButton b3;
     @FXML
+    private JFXButton b4;
+    @FXML
     private JFXButton exit;
 
     private Callback callback;
@@ -39,11 +41,16 @@ public class SidePanelController implements Initializable {
             case "Calendar": // calendar
                 callback.loadCalendar();
                 break;
-            case "Color 2":
-                callback.unloadCalendar();
+            case "Announcements":
+//                callback.unloadCalendar();
+                callback.loadAnnouncements();
                 break;
-            case "Color 3":
-                callback.loadEntry();
+            case "Statistics":
+//                MockData.mockSessions.forEach(e -> System.out.println(e));
+                callback.loadStatistics();
+                break;
+            case "Users":
+                callback.loadUsers();
                 break;
         }
     }

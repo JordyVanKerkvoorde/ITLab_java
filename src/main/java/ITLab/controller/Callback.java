@@ -9,5 +9,12 @@ public interface Callback {
     void unloadCalendar();
 
     void loadSession(Session session);
+
     void loadEntry();
+
+    void loadAnnouncements();
+
+    void loadStatistics();
+
+    void loadUsers();
 }
