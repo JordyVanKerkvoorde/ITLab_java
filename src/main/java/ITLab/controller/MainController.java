@@ -176,6 +176,50 @@ public class MainController implements Initializable, Callback {
     }
 
     @Override
+    public void loadAnnouncements() {
+        //TODO: add check if announcements are already loaded
+        body.getChildren().clear();
+        try {
+            System.out.println("calling announcements");
+            FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("views/announcementsview.fxml")));
+            AnchorPane anchorPane = loader.load();
+            AnnouncementsViewController controller = loader.getController();
+            body.getChildren().add(anchorPane);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void loadStatistics() {
+        //TODO: add check if announcements are already loaded
+        body.getChildren().clear();
+        try {
+            System.out.println("calling announcements");
+            FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("views/statisticsview.fxml")));
+            AnchorPane anchorPane = loader.load();
+            StatisticsViewController controller = loader.getController();
+            body.getChildren().add(anchorPane);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void loadUsers() {
+        body.getChildren().clear();
+        try {
+            System.out.println("calling announcements");
+            FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("views/usersview.fxml")));
+            AnchorPane anchorPane = loader.load();
+            UsersViewController controller = loader.getController();
+            body.getChildren().add(anchorPane);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
     public void loadCalendar() {
         if(!body.getChildren().contains(calendarView)){
             body.getChildren().add(calendarView);
