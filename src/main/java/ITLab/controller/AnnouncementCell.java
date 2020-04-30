@@ -3,6 +3,7 @@ package ITLab.controller;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXTextArea;
 import domain.model.session.Announcement;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
                 }
             }
 
+            Bindings.bindBidirectional(minHeightProperty(), hbox.prefHeightProperty());
             addListenerToAnnouncementListView();
             setHandleCellClicked();
             fillCell(item);
