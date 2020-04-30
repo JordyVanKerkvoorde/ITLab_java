@@ -3,17 +3,27 @@ package ITLab.controller;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXTabPane;
 import domain.model.session.Location;
 import domain.MockData;
 import domain.model.session.Session;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.*;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.internal.chartpart.Chart;
 
+
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -81,14 +91,23 @@ public class MainController implements Initializable, Callback {
                 VBox popup = loader.load();
                 PopOverController popOverController = loader.getController();
                 popOverController.setSessionEntry(sessionEntry);
-                calendarView.setEntryDetailsPopOverContentCallback(param -> popup);
+                JFXTabPane tabPane = new JFXTabPane();
+                tabPane.setPrefSize(550.0, 640.0);
+                Tab tab = new Tab();
+                tab.setText("overzicht");
+                Tab tab2 = new Tab();
+                tab2.setText("statistiek");
+                tab.setContent(popup);
+                tabPane.getTabs().add(tab);
+                tabPane.getTabs().add(tab2);
+                calendarView.setEntryDetailsPopOverContentCallback(param -> tabPane);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
 
         }
-        sessionCalendar.addEventHandler(event -> handelCalendarEvent(event));
+        sessionCalendar.addEventHandler(this::handelCalendarEvent);
         calendarView.getCalendarSources().clear();
         calendarView.getCalendarSources().add(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
@@ -102,7 +121,7 @@ public class MainController implements Initializable, Callback {
                 // a new Session has to be created and listeners have to be added to the new
                 // Entry<Session> that updates the Session object that has to be in the db
                 // session.sessionId won't be set because that has to happen in db
-                Entry entry = event.getEntry();
+                @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
                 Session session = new Session();
                 entry.setUserObject(session);
                 session.setTitle(entry.getTitle());
@@ -193,10 +212,25 @@ public class MainController implements Initializable, Callback {
             FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("views/statisticsview.fxml")));
             AnchorPane anchorPane = loader.load();
             StatisticsViewController controller = loader.getController();
+            controller.setStackPane(body);
             body.getChildren().add(anchorPane);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+//        double[] xData = new double[] { 0.0, 1.0, 2.0 };
+//        double[] yData = new double[] { 2.0, 1.0, 0.0 };
+//
+//        // Create Chart
+//        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+//
+//        JPanel chartPanel = new XChartPanel<Chart>(chart);
+//        // for embedding swing in javafx
+//        //javafx.embed.swing.SwingNode;<---need this dependency
+//
+//        SwingNode swingNode = new SwingNode();
+//        swingNode.setContent(chartPanel);
+//        body.getChildren().add(swingNode);
     }
 
     @Override
