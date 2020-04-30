@@ -215,16 +215,9 @@ public class MainController implements Initializable, Callback {
 
     @Override
     public void loadCalendar() {
-        if(!body.getChildren().contains(calendarView)){
-            body.getChildren().add(calendarView);
-        }
+        body.getChildren().clear();
+        body.getChildren().add(calendarView);
 
-    }
-
-    public void unloadCalendar(){
-        if(!body.getChildren().contains(calendarView)){
-            body.getChildren().remove(calendarView);
-        }
     }
     private void loadSidepanel() {
         try {
