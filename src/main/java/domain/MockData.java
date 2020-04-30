@@ -1,5 +1,13 @@
 package domain;
 
+import domain.model.session.Announcement;
+import domain.model.session.CampusEnum;
+import domain.model.session.Location;
+import domain.model.session.Session;
+import domain.model.user.User;
+import domain.model.user.UserStatus;
+import domain.model.user.UserType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +40,14 @@ public class MockData {
                             mockUsers.get(0), LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2), 69, mockLocations.get(1)),
                     new Session("De weg naar de Cloud, hoe doen bedrijven dat nu eigenlijk?", "Diederik Wyffels heeft al 20 jaar ervaring in de branche en focust zich vooral op het begeleiden van bedrijven die moeite hebben met het schalen van hun IT-infrastructuur. In deze talk bespreekt hij concreet hoe bedrijven begeleid worden in hun overstap naar de cloud.",
                             mockUsers.get(2), LocalDateTime.now().minusDays(-7), LocalDateTime.now().minusDays(-7).plusHours(2), 30, mockLocations.get(2))
+            )
+    );
+
+    public static List<Announcement> mockAnnouncements = new ArrayList<>(
+            Arrays.asList(
+                    new Announcement("Door het COVID-19 virus zijn alle evenementen afgelast tot nader order!"),
+                    new Announcement("We houden jullie op de hoogte van vorderingen omtrent COVID-19"),
+                    new Announcement("Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.Alle examens gaan digitaal door! Voor info omtrent je examens moet je contact opnemen met je docent.")
             )
     );
 }

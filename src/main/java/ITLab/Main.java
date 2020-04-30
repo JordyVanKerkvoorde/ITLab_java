@@ -18,7 +18,11 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("ITLab");
+        stage.setMinWidth(1400);
+        stage.setMinHeight(800);
+        stage.setMaximized(true);
         stage.show();
+        System.out.println("javafx version" + com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
     }
 
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="o" prefHeight="550.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css"
+      xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ITLab.controller.PopOverController">
+   <children>
+      <AnchorPane prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="600.0" layoutX="188.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gettyimages-664767584-612x612.jpg"/>
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXTextField fx:id="title" promptText="Title..." styleClass="text"/>
+      <HBox>
+         <children>
+            <Label fx:id="campusLabel" prefHeight="33.0" styleClass="text" text="Campus:"/>
+            <JFXComboBox fx:id="campus" prefHeight="25.0" prefWidth="246.0"/>
+            <Label fx:id="lokaalLabel" prefHeight="33.0" styleClass="text" text="Lokaal:"/>
+            <JFXTextField fx:id="room" prefHeight="25.0" prefWidth="141.0"/>
+         </children>
+      </HBox>
+      <JFXTextArea fx:id="description" prefHeight="64.0" prefWidth="600.0" promptText="Omschrijving..."/>
+      <HBox prefHeight="57.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="beginLabel" prefHeight="31.0" prefWidth="43.0" styleClass="text" text="Begin: "/>
+            <JFXDatePicker fx:id="startDate"/>
+            <JFXTimePicker fx:id="startTime"/>
+         </children>
+      </HBox>
+      <HBox prefHeight="55.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="eindeLabel" prefHeight="31.0" prefWidth="43.0" styleClass="text" text="Einde:"/>
+            <JFXDatePicker fx:id="endDate"/>
+            <JFXTimePicker fx:id="endTime"/>
+         </children>
+      </HBox>
+      <HBox prefHeight="44.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="verantwoordelijkLabel" prefHeight="30.0" styleClass="text" text="Verantwoordelijke: "/>
+            <JFXComboBox fx:id="responsible" prefHeight="25.0" prefWidth="493.0"/>
+         </children>
+      </HBox>
+      <HBox prefHeight="44.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="gastSprekerLabel" prefHeight="30.0" styleClass="text" text="Gast: "/>
+            <JFXComboBox fx:id="gastSpreker" prefHeight="25.0" prefWidth="493.0"/>
+         </children>
+      </HBox>
+   </children>
+</VBox>

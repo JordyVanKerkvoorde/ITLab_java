@@ -1,9 +1,7 @@
 package ITLab.components;
 
-import domain.Session;
+import domain.model.session.Session;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;

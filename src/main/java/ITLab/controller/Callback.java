@@ -1,6 +1,6 @@
 package ITLab.controller;
 
-import domain.Session;
+import domain.model.session.Session;
 
 public interface Callback {
 
@@ -9,4 +9,12 @@ public interface Callback {
     void unloadCalendar();
 
     void loadSession(Session session);
+
+    void loadEntry();
+
+    void loadAnnouncements();
+
+    void loadStatistics();
+
+    void loadUsers();
 }
