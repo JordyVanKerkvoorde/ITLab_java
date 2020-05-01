@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0"
-            style="-fx-border-color: RED; -fx-background-size: 5;" xmlns="http://javafx.com/javafx/8.0.251"
+            style="-fx-border-color: RED; -fx-background-size: 5;" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.StatisticsViewController">
    <children>
       <VBox fx:id="vbox" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="172.0" prefWidth="600.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="19.0"
-                             pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/gettyimages-664767584-612x612.jpg"/>
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title" layoutX="240.0" layoutY="28.0" prefHeight="115.0" prefWidth="314.0"
-                         text="Event title">
-                     <font>
-                        <Font size="68.0"/>
-                     </font>
-                  </Label>
+                  <HBox layoutX="91.0" layoutY="46.0" prefHeight="310.0" prefWidth="419.0">
+                     <children>
+                        <ListView prefHeight="310.0" prefWidth="142.0"/>
+                        <ListView prefHeight="310.0" prefWidth="142.0"/>
+                        <ListView prefHeight="310.0" prefWidth="142.0"/>
+                     </children>
+                  </HBox>
+                  <Label layoutX="127.0" layoutY="23.0" text="Ingeschreven"/>
+                  <Label layoutX="384.0" layoutY="23.0" text="Afwezig"/>
+                  <Label layoutX="456.0" layoutY="23.0" text="\% afwezig"/>
+                  <Label layoutX="275.0" layoutY="23.0" text="Aanwezig"/>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="statPane" prefHeight="200.0" prefWidth="200.0"/>
          </children>
       </VBox>
    </children>

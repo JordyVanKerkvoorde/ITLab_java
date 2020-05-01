@@ -2,24 +2,24 @@ package ITLab.controller;
 
 import com.calendarfx.model.Entry;
 import com.jfoenix.controls.*;
+import domain.MockData;
 import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import domain.model.session.SessionEntry;
+import domain.model.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PopOverController implements Initializable {
     @FXML
@@ -45,7 +45,7 @@ public class PopOverController implements Initializable {
     @FXML
     private JFXTimePicker endTime;
     @FXML
-    private JFXComboBox responsible;
+    private JFXComboBox<User> responsible;
     @FXML
     private Label campusLabel;
     @FXML
@@ -56,6 +56,23 @@ public class PopOverController implements Initializable {
     private Label eindeLabel;
     @FXML
     private Label verantwoordelijkLabel;
+    @FXML
+    private Label gastSprekerLabel;
+    @FXML
+    private JFXListView<User> ingeschreven;
+    @FXML
+    private JFXListView<User> aanwezig;
+    @FXML
+    private JFXListView<User> afwezig;
+    @FXML
+    private Label ingeschrevenLabel;
+    @FXML
+    private Label afwezigLabel;
+    @FXML
+    private Label afwezigLabelPercentage;
+    @FXML
+    private Label aanwezigLabel;
+
 
     public PopOverController() {
 
@@ -74,15 +91,32 @@ public class PopOverController implements Initializable {
         endDate.setValue(sessionEntry.getEndDate());
         endTime.set24HourView(true);
         endTime.setValue(sessionEntry.getEndTime());
-        //responsible.getItems().addAll();
-        tabPane.getStylesheets().add(getClass().getClassLoader().getResource("stylesheet/tabpane.css").toExternalForm());
+        tabPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/tabpane.css")).toExternalForm());
         tabPane.setPrefSize(550.0, 640.0);
-        tab1.setText("overzicht");
-        tab2.setText("statistiek");
+        tab1.setText("Overzicht");
+        tab2.setText("Aanwezigheden");
+        setCellFactory();
+    }
+
+    private void setCellFactory() {
+        ingeschreven.setCellFactory(p -> new JFXListCell<User>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null || item.getFirstName() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getFirstName() + " " + item.getLastName());
+                }
+                this.setOnMouseClicked(e -> System.out.println(item));
+            }
+        });
+        ingeschreven.getItems().addAll(MockData.mockUsers);
     }
 
     private void setUpStyle() {
-        List<Label> labels = new ArrayList<>(Arrays.asList(campusLabel, lokaalLabel, beginLabel, eindeLabel, verantwoordelijkLabel));
+        List<Label> labels = new ArrayList<>(Arrays.asList(campusLabel, lokaalLabel, beginLabel, eindeLabel,
+                verantwoordelijkLabel, campusLabel, lokaalLabel, gastSprekerLabel, ingeschrevenLabel, afwezigLabel, afwezigLabelPercentage, aanwezigLabel));
         Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
         labels.forEach(l -> l.setFont(font));
         title.setFont(font);
