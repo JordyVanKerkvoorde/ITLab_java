@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,6 +22,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class PopOverController implements Initializable {
+    @FXML
+    private JFXTabPane tabPane;
+    @FXML
+    private Tab tab1;
+    @FXML
+    private Tab tab2;
     @FXML
     private JFXTextField title;
     @FXML
@@ -68,6 +75,10 @@ public class PopOverController implements Initializable {
         endTime.set24HourView(true);
         endTime.setValue(sessionEntry.getEndTime());
         //responsible.getItems().addAll();
+        tabPane.getStylesheets().add(getClass().getClassLoader().getResource("stylesheet/tabpane.css").toExternalForm());
+        tabPane.setPrefSize(550.0, 640.0);
+        tab1.setText("overzicht");
+        tab2.setText("statistiek");
     }
 
     private void setUpStyle() {

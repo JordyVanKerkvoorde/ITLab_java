@@ -78,29 +78,16 @@ public class MainController implements Initializable, Callback {
             sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
                     session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
             sessionEntry.setLocation(session.getLocation().getCampus().name());
-            sessionEntry.titleProperty().addListener((observable, oldValue, newValue) -> {
-                sessionEntry.getUserObject().setTitle(newValue);
-            });
-            sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> {
-                sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
-                        LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()));
-            }));
+            sessionEntry.titleProperty().addListener((observable, oldValue, newValue) -> sessionEntry.getUserObject().setTitle(newValue));
+            sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
+                    LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()))));
             sessionCalendar.addEntry(sessionEntry);
             try {
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
-                VBox popup = loader.load();
+                JFXTabPane popup = loader.load();
                 PopOverController popOverController = loader.getController();
                 popOverController.setSessionEntry(sessionEntry);
-                JFXTabPane tabPane = new JFXTabPane();
-                tabPane.setPrefSize(550.0, 640.0);
-                Tab tab = new Tab();
-                tab.setText("overzicht");
-                Tab tab2 = new Tab();
-                tab2.setText("statistiek");
-                tab.setContent(popup);
-                tabPane.getTabs().add(tab);
-                tabPane.getTabs().add(tab2);
-                calendarView.setEntryDetailsPopOverContentCallback(param -> tabPane);
+                calendarView.setEntryDetailsPopOverContentCallback(param -> popup);
             } catch (IOException e) {
                 e.printStackTrace();
             }
