@@ -1,5 +1,6 @@
 package ITLab.components;
 
+import ITLab.controller.AnnouncementPopoverController;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXTextArea;
 import domain.model.session.Announcement;
@@ -8,21 +9,23 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AnnouncementCell extends JFXListCell<Announcement> {
 
     @FXML
     private Label messageLabel;
     @FXML
-    private Button submitButton;
-    @FXML
     private HBox hbox;
-
-    private JFXTextArea textArea;
 
     private FXMLLoader loader;
 
@@ -43,37 +46,30 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
                 }
             }
             Bindings.bindBidirectional(minHeightProperty(), hbox.prefHeightProperty());
-            addListenerToAnnouncementListView();
-            setHandleCellClicked();
+            setCellDoubleClickedHandler(item);
             fillCell(item);
-            setButtonHandler();
+
         }
     }
 
-    private void addListenerToAnnouncementListView() {
-        getListView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Announcement>() {
-            @Override
-            public void changed(ObservableValue<? extends Announcement> observableValue, Announcement announcement, Announcement t1) {
-                submitButton.setVisible(false);
-                hbox.getChildren().remove(textArea);
-
-                if (!hbox.getChildren().contains(messageLabel)) {
-                    hbox.getChildren().add(0, messageLabel);
+    private void setCellDoubleClickedHandler(Announcement announcement) {
+        setOnMouseClicked(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                Parent root;
+                try {
+                    AnnouncementPopoverController controller = new AnnouncementPopoverController(announcement);
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/announcementpopover.fxml"));
+                    loader.setController(controller);
+                    root = loader.load();
+                    Stage stage = new Stage();
+                    stage.setTitle("Aankondiging aanpassen");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        });
-    }
-
-    private void setHandleCellClicked() {
-        setOnMouseClicked(event -> {
-            String msg = messageLabel.getText();
-            hbox.getChildren().remove(messageLabel);
-            if (!hbox.getChildren().contains(textArea)) {
-                textArea = new JFXTextArea(msg);
-                textArea.setPrefHeight(minHeightProperty().doubleValue());
-                hbox.getChildren().add(0, textArea);
-            }
-            submitButton.setVisible(true);
         });
     }
 
@@ -83,13 +79,5 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
         messageLabel.setWrapText(true);
         setText(null);
         setGraphic(hbox);
-    }
-
-    private void setButtonHandler() {
-        submitButton.setOnMouseClicked(event -> {
-            String msg = textArea.getText();
-            getItem().setMessage(msg);
-            messageLabel.setText(msg);
-        });
     }
 }
