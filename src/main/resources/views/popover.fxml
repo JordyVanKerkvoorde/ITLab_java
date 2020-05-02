@@ -18,9 +18,10 @@
 <?import javafx.scene.control.ListView?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXListCell?>
-<JFXTabPane id="o" fx:id="tabPane" prefHeight="550.0" prefWidth="550.0" styleClass="popover"
-            xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ITLab.controller.PopOverController">
+<?import ITLab.components.JFXEventTabPane?>
+<JFXEventTabPane id="o" fx:id="tabPane" prefHeight="550.0" prefWidth="550.0" styleClass="popover"
+                 xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1"
+                 fx:controller="ITLab.controller.PopOverController">
    <Tab fx:id="tab1">
       <VBox>
          <children>
@@ -122,4 +123,4 @@
       </AnchorPane>
 
    </Tab>
-</JFXTabPane>
+</JFXEventTabPane>

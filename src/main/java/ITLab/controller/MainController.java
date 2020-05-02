@@ -1,38 +1,29 @@
 package ITLab.controller;
 
+import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXTabPane;
-import domain.model.session.Location;
 import domain.MockData;
+import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.*;
-import org.knowm.xchart.QuickChart;
-import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XChartPanel;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.internal.chartpart.Chart;
-
-
-import javax.swing.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -73,29 +64,27 @@ public class MainController implements Initializable, Callback {
 
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().add(sessionCalendar);
-
-        for (Session session: MockData.mockSessions) {
+        for (Session session : MockData.mockSessions) {
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             setListeners(session, sessionEntry);
             sessionCalendar.addEntry(sessionEntry);
-            try {
-                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
-                JFXTabPane popup = loader.load();
-                PopOverController popOverController = loader.getController();
-                popOverController.setSessionEntry(sessionEntry);
-                popup.parentProperty().addListener((observableValue, parent, t1) -> {
-                    if (parent == null) {
-                        // TODO: write userObject to DB on change to null
-                    }
-                });
-                calendarView.setEntryDetailsPopOverContentCallback(param -> popup);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
         }
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
+            JFXEventTabPane popup = loader.load();
+            PopOverController popOverController = loader.getController();
+            popup.setPopOverController(popOverController);
+            popup.parentProperty().addListener((observableValue, parent, t1) -> {
+                if (parent == null) {
+                    // TODO: write userObject to DB on change to null
+                }
+            });
+            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Session) param.getEntry().getUserObject()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
         sessionCalendar.addEventHandler(this::handelCalendarEvent);
         calendarView.getCalendarSources().clear();
         calendarView.getCalendarSources().add(myCalendarSource);
@@ -133,7 +122,7 @@ public class MainController implements Initializable, Callback {
 //                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
                 MockData.mockSessions.add(session);
                 System.out.println(session);
-            }catch (Exception e ){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
@@ -165,7 +154,7 @@ public class MainController implements Initializable, Callback {
     }
 
     public void loadSession(Session session) {
-        try{
+        try {
             body.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/session.fxml"));
             ScrollPane sessionPane = loader.load();
@@ -176,7 +165,8 @@ public class MainController implements Initializable, Callback {
             e.printStackTrace();
         }
     }
-    public void loadEntry(){
+
+    public void loadEntry() {
         try {
             body.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
@@ -253,6 +243,7 @@ public class MainController implements Initializable, Callback {
         body.getChildren().add(calendarView);
 
     }
+
     private void loadSidepanel() {
         try {
             System.out.println("calling sidepanel");
