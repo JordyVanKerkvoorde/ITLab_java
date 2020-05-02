@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -78,6 +79,8 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
         messageLabel.setText(item.getMessage());
         messageLabel.setMaxWidth(400);
         messageLabel.setWrapText(true);
+        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
+        messageLabel.setFont(font);
         setText(null);
         setGraphic(hbox);
     }

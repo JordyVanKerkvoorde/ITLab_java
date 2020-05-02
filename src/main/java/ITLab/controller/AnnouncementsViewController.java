@@ -13,13 +13,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 
+import javax.swing.*;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AnnouncementsViewController implements Initializable {
-
+    @FXML
+    private Label title;
     @FXML
     private JFXTextArea inputArea;
     @FXML
@@ -48,6 +53,15 @@ public class AnnouncementsViewController implements Initializable {
         announcementsListView.setItems(announcementObservableList);
         announcementsListView.setCellFactory(announcementListView -> new AnnouncementCell());
         commitButton.setOnAction(event -> createAnnouncement(event));
+        setStyle();
+    }
+
+    private void setStyle() {
+        anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
+        Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
+        inputArea.setFont(font);
+        title.setFont(font);
+        //announcementsListView.prefHeightProperty().bindBidirectional(anchorPane.prefHeightProperty());
     }
 
     private void createAnnouncement(ActionEvent event) {
