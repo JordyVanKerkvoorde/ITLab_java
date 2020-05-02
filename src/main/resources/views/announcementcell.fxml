@@ -7,6 +7,5 @@
 <HBox fx:id="hbox" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="messageLabel" text="Label" />
-      <Button fx:id="submitButton" mnemonicParsing="false" text="Opslaan" visible="false" />
    </children>
 </HBox>

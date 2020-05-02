@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="o" prefHeight="379.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..." />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <JFXButton text="Opslaan" fx:id="saveButton"/>
+            <JFXButton text="Sluit" fx:id="closeButton"/>
+         </children>
+      </HBox>
+    </children>
+</VBox>
