@@ -8,12 +8,19 @@ import domain.model.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -46,6 +53,34 @@ public class UsersViewController implements Initializable {
 
         userTableView.getItems().addAll(userObservableList);
         userTableView.getSortOrder().add(familieNaamColumn);
+
+        setDoubleClickHandler();
+    }
+
+    private void setDoubleClickHandler() {
+        userTableView.setRowFactory(tv -> {
+            TableRow<User> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && !row.isEmpty()) {
+                    User user = row.getItem();
+                    Parent root;
+                    try {
+                        UserPopoverController controller = new UserPopoverController(user, false);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/userpopover.fxml"));
+                        loader.setController(controller);
+                        root = loader.load();
+                        Stage stage = new Stage();
+                        stage.setTitle("Gebruiker aanpassen");
+                        stage.setScene(new Scene(root));
+                        stage.setResizable(false);
+                        stage.showAndWait();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     private void setColumnWidth() {
