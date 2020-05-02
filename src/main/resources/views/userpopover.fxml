@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox id="o" prefHeight="369.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.PopOverController">
+    <children>
+        <AnchorPane prefHeight="180.0" prefWidth="200.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="600.0" layoutX="245.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/default-avatar.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+      <HBox prefHeight="48.0" prefWidth="640.0">
+         <children>
+            <Label text="Familienaam" />
+            <JFXTextField />
+            <Label text="Voornaam" />
+            <JFXTextField />
+         </children>
+      </HBox>
+        <HBox prefHeight="52.0" prefWidth="640.0">
+            <children>
+                <Label fx:id="campusLabel" prefHeight="33.0" styleClass="text" text="Type" />
+                <JFXComboBox fx:id="campus" prefHeight="25.0" prefWidth="246.0" />
+                <Label fx:id="lokaalLabel" prefHeight="33.0" styleClass="text" text="Status" />
+            <JFXComboBox prefHeight="31.0" prefWidth="304.0" />
+            </children>
+        </HBox>
+      <HBox prefHeight="60.0" prefWidth="640.0">
+         <children>
+            <Label text="Gebruikersnaam" />
+            <JFXTextField prefHeight="31.0" prefWidth="448.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="640.0">
+         <children>
+            <JFXButton />
+            <JFXButton text="Sluiten" />
+         </children></HBox>
+    </children>
+</VBox>
