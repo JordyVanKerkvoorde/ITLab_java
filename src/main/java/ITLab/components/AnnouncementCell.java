@@ -65,7 +65,8 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
                     stage.setTitle("Aankondiging aanpassen");
                     stage.setScene(new Scene(root));
                     stage.setResizable(false);
-                    stage.show();
+                    stage.showAndWait();
+                    updateItem(announcement, false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
