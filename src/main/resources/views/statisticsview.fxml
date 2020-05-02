@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0"
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="550.0"
             style="-fx-border-color: RED; -fx-background-size: 5;" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.StatisticsViewController">
-   <children>
-      <VBox fx:id="vbox" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <HBox layoutX="91.0" layoutY="46.0" prefHeight="310.0" prefWidth="419.0">
-                     <children>
-                        <ListView prefHeight="310.0" prefWidth="142.0"/>
-                        <ListView prefHeight="310.0" prefWidth="142.0"/>
-                        <ListView prefHeight="310.0" prefWidth="142.0"/>
-                     </children>
-                  </HBox>
-                  <Label layoutX="127.0" layoutY="23.0" text="Ingeschreven"/>
-                  <Label layoutX="384.0" layoutY="23.0" text="Afwezig"/>
-                  <Label layoutX="456.0" layoutY="23.0" text="\% afwezig"/>
-                  <Label layoutX="275.0" layoutY="23.0" text="Aanwezig"/>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </children>
+   <HBox layoutY="46.0" prefHeight="310.0" prefWidth="550.0">
+      <children>
+         <JFXListView fx:id="ingeschreven" prefHeight="310.0" prefWidth="183.3"/>
+         <JFXListView fx:id="aanwezig" prefHeight="310.0" prefWidth="183.4"/>
+         <JFXListView fx:id="afwezig" prefHeight="310.0" prefWidth="183.3"/>
+      </children>
+   </HBox>
+   <Label fx:id="ingeschrevenLabel" layoutX="60.0" layoutY="23.0" text="Ingeschreven"/>
+   <Label fx:id="afwezigLabel" layoutX="392.0" layoutY="23.0" text="Afwezig"/>
+   <Label fx:id="afwezigLabelPercentage" layoutX="473.0" layoutY="23.0" text="\% afwezig"/>
+   <Label fx:id="aanwezigLabel" layoutX="251.0" layoutY="23.0" text="Aanwezig"/>
 </AnchorPane>

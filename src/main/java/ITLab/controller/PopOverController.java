@@ -8,6 +8,8 @@ import domain.model.session.Location;
 import domain.model.session.Session;
 import domain.model.session.SessionEntry;
 import domain.model.user.User;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -116,7 +118,8 @@ public class PopOverController implements Initializable {
 
     private void setUpStyle() {
         List<Label> labels = new ArrayList<>(Arrays.asList(campusLabel, lokaalLabel, beginLabel, eindeLabel,
-                verantwoordelijkLabel, campusLabel, lokaalLabel, gastSprekerLabel, ingeschrevenLabel, afwezigLabel, afwezigLabelPercentage, aanwezigLabel));
+                verantwoordelijkLabel, campusLabel, lokaalLabel, gastSprekerLabel,
+                ingeschrevenLabel, afwezigLabel, afwezigLabelPercentage, aanwezigLabel));
         Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
         labels.forEach(l -> l.setFont(font));
         title.setFont(font);
@@ -132,5 +135,13 @@ public class PopOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpStyle();
+        tabPane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                System.out.println(number);
+                System.out.println(t1);
+                System.out.println(observableValue);
+            }
+        });
     }
 }

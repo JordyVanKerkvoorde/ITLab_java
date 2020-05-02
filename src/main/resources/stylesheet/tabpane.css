@@ -3,14 +3,37 @@
 */
 
 .jfx-tab-pane .headers-region {
-    -fx-background-color: #455ca5;
+    -fx-background-color: #549AD0;
 }
 
 .jfx-tab-pane .tab-header-background {
-    -fx-background-color: #455ca5;
+    -fx-background-color: #549AD0;
 }
 
 .jfx-tab-pane .tab-selected-line {
     -fx-stroke: #75bc1b;
     -fx-stroke-width: 3pt;
+}
+
+.list-view {
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #549AD0;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #549AD0;
+}
+
+.list-view .list-cell {
+
+}
+
+.list-view .label {
+
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: green;
 }
