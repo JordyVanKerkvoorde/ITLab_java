@@ -9,8 +9,10 @@ import domain.model.session.Announcement;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -45,5 +47,19 @@ public class AnnouncementsViewController implements Initializable {
 //        });
         announcementsListView.setItems(announcementObservableList);
         announcementsListView.setCellFactory(announcementListView -> new AnnouncementCell());
+        commitButton.setOnAction(event -> createAnnouncement(event));
+    }
+
+    private void createAnnouncement(ActionEvent event) {
+        try {
+            Announcement announcement = new Announcement(inputArea.getText());
+            announcementObservableList.add(0, announcement);
+            inputArea.clear();
+        } catch (IllegalArgumentException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Aankondiging mag niet leeg zijn!");
+            alert.setContentText("Gelieve een aankondiging in te vullen.");
+            alert.showAndWait();
+        }
     }
 }
