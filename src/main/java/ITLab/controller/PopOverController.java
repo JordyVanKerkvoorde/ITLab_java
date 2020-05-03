@@ -1,5 +1,6 @@
 package ITLab.controller;
 
+import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.Entry;
 import com.jfoenix.controls.*;
 import domain.MockData;
@@ -25,7 +26,7 @@ import java.util.*;
 
 public class PopOverController implements Initializable {
     @FXML
-    private JFXTabPane tabPane;
+    private JFXEventTabPane tabPane;
     @FXML
     private Tab tab1;
     @FXML
@@ -74,25 +75,25 @@ public class PopOverController implements Initializable {
     private Label afwezigLabelPercentage;
     @FXML
     private Label aanwezigLabel;
-
+    public Session sessionEntry;
 
     public PopOverController() {
 
     }
 
-    public void setSessionEntry(Entry<Session> sessionEntry) {
-
-        title.setText(sessionEntry.getUserObject().getTitle());
+    public void setSessionEntry() {
+        sessionEntry = tabPane.getSession();
+        title.setText(sessionEntry.getTitle());
         campus.getItems().addAll(Location.getLocationStrings());
-        campus.getSelectionModel().select(sessionEntry.getUserObject().getLocation().getCampus().toString());
-        room.setText(sessionEntry.getUserObject().getLocation().getLocationId());
-        description.setText(sessionEntry.getUserObject().getDescription());
-        startDate.setValue(sessionEntry.getStartDate());
+        campus.getSelectionModel().select(sessionEntry.getLocation().getCampus().toString());
+        room.setText(sessionEntry.getLocation().getLocationId());
+        description.setText(sessionEntry.getDescription());
+        startDate.setValue(sessionEntry.getStart().toLocalDate());
         startTime.set24HourView(true);
-        startTime.setValue(sessionEntry.getStartTime());
-        endDate.setValue(sessionEntry.getEndDate());
+        startTime.setValue(sessionEntry.getStart().toLocalTime());
+        endDate.setValue(sessionEntry.getEnd().toLocalDate());
         endTime.set24HourView(true);
-        endTime.setValue(sessionEntry.getEndTime());
+        endTime.setValue(sessionEntry.getEnd().toLocalTime());
         tabPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/tabpane.css")).toExternalForm());
         tabPane.setPrefSize(550.0, 640.0);
         tab1.setText("Overzicht");
@@ -135,13 +136,5 @@ public class PopOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpStyle();
-        tabPane.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                System.out.println(number);
-                System.out.println(t1);
-                System.out.println(observableValue);
-            }
-        });
     }
 }
