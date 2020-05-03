@@ -7,17 +7,25 @@ import domain.model.session.Announcement;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToolBar;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -27,7 +35,11 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
     private Label messageLabel;
     @FXML
     private HBox hbox;
+    @FXML
+    private VBox vbox;
 
+    @FXML
+    private AnchorPane anchorPane;
     private FXMLLoader loader;
 
     @Override
@@ -52,20 +64,21 @@ public class AnnouncementCell extends JFXListCell<Announcement> {
 
         }
     }
-
     private void setCellDoubleClickedHandler(Announcement announcement) {
         setOnMouseClicked(event -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                Parent root;
                 try {
                     AnnouncementPopoverController controller = new AnnouncementPopoverController(announcement);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/announcementpopover.fxml"));
                     loader.setController(controller);
-                    root = loader.load();
+                    anchorPane = loader.load();
                     Stage stage = new Stage();
                     stage.setTitle("Aankondiging aanpassen");
-                    stage.setScene(new Scene(root));
                     stage.setResizable(false);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    Scene scene = new Scene(anchorPane);
+                    scene.setFill(Color.TRANSPARENT);
+                    stage.setScene(scene);
                     stage.showAndWait();
                     updateItem(announcement, false);
                 } catch (IOException e) {
