@@ -1,15 +1,25 @@
 package ITLab.controller;
 
+import ITLab.components.WindowButtons;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
 import domain.model.session.Announcement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +32,10 @@ public class AnnouncementPopoverController implements Initializable {
     private JFXButton saveButton;
     @FXML
     private JFXTextArea messageArea;
+    @FXML
+    private VBox vbox;
+    @FXML
+    private AnchorPane anchorPane;
 
     private Announcement announcement;
 
@@ -48,10 +62,21 @@ public class AnnouncementPopoverController implements Initializable {
             announcement.setMessage(messageArea.getText());
             close(event);
         } catch (IllegalArgumentException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Aankondiging mag niet leeg zijn!");
-            alert.setContentText("Gelieve een aankondiging in te vullen.");
-            alert.showAndWait();
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(new Text("Error"));
+            content.setBody(new Text("Aankondiging mag niet leeg zijn!\nGelieve een aankondiging in te vullen."));
+            StackPane stackPane = new StackPane();
+            stackPane.autosize();
+            JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.LEFT, true);
+            JFXButton button = new JFXButton("Okay");
+            button.setOnAction(event1 -> dialog.close());
+            button.setButtonType(com.jfoenix.controls.JFXButton.ButtonType.RAISED);
+            button.setPrefHeight(32);
+            content.setActions(button);
+            anchorPane.getChildren().add(stackPane);
+            AnchorPane.setTopAnchor(stackPane, (vbox.getHeight() - content.getPrefHeight()) / 2);
+            AnchorPane.setLeftAnchor(stackPane, (vbox.getWidth() - content.getPrefWidth()) / 4);
+            dialog.show();
             messageArea.setText(announcement.getMessage());
         }
     }
