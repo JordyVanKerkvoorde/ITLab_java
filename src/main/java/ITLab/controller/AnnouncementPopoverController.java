@@ -63,12 +63,12 @@ public class AnnouncementPopoverController implements Initializable {
             close(event);
         } catch (IllegalArgumentException e) {
             JFXDialogLayout content = new JFXDialogLayout();
-            content.setHeading(new Text("Error"));
+            content.setHeading(new Text("Fout"));
             content.setBody(new Text("Aankondiging mag niet leeg zijn!\nGelieve een aankondiging in te vullen."));
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.LEFT, true);
-            JFXButton button = new JFXButton("Okay");
+            JFXButton button = new JFXButton("OK");
             button.setOnAction(event1 -> dialog.close());
             button.setButtonType(com.jfoenix.controls.JFXButton.ButtonType.RAISED);
             button.setPrefHeight(32);
