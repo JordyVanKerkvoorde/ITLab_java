@@ -43,6 +43,7 @@ public class UsersViewController implements Initializable {
 
     private ObservableList<User> userObservableList;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userObservableList = FXCollections.observableArrayList();
@@ -58,6 +59,10 @@ public class UsersViewController implements Initializable {
         setAddUserHandler();
     }
 
+    /**
+     * Sets the action of a double click on a TableViewRow
+     * Loads an Edit User - Popover when double clicked
+     */
     private void setDoubleClickHandler() {
         userTableView.setRowFactory(tv -> {
             TableRow<User> row = new TableRow<>();
@@ -71,15 +76,23 @@ public class UsersViewController implements Initializable {
         });
     }
 
+    /**
+     * Sets the action of the add button
+     * Loads a AddUserPopover when clicked
+     */
     private void setAddUserHandler() {
         addUserButton.setOnAction(event -> loadPopover(null));
     }
 
+    /**
+     * Loads popover to edit/create a user
+     * @param user: if user is null -> edit user popover
+     *              if user not null -> create user popover
+     */
     private void loadPopover(User user) {
-        boolean isCreate = user == null;
         Parent root;
         try {
-            UserPopoverController controller = new UserPopoverController(user, isCreate, userObservableList);
+            UserPopoverController controller = new UserPopoverController(user, userObservableList);
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/userpopover.fxml"));
             loader.setController(controller);
             root = loader.load();
@@ -110,6 +123,9 @@ public class UsersViewController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
     }
 
+    /**
+     * refreshes the tableView after edits
+     */
     private void refreshUserTable() {
         userTableView.getItems().clear();
         userTableView.getItems().addAll(userObservableList);

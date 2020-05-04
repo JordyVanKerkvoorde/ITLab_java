@@ -40,11 +40,9 @@ public class UserPopoverController implements Initializable {
 
     private User user;
 
-    private boolean isCreate;
 
-    public UserPopoverController(User user, boolean isCreate, ObservableList<User> userObservableList) {
+    public UserPopoverController(User user, ObservableList<User> userObservableList) {
         this.user = user;
-        this.isCreate = isCreate;
         this.userObservableList = userObservableList;
     }
 
@@ -52,7 +50,9 @@ public class UserPopoverController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboBoxes();
         closeButton.setOnAction(event -> close(event));
-        if (isCreate) {
+        //     * @param user: if user is null -> edit user popover
+        //     *              if user not null -> create user popover
+        if (user == null) {
             commitButton.setText("Aanmaken");
             commitButton.setOnAction(event -> createUser(event));
         } else {
@@ -67,6 +67,9 @@ public class UserPopoverController implements Initializable {
         typeComboBox.setItems(FXCollections.observableArrayList(UserType.values()));
     }
 
+    /**
+     * Creates and adds new user to tableview and database
+     */
     private void createUser(ActionEvent event) {
         User user = new User();
         user.setLastName(lastnameField.getText());
@@ -83,7 +86,9 @@ public class UserPopoverController implements Initializable {
         MockData.mockUsers.add(user);
         close(event);
     }
-
+    /**
+     * Edits and updates new user to tableview and database
+     */
     private void saveUser(ActionEvent event) {
         user.setLastName(lastnameField.getText());
         user.setFirstName(firstnameField.getText());
@@ -93,6 +98,9 @@ public class UserPopoverController implements Initializable {
         close(event);
     }
 
+    /**
+     * Fills popover form based on existing users' data
+     */
     private void fillUserData() {
         lastnameField.setText(user.getLastName());
         firstnameField.setText(user.getFirstName());
