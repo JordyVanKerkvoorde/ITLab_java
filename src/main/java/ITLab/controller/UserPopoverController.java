@@ -3,6 +3,7 @@ package ITLab.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import domain.MockData;
 import domain.model.user.User;
 import domain.model.user.UserStatus;
 import domain.model.user.UserType;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -20,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class UserPopoverController implements Initializable {
 
+    private ObservableList<User> userObservableList;
     @FXML
     private JFXTextField lastnameField;
     @FXML
@@ -39,9 +42,10 @@ public class UserPopoverController implements Initializable {
 
     private boolean isCreate;
 
-    public UserPopoverController(User user, boolean isCreate) {
+    public UserPopoverController(User user, boolean isCreate, ObservableList<User> userObservableList) {
         this.user = user;
         this.isCreate = isCreate;
+        this.userObservableList = userObservableList;
     }
 
     @Override
@@ -64,7 +68,20 @@ public class UserPopoverController implements Initializable {
     }
 
     private void createUser(ActionEvent event) {
+        User user = new User();
+        user.setLastName(lastnameField.getText());
+        user.setFirstName(firstnameField.getText());
+        user.setUserName(usernameField.getText());
+        user.setUserStatus(statusComboBox.getValue());
+        user.setUserType(typeComboBox.getValue());
+        user.setPenalties(0);
+        user.setUserId(firstnameField.getText().toLowerCase() + lastnameField.getText().toLowerCase());
+        user.setEmail(usernameField.getText());
 
+        //TODO: databank
+        userObservableList.add(user);
+        MockData.mockUsers.add(user);
+        close(event);
     }
 
     private void saveUser(ActionEvent event) {
@@ -74,7 +91,6 @@ public class UserPopoverController implements Initializable {
         user.setUserStatus(statusComboBox.getValue());
         user.setUserType(typeComboBox.getValue());
         close(event);
-        //TODO: automatically update tableview on save
     }
 
     private void fillUserData() {

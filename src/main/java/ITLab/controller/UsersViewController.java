@@ -55,6 +55,7 @@ public class UsersViewController implements Initializable {
         userTableView.getSortOrder().add(familieNaamColumn);
 
         setDoubleClickHandler();
+        setAddUserHandler();
     }
 
     private void setDoubleClickHandler() {
@@ -63,24 +64,34 @@ public class UsersViewController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && event.getButton() == MouseButton.PRIMARY && !row.isEmpty()) {
                     User user = row.getItem();
-                    Parent root;
-                    try {
-                        UserPopoverController controller = new UserPopoverController(user, false);
-                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/userpopover.fxml"));
-                        loader.setController(controller);
-                        root = loader.load();
-                        Stage stage = new Stage();
-                        stage.setTitle("Gebruiker aanpassen");
-                        stage.setScene(new Scene(root));
-                        stage.setResizable(false);
-                        stage.showAndWait();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    loadPopover(user);
                 }
             });
             return row;
         });
+    }
+
+    private void setAddUserHandler() {
+        addUserButton.setOnAction(event -> loadPopover(null));
+    }
+
+    private void loadPopover(User user) {
+        boolean isCreate = user == null;
+        Parent root;
+        try {
+            UserPopoverController controller = new UserPopoverController(user, isCreate, userObservableList);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/userpopover.fxml"));
+            loader.setController(controller);
+            root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Gebruiker");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+            refreshUserTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setColumnWidth() {
@@ -97,5 +108,11 @@ public class UsersViewController implements Initializable {
         userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
+    }
+
+    private void refreshUserTable() {
+        userTableView.getItems().clear();
+        userTableView.getItems().addAll(userObservableList);
+        userTableView.sort();
     }
 }
