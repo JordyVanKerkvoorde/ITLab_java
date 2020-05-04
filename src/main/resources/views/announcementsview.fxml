@@ -45,7 +45,7 @@
                      </padding></JFXButton>
                </children>
             </HBox>
-            <JFXListView fx:id="announcementsListView" maxHeight="1.7976931348623157E308" prefHeight="-1" prefWidth="600.0">
+            <JFXListView fx:id="announcementsListView" maxHeight="1.7976931348623157E308" prefHeight="-1">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>

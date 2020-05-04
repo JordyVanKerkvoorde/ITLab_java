@@ -13,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -25,6 +22,11 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -96,9 +98,9 @@ public class AnnouncementsViewController implements Initializable {
         @FXML
         private Label messageLabel;
         @FXML
-        private HBox hbox;
-        @FXML
         private VBox vbox;
+        @FXML
+        private Label timestampLabel;
 
         @FXML
         private AnchorPane anchorPane;
@@ -120,7 +122,7 @@ public class AnnouncementsViewController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-                Bindings.bindBidirectional(minHeightProperty(), hbox.prefHeightProperty());
+                Bindings.bindBidirectional(minHeightProperty(), vbox.prefHeightProperty());
                 setCellDoubleClickedHandler(item);
                 fillCell(item);
 
@@ -161,13 +163,17 @@ public class AnnouncementsViewController implements Initializable {
          * @param item : the Announcement containing the data
          */
         private void fillCell(Announcement item) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm", new Locale("nl"));
+            timestampLabel.setText(item.getPostTime().format(formatter));
             messageLabel.setText(item.getMessage());
             messageLabel.setMaxWidth(400);
             messageLabel.setWrapText(true);
             Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
             messageLabel.setFont(font);
+            timestampLabel.setFont(font);
+            messageLabel.setStyle("-fx-font-size: 18");
             setText(null);
-            setGraphic(hbox);
+            setGraphic(vbox);
         }
     }
 }
