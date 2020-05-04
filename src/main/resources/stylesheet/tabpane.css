@@ -1,0 +1,41 @@
+/*
+    The tab bar
+*/
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #549AD0;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #549AD0;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-border-color: #b22222;
+    -fx-stroke: #b22222;
+    -fx-background-color: #b22222;
+    -fx-stroke-width: 3pt;
+}
+
+.list-view {
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #549AD0;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #549AD0;
+}
+
+.list-view .list-cell {
+
+}
+
+.list-view .label {
+
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: #123c57;
+}

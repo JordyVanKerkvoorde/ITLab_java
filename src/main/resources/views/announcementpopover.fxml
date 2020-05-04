@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox id="o" fx:id="vbox" prefHeight="385.0" prefWidth="640.0"
+              style="-fx-border-color: BLACK; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;"
+              stylesheets="@../stylesheet/announcementsview.css">
+            <children>
+                <HBox alignment="BOTTOM_LEFT" prefHeight="82.0" prefWidth="638.0"
+                      style="-fx-background-color: #549AD0; -fx-background-radius: 10 10 0 0;">
+                    <children>
+                        <Label contentDisplay="TOP" prefHeight="24.0" prefWidth="91.0" text="Aankondiging">
+                            <padding>
+                                <Insets bottom="5.0" left="15.0"/>
+                            </padding>
+                        </Label>
+                    </children>
+                </HBox>
+                <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..."/>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0"
+                      stylesheets="@../stylesheet/button.css">
+                    <children>
+                        <JFXButton fx:id="saveButton" text="Opslaan">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="closeButton" text="Sluit">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </VBox>
+    </children>
+</AnchorPane>
