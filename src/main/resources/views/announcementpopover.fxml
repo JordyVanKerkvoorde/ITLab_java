@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -18,14 +19,33 @@
                 <HBox alignment="BOTTOM_LEFT" prefHeight="82.0" prefWidth="638.0"
                       style="-fx-background-color: #549AD0; -fx-background-radius: 10 10 0 0;">
                     <children>
-                        <Label contentDisplay="TOP" prefHeight="24.0" prefWidth="91.0" text="Aankondiging">
+                        <Label fx:id="titleLabel" contentDisplay="TOP" prefHeight="33.0" prefWidth="134.0"
+                               text="Aankondiging" textFill="WHITE">
                             <padding>
                                 <Insets bottom="5.0" left="15.0"/>
                             </padding>
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
                         </Label>
+                        <AnchorPane prefHeight="35.0" prefWidth="384.0"/>
+                        <JFXCheckBox fx:id="checkBox" checkedColor="#549ad0" prefHeight="34.0" prefWidth="121.0"
+                                     text="Mail Verstuurd" textFill="WHITE" unCheckedColor="WHITE">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </JFXCheckBox>
                     </children>
                 </HBox>
-                <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..."/>
+                <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..."
+                             style="-fx-background-color: #f4f4f4;">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </JFXTextArea>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0"
                       stylesheets="@../stylesheet/button.css">
                     <children>
@@ -35,6 +55,12 @@
                             </HBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="closeButton" text="Sluit">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                        <AnchorPane prefHeight="53.0" prefWidth="362.0"/>
+                        <JFXButton fx:id="mailButton" text="Verstuur Mail">
                             <HBox.margin>
                                 <Insets left="20.0"/>
                             </HBox.margin>

@@ -33,8 +33,6 @@ import static com.calendarfx.model.CalendarEvent.ENTRY_CALENDAR_CHANGED;
 
 public class MainController implements Initializable, Callback {
 
-    @FXML
-    private JFXDrawer drawer;
 
     @FXML
     private AnchorPane root;
@@ -42,141 +40,18 @@ public class MainController implements Initializable, Callback {
     @FXML
     private StackPane body;
 
-    private CalendarView calendarView;
+    private CalendarController calendarController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Bindings.bindBidirectional(root.prefHeightProperty(), body.prefHeightProperty());
         Bindings.bindBidirectional(root.prefWidthProperty(), body.prefWidthProperty());
-        setupCalendar();
+        calendarController = new CalendarController();
+        loadCalendar();
         loadSidepanel();
-        drawer.open();
         loadCalendar();
     }
 
-
-    private void setupCalendar() {
-        calendarView = new CalendarView();
-        calendarView.setShowAddCalendarButton(false);
-        calendarView.setShowPageToolBarControls(false);
-        Calendar sessionCalendar = new Calendar("Sessions");
-        sessionCalendar.setStyle(Calendar.Style.STYLE2);
-
-        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-        myCalendarSource.getCalendars().add(sessionCalendar);
-        for (Session session : MockData.mockSessions) {
-            // id, title, start/end date
-            Entry<Session> sessionEntry = new Entry<>();
-            setListeners(session, sessionEntry);
-            sessionCalendar.addEntry(sessionEntry);
-        }
-        try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
-            JFXEventTabPane popup = loader.load();
-            PopOverController popOverController = loader.getController();
-            popup.setPopOverController(popOverController);
-            popup.parentProperty().addListener((observableValue, parent, t1) -> {
-                if (parent == null) {
-                    // TODO: write userObject to DB on change to null
-                }
-            });
-            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Session) param.getEntry().getUserObject()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println();
-        sessionCalendar.addEventHandler(this::handelCalendarEvent);
-        calendarView.getCalendarSources().clear();
-        calendarView.getCalendarSources().add(myCalendarSource);
-        calendarView.setRequestedTime(LocalTime.now());
-        setUpdateThread();
-    }
-
-    private void setListeners(Session session, Entry<Session> sessionEntry) {
-        sessionEntry.setUserObject(session);
-        sessionEntry.setTitle(session.getTitle());
-        sessionEntry.setInterval(new Interval(session.getStart().toLocalDate(), session.getStart().toLocalTime(),
-                session.getEnd().toLocalDate(), session.getEnd().toLocalTime()));
-        sessionEntry.setLocation(session.getLocation().getCampus().name());
-        sessionEntry.titleProperty().addListener((observable, oldValue, newValue) -> sessionEntry.getUserObject().setTitle(newValue));
-        sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
-                LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()))));
-    }
-
-    private void handelCalendarEvent(CalendarEvent event) {
-        if (event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()) {
-            try {
-                // this method gets called when a new event is created in the calendar
-                // a new Session has to be created and listeners have to be added to the new
-                // Entry<Session> that updates the Session object that has to be in the db
-                // session.sessionId won't be set because that has to happen in db
-                @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
-                Session session = new Session();
-                entry.setUserObject(session);
-                session.setTitle(entry.getTitle());
-                Location location = new Location();
-                session.setLocation(location);
-                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
-                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-//                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
-//                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-                MockData.mockSessions.add(session);
-                System.out.println(session);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-    }
-
-    private void setUpdateThread() {
-        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(() -> {
-                        calendarView.setToday(LocalDate.now());
-                        calendarView.setTime(LocalTime.now());
-                    });
-
-                    try {
-                        // update every 10 seconds
-                        sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        };
-        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
-        updateTimeThread.setDaemon(true);
-        updateTimeThread.start();
-    }
-
-    public void loadSession(Session session) {
-        try {
-            body.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/session.fxml"));
-            ScrollPane sessionPane = loader.load();
-            SessionController sessionController = loader.getController();
-            sessionController.setSession(session);
-            body.getChildren().add(sessionPane);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadEntry() {
-        try {
-            body.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
-            VBox popup = loader.load();
-            PopOverController popOverController = loader.getController();
-            body.getChildren().add(popup);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void loadAnnouncements() {
@@ -207,20 +82,6 @@ public class MainController implements Initializable, Callback {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-//        double[] xData = new double[] { 0.0, 1.0, 2.0 };
-//        double[] yData = new double[] { 2.0, 1.0, 0.0 };
-//
-//        // Create Chart
-//        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-//
-//        JPanel chartPanel = new XChartPanel<Chart>(chart);
-//        // for embedding swing in javafx
-//        //javafx.embed.swing.SwingNode;<---need this dependency
-//
-//        SwingNode swingNode = new SwingNode();
-//        swingNode.setContent(chartPanel);
-//        body.getChildren().add(swingNode);
     }
 
     @Override
@@ -240,7 +101,7 @@ public class MainController implements Initializable, Callback {
     @Override
     public void loadCalendar() {
         body.getChildren().clear();
-        body.getChildren().add(calendarView);
+        body.getChildren().add(calendarController.getCalendarView());
 
     }
 
@@ -251,7 +112,8 @@ public class MainController implements Initializable, Callback {
             VBox box = loader.load();
             SidePanelController controller = loader.getController();
             controller.setCallback(this);
-            drawer.setSidePane(box);
+            box.setMaxWidth(226.0);
+            root.getChildren().add(box);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

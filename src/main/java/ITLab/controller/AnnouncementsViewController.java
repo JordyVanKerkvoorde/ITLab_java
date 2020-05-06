@@ -39,7 +39,8 @@ public class AnnouncementsViewController implements Initializable {
     private JFXButton commitButton;
     @FXML
     private JFXListView<Announcement> announcementsListView;
-
+    @FXML
+    private VBox vbox;
     @FXML
     private AnchorPane anchorPane;
 
@@ -58,10 +59,14 @@ public class AnnouncementsViewController implements Initializable {
     }
 
     private void setStyle() {
+        Font titleFont = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 50);
         anchorPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
         Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
         inputArea.setFont(font);
-        title.setFont(font);
+        title.setFont(titleFont);
+        announcementsListView.setMaxHeight(Double.MAX_VALUE);
+        Bindings.bindBidirectional(anchorPane.prefHeightProperty(), vbox.prefHeightProperty());
+        VBox.setVgrow(announcementsListView, Priority.ALWAYS);
         //announcementsListView.prefHeightProperty().bindBidirectional(anchorPane.prefHeightProperty());
     }
 
@@ -93,7 +98,7 @@ public class AnnouncementsViewController implements Initializable {
     /**
      * Announcement is a custom cell for the JFXListView.
      */
-    class AnnouncementCell extends JFXListCell<Announcement> {
+    static class AnnouncementCell extends JFXListCell<Announcement> {
 
         @FXML
         private Label messageLabel;
@@ -102,8 +107,6 @@ public class AnnouncementsViewController implements Initializable {
         @FXML
         private Label timestampLabel;
 
-        @FXML
-        private AnchorPane anchorPane;
         private FXMLLoader loader;
 
         @Override
@@ -122,11 +125,10 @@ public class AnnouncementsViewController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-                Bindings.bindBidirectional(minHeightProperty(), vbox.prefHeightProperty());
                 setCellDoubleClickedHandler(item);
                 fillCell(item);
-
             }
+
         }
 
         /**
@@ -141,7 +143,7 @@ public class AnnouncementsViewController implements Initializable {
                         AnnouncementPopoverController controller = new AnnouncementPopoverController(announcement);
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/announcementpopover.fxml"));
                         loader.setController(controller);
-                        anchorPane = loader.load();
+                        AnchorPane anchorPane = loader.load();
                         Stage stage = new Stage();
                         stage.setTitle("Aankondiging aanpassen");
                         stage.setResizable(false);
@@ -166,11 +168,13 @@ public class AnnouncementsViewController implements Initializable {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm", new Locale("nl"));
             timestampLabel.setText(item.getPostTime().format(formatter));
             messageLabel.setText(item.getMessage());
-            messageLabel.setMaxWidth(400);
             messageLabel.setWrapText(true);
-            Font font = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
-            messageLabel.setFont(font);
-            timestampLabel.setFont(font);
+            messageLabel.prefWidthProperty().bind(getListView().widthProperty());
+            messageLabel.setMinHeight(Region.USE_PREF_SIZE);
+            this.prefWidthProperty().bind(getListView().widthProperty().multiply(0.95));
+            Font textFont = Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), 12);
+            messageLabel.setFont(textFont);
+            timestampLabel.setFont(textFont);
             messageLabel.setStyle("-fx-font-size: 18");
             setText(null);
             setGraphic(vbox);

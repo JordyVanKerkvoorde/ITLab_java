@@ -10,44 +10,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.AnnouncementsViewController">
+<AnchorPane fx:id="anchorPane" prefHeight="557.0" prefWidth="781.0" style="-fx-padding: 15;"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ITLab.controller.AnnouncementsViewController">
    <children>
-      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="title" text="Aankondigingen">
+            <Label fx:id="title" prefHeight="115.0" prefWidth="556.0" text="Aankondigingen">
                <font>
-                  <Font size="18.0" />
+                  <Font size="72.0"/>
                </font>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                </padding>
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin></Label>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+               </VBox.margin>
+            </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <JFXTextArea fx:id="inputArea" prefHeight="85.0" prefWidth="464.0">
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </padding>
                      <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin></JFXTextArea>
-                  <JFXButton fx:id="commitButton" prefHeight="44.0" prefWidth="123.0" text="Plaats">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                      </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding></JFXButton>
+                  </JFXTextArea>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="commitButton" alignment="CENTER" buttonType="RAISED" prefHeight="60.0"
+                                   prefWidth="123.0" text="Plaats">
+                           <font>
+                              <Font size="24.0"/>
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <JFXListView fx:id="announcementsListView" maxHeight="1.7976931348623157E308" prefHeight="-1">
+            <JFXListView fx:id="announcementsListView">
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                </padding>
             </JFXListView>
          </children>

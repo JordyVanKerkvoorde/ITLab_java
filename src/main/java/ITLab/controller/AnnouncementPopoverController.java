@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -32,6 +33,8 @@ public class AnnouncementPopoverController implements Initializable {
     private JFXButton saveButton;
     @FXML
     private JFXTextArea messageArea;
+    @FXML
+    private JFXButton mailButton;
     @FXML
     private VBox vbox;
     @FXML
@@ -49,6 +52,14 @@ public class AnnouncementPopoverController implements Initializable {
         saveButton.setOnAction(event -> save(event));
         messageArea.setText(announcement.getMessage());
         System.out.println(announcement.getMessage());
+        closeButton.setFont(getFont(closeButton.getFont().getSize()));
+        saveButton.setFont(getFont(saveButton.getFont().getSize()));
+        messageArea.setFont(getFont(messageArea.getFont().getSize() - 2));
+        mailButton.setFont(getFont(mailButton.getFont().getSize()));
+    }
+
+    public Font getFont(double i) {
+        return Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), i);
     }
 
     public void close(ActionEvent event) {

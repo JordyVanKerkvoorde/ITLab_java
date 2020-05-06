@@ -34,22 +34,22 @@ public class SidePanelController implements Initializable {
     }
 
     @FXML
-    private void changeColor(ActionEvent event) {
+    private void selectPanel(ActionEvent event) {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
         switch (btn.getText()) {
-            case "Calendar": // calendar
+            case "Kalender": // calendar
                 callback.loadCalendar();
                 break;
-            case "Announcements":
+            case "Aankondigingen":
 //                callback.unloadCalendar();
                 callback.loadAnnouncements();
                 break;
-            case "Statistics":
-//                MockData.mockSessions.forEach(e -> System.out.println(e));
-                callback.loadStatistics();
-                break;
-            case "Users":
+//            case "Statistics":
+////                MockData.mockSessions.forEach(e -> System.out.println(e));
+//                callback.loadStatistics();
+//                break;
+            case "Gebruikers":
                 callback.loadUsers();
                 break;
         }
