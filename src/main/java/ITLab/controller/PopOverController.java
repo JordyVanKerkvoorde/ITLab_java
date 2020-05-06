@@ -102,6 +102,7 @@ public class PopOverController implements Initializable {
     }
 
     private void setCellFactory() {
+        ingeschreven.getItems().clear();
         ingeschreven.setCellFactory(p -> new JFXListCell<User>() {
             @Override
             protected void updateItem(User item, boolean empty) {
