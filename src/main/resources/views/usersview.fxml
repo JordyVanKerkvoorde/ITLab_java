@@ -1,26 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.UsersViewController">
+<AnchorPane fx:id="anchorpane" prefHeight="748.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.UsersViewController">
    <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-          <Label>Users</Label>
-         <JFXButton fx:id="addUserButton" text="Gebruiker toevoegen" />
-         <TableView fx:id="userTableView" prefHeight="378.0" prefWidth="600.0">
-           <columns>
-               <TableColumn fx:id="familieNaamColumn" prefWidth="75.0" text="Familienaam" />
-             <TableColumn fx:id="voornaamColumn" prefWidth="75.0" text="Voornaam" />
-             <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
-               <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
-               <TableColumn fx:id="userNameColumn" prefWidth="75.0" text="Gebruikersnaam" />
-           </columns>
-         </TableView>
+         <HBox fx:id="hBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <VBox fx:id="vBox2" prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <HBox fx:id="searchBar" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <Label fx:id="titleLbl" text="Gebruikers">Users</Label>
+                           <AnchorPane fx:id="region" prefWidth="200.0" />
+                           <JFXTextField fx:id="searchTxf" promptText="Zoek..." />
+                        </children>
+                     </HBox>
+                     <TableView fx:id="userTableView" prefHeight="358.0" prefWidth="292.0">
+                       <columns>
+                           <TableColumn fx:id="familieNaamColumn" prefWidth="75.0" text="Familienaam" />
+                         <TableColumn fx:id="voornaamColumn" prefWidth="75.0" text="Voornaam" />
+                         <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+                           <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+                           <TableColumn fx:id="userNameColumn" prefWidth="75.0" text="Gebruikersnaam" />
+                       </columns>
+                     </TableView>
+                  </children>
+               </VBox>
+                <VBox prefHeight="369.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css">
+                    <children>
+                     <HBox fx:id="titleBar" alignment="CENTER_LEFT">
+                        <children>
+                           <AnchorPane fx:id="region2" prefHeight="200.0" prefWidth="200.0" />
+                           <JFXButton fx:id="addUserButton" buttonType="RAISED" text="Gebruiker toevoegen" />
+                        </children>
+                     </HBox>
+                     <VBox fx:id="vBox">
+                        <children>
+                              <AnchorPane prefHeight="180.0" prefWidth="200.0">
+                                  <children>
+                                      <ImageView fitHeight="150.0" fitWidth="600.0" layoutX="245.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../images/default-avatar.png" />
+                                          </image>
+                                      </ImageView>
+                                  </children>
+                              </AnchorPane>
+                              <HBox prefHeight="48.0" prefWidth="640.0">
+                                  <children>
+                                      <Label text="Familienaam" />
+                                      <JFXTextField fx:id="lastnameField" />
+                                      <Label text="Voornaam" />
+                                      <JFXTextField fx:id="firstnameField" />
+                                  </children>
+                              </HBox>
+                              <HBox prefHeight="52.0" prefWidth="640.0">
+                                  <children>
+                                      <Label prefHeight="33.0" styleClass="text" text="Type" />
+                                      <JFXComboBox fx:id="typeComboBox" prefHeight="25.0" prefWidth="246.0" />
+                                      <Label prefHeight="33.0" styleClass="text" text="Status" />
+                                      <JFXComboBox fx:id="statusComboBox" prefHeight="31.0" prefWidth="304.0" />
+                                  </children>
+                              </HBox>
+                              <HBox prefHeight="60.0" prefWidth="640.0">
+                                  <children>
+                                      <Label text="Gebruikersnaam" />
+                                      <JFXTextField fx:id="usernameField" prefHeight="31.0" prefWidth="448.0" />
+                                  </children>
+                              </HBox>
+                              <HBox prefHeight="54.0" prefWidth="640.0">
+                                  <children>
+                                      <JFXButton fx:id="commitButton" />
+                                  </children>
+                           </HBox>
+                           <Label fx:id="errorMessage" text="Label" />
+                        </children>
+                     </VBox>
+                    </children>
+                </VBox>
+            </children>
+         </HBox>
       </children>
    </VBox>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </AnchorPane>
