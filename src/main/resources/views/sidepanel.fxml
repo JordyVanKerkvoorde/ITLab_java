@@ -13,14 +13,14 @@
             </image>
         </ImageView>
         <JFXButton fx:id="b1" buttonType="RAISED" onAction="#selectPanel" prefHeight="100.0" prefWidth="500.0"
-                   ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;" text="Calendar"/>
+                   ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;" text="Kalender"/>
         <JFXButton fx:id="b2" buttonType="RAISED" layoutX="10.0" layoutY="123.0" onAction="#selectPanel"
                    prefHeight="100.0" prefWidth="500.0" ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;"
-                   text="Announcements"/>
+                   text="Aankondigingen"/>
         <JFXButton fx:id="b4" buttonType="RAISED" layoutX="10.0" layoutY="197.0" onAction="#selectPanel"
                    prefHeight="100.0" prefWidth="500.0" ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;"
-                   text="Users"/>
+                   text="Gebruikers"/>
         <JFXButton fx:id="exit" buttonType="RAISED" layoutX="10.0" layoutY="271.0" onAction="#exit" prefHeight="100.0"
-                   prefWidth="500.0" ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;" text="EXIT"/>
+                   prefWidth="500.0" ripplerFill="#549AD0" style="-fx-background-color: #f1f1f1;" text="Sluit"/>
     </children>
 </VBox>
