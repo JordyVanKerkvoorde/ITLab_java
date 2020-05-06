@@ -32,6 +32,8 @@ public class PopOverController implements Initializable {
     @FXML
     private Tab tab2;
     @FXML
+    private Tab tab3;
+    @FXML
     private JFXTextField title;
     @FXML
     private JFXComboBox<String> campus;
@@ -98,6 +100,7 @@ public class PopOverController implements Initializable {
         tabPane.setPrefSize(550.0, 640.0);
         tab1.setText("Overzicht");
         tab2.setText("Aanwezigheden");
+        tab3.setText("Bestanden");
         setCellFactory();
     }
 

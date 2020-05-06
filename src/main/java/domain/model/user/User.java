@@ -109,7 +109,7 @@ public class User {
 
     public void setLastName(String lastName) {
         if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("Voornaam mag niet leeg zijn.");
+            throw new IllegalArgumentException("Familienaam mag niet leeg zijn.");
         }
         else {
             this.lastName = lastName;
