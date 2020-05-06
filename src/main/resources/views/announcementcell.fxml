@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" prefHeight="105.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox fx:id="vbox" prefHeight="105.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="timestampLabel" text="Timestamp" />
-      <Label fx:id="messageLabel" text="Label" />
+      <Label fx:id="timestampLabel" text="Timestamp">
+         <padding>
+            <Insets bottom="5.0"/>
+         </padding>
+      </Label>
+      <Label fx:id="messageLabel" text="Label"/>
    </children>
 </VBox>

@@ -207,20 +207,6 @@ public class MainController implements Initializable, Callback {
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-//        double[] xData = new double[] { 0.0, 1.0, 2.0 };
-//        double[] yData = new double[] { 2.0, 1.0, 0.0 };
-//
-//        // Create Chart
-//        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-//
-//        JPanel chartPanel = new XChartPanel<Chart>(chart);
-//        // for embedding swing in javafx
-//        //javafx.embed.swing.SwingNode;<---need this dependency
-//
-//        SwingNode swingNode = new SwingNode();
-//        swingNode.setContent(chartPanel);
-//        body.getChildren().add(swingNode);
     }
 
     @Override
