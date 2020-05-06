@@ -34,7 +34,7 @@ public class SidePanelController implements Initializable {
     }
 
     @FXML
-    private void changeColor(ActionEvent event) {
+    private void selectPanel(ActionEvent event) {
         JFXButton btn = (JFXButton) event.getSource();
         System.out.println(btn.getText());
         switch (btn.getText()) {

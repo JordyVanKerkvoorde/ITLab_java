@@ -13,6 +13,5 @@
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="703" prefWidth="1226" xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.MainController">
     <children>
       <StackPane fx:id="body" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="226.0" AnchorPane.rightAnchor="0.0"/>
-        <JFXDrawer fx:id="drawer" prefWidth="108.0" />
     </children>
 </AnchorPane>
