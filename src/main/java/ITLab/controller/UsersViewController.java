@@ -101,8 +101,8 @@ public class UsersViewController implements Initializable {
         setColumnFactories();
         setColumnWidth();
 
-//        userTableView.getItems().addAll(userObservableList);
-//        userTableView.getSortOrder().add(familieNaamColumn);
+        userTableView.getSortOrder().add(familieNaamColumn);
+        userTableView.setPlaceholder(new Label("Geen gebruikers gevonden."));
 
         selectedUserChangedHandler();
         setAddUserHandler();
@@ -125,9 +125,6 @@ public class UsersViewController implements Initializable {
         HBox.setHgrow(region, Priority.ALWAYS);
         HBox.setHgrow(region2, Priority.ALWAYS);
         searchBar.prefWidthProperty().bind(userTableView.widthProperty());
-
-
-        //announcementsListView.prefHeightProperty().bindBidirectional(anchorPane.prefHeightProperty());
     }
 
     private void selectedUserChangedHandler(){
@@ -201,21 +198,9 @@ public class UsersViewController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
     }
 
-    /**
-     * refreshes the tableView after edits
-     */
-//    private void refreshUserTable() {
-////        userTableView.getItems().clear();
-////        userTableView.getItems().addAll(userObservableList);
-////        userTableView.sort();
-//        userTableView.refresh();
-//    }
 
     private void initializeUserPanel(){
         initializeComboBoxes();
-        //closeButton.setOnAction(event -> close(event));
-        //     * @param user: if user is null -> edit user popover
-        //     *              if user not null -> create user popover
 
             commitButton.setText("Opslaan");
             commitButton.setOnAction(event -> saveUser());
