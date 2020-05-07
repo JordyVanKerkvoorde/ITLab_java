@@ -13,6 +13,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -94,11 +96,13 @@ public class UsersViewController implements Initializable {
         userObservableList = FXCollections.observableArrayList();
         userObservableList.addAll(MockData.mockUsers);
 
+        setUpSearchField();
+
         setColumnFactories();
         setColumnWidth();
 
-        userTableView.getItems().addAll(userObservableList);
-        userTableView.getSortOrder().add(familieNaamColumn);
+//        userTableView.getItems().addAll(userObservableList);
+//        userTableView.getSortOrder().add(familieNaamColumn);
 
         selectedUserChangedHandler();
         setAddUserHandler();
@@ -154,6 +158,33 @@ public class UsersViewController implements Initializable {
         });
     }
 
+    private void setUpSearchField() {
+        FilteredList<User> filteredUsers = new FilteredList<>(userObservableList, b -> true);
+        searchTxf.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredUsers.setPredicate(user -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (user.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getLastName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (user.getUserName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+
+        SortedList<User> sortedUsers = new SortedList<>(filteredUsers);
+        sortedUsers.comparatorProperty().bind(userTableView.comparatorProperty());
+        userTableView.setItems(sortedUsers);
+    }
+
     private void setColumnWidth() {
         familieNaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
         voornaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
@@ -173,11 +204,12 @@ public class UsersViewController implements Initializable {
     /**
      * refreshes the tableView after edits
      */
-    private void refreshUserTable() {
-        userTableView.getItems().clear();
-        userTableView.getItems().addAll(userObservableList);
-        userTableView.sort();
-    }
+//    private void refreshUserTable() {
+////        userTableView.getItems().clear();
+////        userTableView.getItems().addAll(userObservableList);
+////        userTableView.sort();
+//        userTableView.refresh();
+//    }
 
     private void initializeUserPanel(){
         initializeComboBoxes();
@@ -213,8 +245,9 @@ public class UsersViewController implements Initializable {
             selectedUser.setUserType(typeComboBox.getValue());
             if(!userObservableList.contains(selectedUser)){
                 userObservableList.add(selectedUser);
+                MockData.mockUsers.add(selectedUser);
             }
-            refreshUserTable();
+            userTableView.refresh();
         }catch(IllegalArgumentException e){
             errorMessage.setVisible(true);
             errorMessage.setText("De velden mogen niet leeg zijn!");
