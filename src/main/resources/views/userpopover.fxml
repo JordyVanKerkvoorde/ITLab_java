@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="o" prefHeight="369.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="popOver" prefHeight="369.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane prefHeight="180.0" prefWidth="200.0">
             <children>
