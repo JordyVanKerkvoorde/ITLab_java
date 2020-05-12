@@ -7,6 +7,7 @@ import domain.model.user.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -59,9 +60,19 @@ public class Session {
         setStartAndEnd(start, end);
         setLocation(location);
         setCapacity(capacity);
+        initLists();
     }
 
     public Session() {
+        initLists();
+    }
+
+    public void initLists(){
+        userSessions = new ArrayList<>();
+        feedback = new ArrayList<>();
+        presentUsers = new ArrayList<>();
+        media = new ArrayList<>();
+        guests = new ArrayList<>();
     }
 
     public int getSessionId() {
@@ -111,25 +122,11 @@ public class Session {
         return start;
     }
 
-//    public void setStart(LocalDateTime start) {
-//        if(end != null && start.isAfter(end)){
-//            throw new IllegalArgumentException("Het begin van een sessie kan niet na het einde liggen.");
-//        }
-//
-//        this.start = start;
-//    }
 
     public LocalDateTime getEnd() {
         return end;
     }
 
-//    public void setEnd(LocalDateTime end) {
-//        if(start != null && end.isBefore(start)){
-//            throw new IllegalArgumentException("Het einde van een sessie kan niet voor het begin liggen.");
-//        }
-//
-//        this.end = end;
-//    }
 
     public void setStartAndEnd(LocalDateTime start, LocalDateTime end) {
         LocalDateTime oldStart = getStart();

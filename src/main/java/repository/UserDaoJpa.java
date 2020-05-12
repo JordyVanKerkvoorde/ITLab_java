@@ -7,4 +7,14 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao {
     public UserDaoJpa() {
         super(User.class);
     }
+
+    @Override
+    public void createUser(User user) {
+
+    }
+
+    @Override
+    public void updateUser(User oldvalue, User newvalue) {
+
+    }
 }
