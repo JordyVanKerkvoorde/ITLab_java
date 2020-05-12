@@ -27,11 +27,20 @@ public class UserController {
 
     public void addUser(User user) {
         //TODO: email already used
-        if (users.stream().anyMatch(u -> u.getEmail() == user.getEmail())){
+        if (users.stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))){
             throw new AlreadyExistsException("Er bestaat al een gebruiker met dit e-mailadres.");
         }
         userDao.createUser(user);
         users.add(user);
+    }
+
+    public void updateUser(User updatedUser) {
+        User old = getUserByASPId(updatedUser.getId());
+        if (old == null) {
+            throw new NullPointerException("Gebruiker niet gevonden.");
+        }
+        userDao.updateUser(old, updatedUser);
+
     }
 
 }

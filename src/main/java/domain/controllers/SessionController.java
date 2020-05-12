@@ -44,4 +44,12 @@ public class SessionController {
     public void addSession(Session session){
         sessionDao.createSession(session);
     }
+
+    public void updateSession(Session updatedSession) {
+        Session old = getSessionById(updatedSession.getSessionId());
+        if (old == null) {
+            throw new NullPointerException("Sessie niet gevonden.");
+        }
+        sessionDao.updateSession(old, updatedSession);
+    }
 }
