@@ -63,8 +63,8 @@ public class AnnouncementPopoverController implements Initializable {
         saveButton.setFont(getFont(saveButton.getFont().getSize()));
         messageArea.setFont(getFont(messageArea.getFont().getSize() - 2));
         mailButton.setFont(getFont(mailButton.getFont().getSize()));
-
         checkBox.setDisable(true);
+        checkBox.setSelected(announcement.isMailed());
         setMailButton();
         notification.setVisible(false);
 
@@ -83,6 +83,7 @@ public class AnnouncementPopoverController implements Initializable {
     public void save(ActionEvent event) {
         try {
             announcement.setMessage(messageArea.getText());
+            announcement.setMailed(false);
             close(event);
         } catch (IllegalArgumentException e) {
             JFXDialogLayout content = new JFXDialogLayout();
@@ -117,6 +118,7 @@ public class AnnouncementPopoverController implements Initializable {
                 public void run() {
                     while(t.isAlive()){}
                     checkBox.setSelected(true);
+                    announcement.setMailed(true);
                     mailButton.setDisable(false);
                     notification.setVisible(false);
                 }
