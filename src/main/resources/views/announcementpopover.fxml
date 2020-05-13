@@ -12,64 +12,58 @@
 
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox id="o" fx:id="vbox" prefHeight="385.0" prefWidth="640.0"
-              style="-fx-border-color: BLACK; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;"
-              stylesheets="@../stylesheet/announcementsview.css">
+        <VBox id="o" fx:id="vbox" prefHeight="385.0" prefWidth="640.0" style="-fx-border-color: BLACK; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" stylesheets="@../stylesheet/announcementsview.css">
             <children>
-                <HBox alignment="BOTTOM_LEFT" prefHeight="82.0" prefWidth="638.0"
-                      style="-fx-background-color: #549AD0; -fx-background-radius: 10 10 0 0;">
+                <HBox alignment="BOTTOM_LEFT" prefHeight="82.0" prefWidth="638.0" style="-fx-background-color: #549AD0; -fx-background-radius: 10 10 0 0;">
                     <children>
-                        <Label fx:id="titleLabel" contentDisplay="TOP" prefHeight="33.0" prefWidth="134.0"
-                               text="Aankondiging" textFill="WHITE">
+                        <Label fx:id="titleLabel" contentDisplay="TOP" prefHeight="33.0" prefWidth="134.0" text="Aankondiging" textFill="WHITE">
                             <padding>
-                                <Insets bottom="5.0" left="15.0"/>
+                                <Insets bottom="5.0" left="15.0" />
                             </padding>
                             <font>
-                                <Font name="System Bold" size="15.0"/>
+                                <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <AnchorPane prefHeight="35.0" prefWidth="384.0"/>
-                        <JFXCheckBox fx:id="checkBox" checkedColor="#549ad0" prefHeight="34.0" prefWidth="121.0"
-                                     text="Mail Verstuurd" textFill="WHITE" unCheckedColor="WHITE">
+                        <AnchorPane prefHeight="35.0" prefWidth="384.0" />
+                        <JFXCheckBox fx:id="checkBox" checkedColor="#549ad0" prefHeight="34.0" prefWidth="121.0" text="Mail Verstuurd" textFill="WHITE" unCheckedColor="WHITE">
                             <font>
-                                <Font name="System Bold" size="12.0"/>
+                                <Font name="System Bold" size="12.0" />
                             </font>
                         </JFXCheckBox>
                     </children>
                 </HBox>
-                <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..."
-                             style="-fx-background-color: #f4f4f4;">
+                <JFXTextArea fx:id="messageArea" prefHeight="323.0" prefWidth="626.0" promptText="Aankondiging..." style="-fx-background-color: #f4f4f4;">
                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </JFXTextArea>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0"
-                      stylesheets="@../stylesheet/button.css">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" stylesheets="@../stylesheet/button.css">
                     <children>
                         <JFXButton fx:id="saveButton" text="Opslaan">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="closeButton" text="Sluit">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <AnchorPane prefHeight="53.0" prefWidth="362.0"/>
+                        <AnchorPane prefHeight="53.0" prefWidth="240.0" />
+                  <Label fx:id="notification" text="Mail wordt verstuurd..." />
                         <JFXButton fx:id="mailButton" text="Verstuur Mail">
                             <HBox.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </HBox.margin>
                         </JFXButton>
                     </children>
                 </HBox>
             </children>
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </VBox>
     </children>

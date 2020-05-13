@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -53,6 +54,19 @@ public class AnnouncementsViewController implements Initializable {
         announcementObservableList.addAll(MockData.mockAnnouncements);
 
         announcementsListView.setItems(announcementObservableList);
+        announcementsListView.getItems().sort(new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement o1, Announcement o2) {
+                if(o1.getPostTime().equals(o2.getPostTime())){
+                    return 0;
+                }
+                if(o1.getPostTime().isBefore(o2.getPostTime())){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        });
         announcementsListView.setCellFactory(announcementListView -> new AnnouncementCell());
         commitButton.setOnAction(event -> createAnnouncement(event));
         setStyle();
@@ -73,6 +87,7 @@ public class AnnouncementsViewController implements Initializable {
     private void createAnnouncement(ActionEvent event) {
         try {
             Announcement announcement = new Announcement(inputArea.getText());
+            MockData.mockAnnouncements.add(announcement);
             announcementObservableList.add(0, announcement);
             inputArea.clear();
         } catch (IllegalArgumentException e) {
@@ -165,7 +180,7 @@ public class AnnouncementsViewController implements Initializable {
          * @param item : the Announcement containing the data
          */
         private void fillCell(Announcement item) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy - hh:mm", new Locale("nl"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy - HH:mm", new Locale("nl"));
             timestampLabel.setText(item.getPostTime().format(formatter));
             messageLabel.setText(item.getMessage());
             messageLabel.setWrapText(true);

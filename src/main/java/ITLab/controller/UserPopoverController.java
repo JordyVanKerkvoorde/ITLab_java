@@ -14,15 +14,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class UserPopoverController implements Initializable {
+    @FXML
+    private VBox popOver;
 
-    private ObservableList<User> userObservableList;
     @FXML
     private JFXTextField lastnameField;
     @FXML
@@ -41,25 +46,24 @@ public class UserPopoverController implements Initializable {
     private User user;
 
 
-    public UserPopoverController(User user, ObservableList<User> userObservableList) {
+    public UserPopoverController(User user) {
         this.user = user;
-        this.userObservableList = userObservableList;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboBoxes();
         closeButton.setOnAction(event -> close(event));
-        //     * @param user: if user is null -> edit user popover
-        //     *              if user not null -> create user popover
         if (user == null) {
+            user =  new User();
             commitButton.setText("Aanmaken");
-            commitButton.setOnAction(event -> createUser(event));
+            commitButton.setOnAction(event -> saveUser(event));
         } else {
             commitButton.setText("Opslaan");
             commitButton.setOnAction(event -> saveUser(event));
             fillUserData();
         }
+        setStyle();
     }
 
     public void initializeComboBoxes() {
@@ -67,40 +71,18 @@ public class UserPopoverController implements Initializable {
         typeComboBox.setItems(FXCollections.observableArrayList(UserType.values()));
     }
 
-    /**
-     * Creates and adds new user to tableview and database
-     */
-    private void createUser(ActionEvent event) {
-        User user = new User();
-        user.setLastName(lastnameField.getText());
-        user.setFirstName(firstnameField.getText());
-        user.setUserName(usernameField.getText());
-        user.setUserStatus(statusComboBox.getValue());
-        user.setUserType(typeComboBox.getValue());
-        user.setPenalties(0);
-        user.setUserId(firstnameField.getText().toLowerCase() + lastnameField.getText().toLowerCase());
-        user.setEmail(usernameField.getText());
-
-        //TODO: databank
-        userObservableList.add(user);
-        MockData.mockUsers.add(user);
-        close(event);
-    }
-    /**
-     * Edits and updates new user to tableview and database
-     */
     private void saveUser(ActionEvent event) {
         user.setLastName(lastnameField.getText());
         user.setFirstName(firstnameField.getText());
         user.setUserName(usernameField.getText());
         user.setUserStatus(statusComboBox.getValue());
         user.setUserType(typeComboBox.getValue());
+        if(!MockData.mockUsers.contains(user)){
+            MockData.mockUsers.add(user);
+        }
         close(event);
     }
 
-    /**
-     * Fills popover form based on existing users' data
-     */
     private void fillUserData() {
         lastnameField.setText(user.getLastName());
         firstnameField.setText(user.getFirstName());
@@ -115,4 +97,12 @@ public class UserPopoverController implements Initializable {
         stage.close();
     }
 
+    private Font getFont(double i){
+        return Font.loadFont(getClass().getClassLoader().getResourceAsStream("fonts/Roboto-Medium.ttf"), i);
+    }
+
+    private void setStyle() {
+        popOver.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
+        //titleLbl.setFont(getFont(50));
+    }
 }

@@ -16,6 +16,8 @@ public class Announcement{
     private LocalDateTime postTime;
     @Column(name="Message")
     private String message;
+   // @Column(name="Mailed");
+    private boolean mailed;
 
     public Announcement(String message) {
         //Is de postTime niet gelijk aan LocalDateTime.now()?
@@ -32,6 +34,13 @@ public class Announcement{
         return id;
     }
 
+    public boolean isMailed() {
+        return mailed;
+    }
+
+    public void setMailed(boolean mailed) {
+        this.mailed = mailed;
+    }
     public LocalDateTime getPostTime() {
         return postTime;
     }
