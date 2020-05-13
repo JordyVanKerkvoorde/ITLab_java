@@ -110,18 +110,15 @@ public class AnnouncementPopoverController implements Initializable {
             notification.setVisible(true);
             mailButton.setDisable(true);
             Mail mail = new Mail();
-            mail.setMailProperties("ITLab aankondiging", announcement.getMessage(), MockData.mockUsers);
+            mail.setupMail("ITLab aankondiging", announcement.getMessage(), MockData.mockUsers);
             Thread t = new Thread(mail);
             t.start();
-            Thread t2 = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while(t.isAlive()){}
-                    checkBox.setSelected(true);
-                    announcement.setMailed(true);
-                    mailButton.setDisable(false);
-                    notification.setVisible(false);
-                }
+            Thread t2 = new Thread(() -> {
+                while(t.isAlive()){}
+                checkBox.setSelected(true);
+                announcement.setMailed(true);
+                mailButton.setDisable(false);
+                notification.setVisible(false);
             });
             t2.start();
         });

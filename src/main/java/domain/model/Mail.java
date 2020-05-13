@@ -29,7 +29,7 @@ public class Mail implements Runnable {
         recipients = new ArrayList<>();
     }
 
-    public void setMailProperties(String subject, String body, List<User> recipients){
+    public void setupMail(String subject, String body, List<User> recipients){
         this.subject = subject;
         this.body = body;
         this.recipients = recipients;
