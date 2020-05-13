@@ -4,6 +4,7 @@ import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import domain.model.user.User;
+import domain.model.user.UserSession;
 import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 import org.junit.jupiter.api.Assertions;
@@ -22,6 +23,9 @@ class SessionTest {
     private User responsible;
     private User inactiveuser;
     private Location location;
+    private UserSession userSession1;
+    private UserSession userSession2;
+
 
     @BeforeEach
     void before() {
@@ -31,6 +35,9 @@ class SessionTest {
         inactiveuser = new User("456465jv", "Jordy", "Van Kerkvoorde", UserType.USER, UserStatus.INACTIVE, 0, "jordyv@hogent.be", "jordyv@hogent.be", true);
         location = new Location("GebouwB.201", CampusEnum.SCHOONMEERSEN, 60);
         session.setLocation(location);
+
+        userSession1 = new UserSession(user, session);
+        userSession2 = new UserSession(user, new Session());
     }
 
     @ParameterizedTest
@@ -75,53 +82,24 @@ class SessionTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> session.setResponsible(inactiveuser));
     }
 
-//    @Test
-//    void setStartWithEndAlreadyDefined() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        session.setEnd(dateTime.plusHours(2));
-//        session.setStart(dateTime);
-//        Assertions.assertEquals(dateTime, session.getStart());
-//    }
-//
-//    @Test
-//    void setStartWithEndNotDefined() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        LocalDateTime start = dateTime.plusMinutes(30);
-//        session.setStart(start);
-//        Assertions.assertEquals(start, session.getStart());
-//    }
-//
-//    @Test
-//    void setStartWithEndAlreadyDefinedOngeldig() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        session.setEnd(dateTime);
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusHours(3)));
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStart(dateTime.plusSeconds(1)));
-//    }
-//
-//    @Test
-//    void setEndWithStartAlreadyDefined() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        session.setStart(dateTime.minusHours(2));
-//        session.setEnd(dateTime);
-//        Assertions.assertEquals(dateTime, session.getEnd());
-//    }
-//
-//    @Test
-//    void setEndWithStartNotDefined() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        LocalDateTime end = dateTime.plusDays(5);
-//        session.setEnd(end);
-//        Assertions.assertEquals(end, session.getEnd());
-//    }
-//
-//    @Test
-//    void setEndWithStartAlreadyDefinedOngeldig() {
-//        LocalDateTime dateTime = LocalDateTime.now();
-//        session.setStart(dateTime);
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusHours(3)));
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setEnd(dateTime.minusSeconds(1)));
-//    }
+    @Test
+    void setStartAndEnd(){
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.now().plusHours(2);
+        session.setStartAndEnd(start, end);
+        Assertions.assertEquals(start, session.getStart());
+        Assertions.assertEquals(end, session.getEnd());
+
+    }
+
+    @Test
+    void setStartAndEndOngeldig(){
+        LocalDateTime start = LocalDateTime.now().plusHours(2);
+        LocalDateTime end = LocalDateTime.now();
+        Assertions.assertThrows(IllegalArgumentException.class, () -> session.setStartAndEnd(start, end));
+        Assertions.assertThrows(NullPointerException.class, () -> session.setStartAndEnd(start, null));
+        Assertions.assertThrows(NullPointerException.class, () -> session.setStartAndEnd(null, end));
+    }
 
     @ParameterizedTest
     @ValueSource(ints= { 1, 2, 10, 30, 50, 60 })
@@ -138,9 +116,14 @@ class SessionTest {
 
     @Test
     void addUserSession() {
+        session.addUserSession(userSession1);
+        Assertions.assertTrue(session.getUserSessions().contains(userSession1));
     }
 
     @Test
     void addUserSessionOngeldig() {
+        session.addUserSession(userSession1);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> session.addUserSession(userSession1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> session.addUserSession(userSession2));
     }
 }

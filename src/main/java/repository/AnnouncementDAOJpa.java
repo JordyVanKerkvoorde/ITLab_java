@@ -14,7 +14,14 @@ public class AnnouncementDAOJpa extends GenericDaoJpa<Announcement> implements A
 
     @Override
     public void createAnnouncement(Announcement announcement) {
+        try{
+            em.getTransaction().begin();
+            em.persist(announcement);
+            em.getTransaction().commit();
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
