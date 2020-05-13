@@ -1,10 +1,9 @@
 package ITLab.controller;
 
 import ITLab.components.WindowButtons;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.*;
+import domain.MockData;
+import domain.model.Mail;
 import domain.model.session.Announcement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -21,6 +21,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.application.Platform;
+import sun.jvm.hotspot.debugger.ThreadAccess;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +31,7 @@ public class AnnouncementPopoverController implements Initializable {
 
     @FXML
     private JFXButton closeButton;
+
     @FXML
     private JFXButton saveButton;
     @FXML
@@ -36,9 +39,13 @@ public class AnnouncementPopoverController implements Initializable {
     @FXML
     private JFXButton mailButton;
     @FXML
+    private JFXCheckBox checkBox;
+    @FXML
     private VBox vbox;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Label notification;
 
     private Announcement announcement;
 
@@ -56,6 +63,11 @@ public class AnnouncementPopoverController implements Initializable {
         saveButton.setFont(getFont(saveButton.getFont().getSize()));
         messageArea.setFont(getFont(messageArea.getFont().getSize() - 2));
         mailButton.setFont(getFont(mailButton.getFont().getSize()));
+
+        checkBox.setDisable(true);
+        setMailButton();
+        notification.setVisible(false);
+
     }
 
     public Font getFont(double i) {
@@ -90,5 +102,26 @@ public class AnnouncementPopoverController implements Initializable {
             dialog.show();
             messageArea.setText(announcement.getMessage());
         }
+    }
+
+    private void setMailButton(){
+        mailButton.setOnMouseClicked(e -> {
+            notification.setVisible(true);
+            mailButton.setDisable(true);
+            Mail mail = new Mail();
+            mail.setMailProperties("ITLab aankondiging", announcement.getMessage(), MockData.mockUsers);
+            Thread t = new Thread(mail);
+            t.start();
+            Thread t2 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while(t.isAlive()){}
+                    checkBox.setSelected(true);
+                    mailButton.setDisable(false);
+                    notification.setVisible(false);
+                }
+            });
+            t2.start();
+        });
     }
 }
