@@ -63,7 +63,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>8.3.0.jre14-preview</version>
+            <version>8.2.2.jre8</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>

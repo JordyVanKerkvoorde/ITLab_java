@@ -12,13 +12,23 @@ public class AnnouncementController {
     private AnnouncementDAO announcementDAO;
     private List<Announcement> announcements;
 
-    public AnnouncementController() {
+    private static final AnnouncementController instance = new AnnouncementController();
+
+    private AnnouncementController() {
         announcementDAO = new AnnouncementDAOJpa();
         loadAnnouncements();
     }
 
+    public static AnnouncementController getInstance() {
+        return instance;
+    }
+
     public void loadAnnouncements() {
         announcements = announcementDAO.findAll();
+    }
+
+    public List<Announcement> getAnnouncements() {
+        return this.announcements;
     }
 
     public Announcement getAnnouncementById(int id){

@@ -2,6 +2,7 @@ package ITLab.controller;
 
 import com.jfoenix.controls.*;
 import domain.MockData;
+import domain.controllers.AnnouncementController;
 import domain.model.session.Announcement;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -22,10 +23,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
@@ -50,8 +48,12 @@ public class AnnouncementsViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AnnouncementController announcementController = AnnouncementController.getInstance();
+
         announcementObservableList = FXCollections.observableArrayList();
-        announcementObservableList.addAll(MockData.mockAnnouncements);
+        announcementObservableList.addAll(announcementController.getAnnouncements());
+
+
 
         announcementsListView.setItems(announcementObservableList);
         announcementsListView.getItems().sort(new Comparator<Announcement>() {
