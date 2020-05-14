@@ -47,7 +47,7 @@
     <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-commons:8.13" level="project" />
     <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-fontawesome:4.7.0-1" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.persistence:javax.persistence:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.persistence:eclipselink:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.persistence:eclipselink:2.7.7" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.persistence:commonj.sdo:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.microsoft.sqlserver:mssql-jdbc:8.3.0.jre14-preview" level="project" />
     <orderEntry type="library" name="Maven: commons-validator:commons-validator:1.4.1" level="project" />
