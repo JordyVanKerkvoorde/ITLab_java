@@ -10,9 +10,15 @@ public class LocationController {
     private LocationDao locationDao;
     private List<Location> locations;
 
-    public LocationController() {
+    private static final LocationController instance = new LocationController();
+
+    private LocationController() {
         locationDao = new LocationDaoJpa();
         loadLocations();
+    }
+
+    public static LocationController getInstance() {
+        return instance;
     }
 
     public Location getLocationById(String id){

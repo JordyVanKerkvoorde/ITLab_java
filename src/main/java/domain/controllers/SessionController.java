@@ -12,9 +12,15 @@ public class SessionController {
     private SessionDao sessionDao;
     private List<Session> sessions;
 
-    public SessionController() {
+    private static final SessionController instance = new SessionController();
+
+    private SessionController() {
         this.sessionDao = new SessionDaoJpa();
         loadSessions();
+    }
+
+    public static SessionController getInstance() {
+        return instance;
     }
 
     public void setSessionDao(SessionDao sessionDao) {
