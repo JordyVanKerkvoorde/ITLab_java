@@ -17,8 +17,6 @@ public class LocationDaoJpa extends GenericDaoJpa<Location> implements LocationD
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
-        } finally {
-            closePersistency();
         }
     }
 
@@ -32,8 +30,6 @@ public class LocationDaoJpa extends GenericDaoJpa<Location> implements LocationD
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
-        } finally {
-            closePersistency();
         }
 
     }
