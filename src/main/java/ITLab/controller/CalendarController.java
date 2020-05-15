@@ -4,6 +4,7 @@ import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import domain.MockData;
+import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
@@ -45,7 +46,14 @@ public class CalendarController {
                     // TODO: write userObject to DB on change to null
                 }
             });
-            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Session) param.getEntry().getUserObject()));
+            calendarView.setEntryDetailsPopOverContentCallback(param -> {
+                Session session = (Session) param.getEntry().getUserObject();
+                if (session.getDescription() == null) {
+                    session.setDescription("No description set");
+                    session.setLocation(new Location("no location set", CampusEnum.SCHOONMEERSEN, 1000));
+                }
+                return popup.setSession((Session) param.getEntry().getUserObject());
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,10 +79,6 @@ public class CalendarController {
     private void handelCalendarEvent(CalendarEvent event) {
         if (event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()) {
             try {
-                // this method gets called when a new event is created in the calendar
-                // a new Session has to be created and listeners have to be added to the new
-                // Entry<Session> that updates the Session object that has to be in the db
-                // session.sessionId won't be set because that has to happen in db
                 @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
                 Session session = new Session();
                 entry.setUserObject(session);
@@ -83,8 +87,6 @@ public class CalendarController {
                 session.setLocation(location);
                 session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
                         LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-//                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
-//                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
                 MockData.mockSessions.add(session);
                 System.out.println(session);
             } catch (Exception e) {
