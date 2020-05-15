@@ -56,6 +56,6 @@ public class SessionController {
         if (old == null) {
             throw new NullPointerException("Sessie niet gevonden.");
         }
-        sessionDao.updateSession(old, updatedSession);
+        sessionDao.updateSession(updatedSession);
     }
 }
