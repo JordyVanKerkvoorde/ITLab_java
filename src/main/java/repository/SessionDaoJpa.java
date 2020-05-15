@@ -21,6 +21,7 @@ public class SessionDaoJpa extends GenericDaoJpa<Session> implements SessionDao 
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
+        } finally {
             closePersistency();
         }
     }
@@ -35,8 +36,10 @@ public class SessionDaoJpa extends GenericDaoJpa<Session> implements SessionDao 
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
+        } finally {
             closePersistency();
         }
+
 
     }
 }
