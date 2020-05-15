@@ -18,7 +18,6 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao {
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
-            closePersistency();
         }
     }
 
@@ -32,9 +31,6 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao {
         }catch (Exception e){
             e.printStackTrace();
             rollbackTransaction();
-            closePersistency();
         }
-
     }
-
 }

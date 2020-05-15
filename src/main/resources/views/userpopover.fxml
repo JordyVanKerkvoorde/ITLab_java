@@ -39,8 +39,8 @@
         </HBox>
       <HBox prefHeight="60.0" prefWidth="640.0">
          <children>
-            <Label text="Gebruikersnaam" />
-            <JFXTextField fx:id="usernameField" prefHeight="31.0" prefWidth="448.0" />
+            <Label text="Email" />
+            <JFXTextField fx:id="emailField" prefHeight="31.0" prefWidth="448.0" />
          </children>
       </HBox>
       <HBox prefHeight="54.0" prefWidth="640.0">

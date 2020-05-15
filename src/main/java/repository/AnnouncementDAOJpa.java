@@ -22,8 +22,6 @@ public class AnnouncementDAOJpa extends GenericDaoJpa<Announcement> implements A
         }catch (Exception e){
             rollbackTransaction();
             e.printStackTrace();
-        } finally {
-            closePersistency();
         }
     }
 
@@ -36,8 +34,6 @@ public class AnnouncementDAOJpa extends GenericDaoJpa<Announcement> implements A
         } catch (Exception e) {
             rollbackTransaction();
             e.printStackTrace();
-        } finally {
-            closePersistency();
         }
     }
 
