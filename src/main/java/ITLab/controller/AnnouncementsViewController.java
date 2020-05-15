@@ -45,15 +45,13 @@ public class AnnouncementsViewController implements Initializable {
 
     private ObservableList<Announcement> announcementObservableList;
 
+    private static AnnouncementController announcementController = AnnouncementController.getInstance();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        AnnouncementController announcementController = AnnouncementController.getInstance();
-
         announcementObservableList = FXCollections.observableArrayList();
         announcementObservableList.addAll(announcementController.getAnnouncements());
-
-
 
         announcementsListView.setItems(announcementObservableList);
         announcementsListView.getItems().sort(new Comparator<Announcement>() {
@@ -89,7 +87,8 @@ public class AnnouncementsViewController implements Initializable {
     private void createAnnouncement(ActionEvent event) {
         try {
             Announcement announcement = new Announcement(inputArea.getText());
-            MockData.mockAnnouncements.add(announcement);
+//            ann
+            announcementController.addAnnouncement(announcement);
             announcementObservableList.add(0, announcement);
             inputArea.clear();
         } catch (IllegalArgumentException e) {
