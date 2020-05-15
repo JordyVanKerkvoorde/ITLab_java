@@ -6,6 +6,6 @@ import domain.model.user.User;
 public interface UserDao extends GenericDao<User>{
 
     void createUser(User user);
-    void updateUser(User oldvalue, User newvalue);
+    void updateUser(User newvalue);
 
 }

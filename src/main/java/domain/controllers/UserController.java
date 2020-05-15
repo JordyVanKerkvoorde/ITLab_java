@@ -32,6 +32,10 @@ public class UserController {
         return users.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     public void addUser(User user) {
         //TODO: email already used
         if (users.stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))){
@@ -46,7 +50,7 @@ public class UserController {
         if (old == null) {
             throw new NullPointerException("Gebruiker niet gevonden.");
         }
-        userDao.updateUser(old, updatedUser);
+        userDao.updateUser(updatedUser);
 
     }
 

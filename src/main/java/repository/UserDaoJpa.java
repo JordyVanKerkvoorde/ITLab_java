@@ -11,17 +11,29 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements UserDao {
     @Override
     public void createUser(User user) {
         try{
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
+            startTransaction();
+            insert(user);
+            commitTransaction();
 
         }catch (Exception e){
             e.printStackTrace();
+            rollbackTransaction();
+            closePersistency();
         }
     }
 
     @Override
-    public void updateUser(User oldvalue, User newvalue) {
+    public void updateUser(User newvalue) {
+        try{
+            startTransaction();
+            update(newvalue);
+            commitTransaction();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            rollbackTransaction();
+            closePersistency();
+        }
 
     }
 
