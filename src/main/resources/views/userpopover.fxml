@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="popOver" prefHeight="369.0" prefWidth="640.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="popOver" prefHeight="369.0" prefWidth="700.0" styleClass="popover" stylesheets="@../stylesheet/popover.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane prefHeight="180.0" prefWidth="200.0">
             <children>
@@ -23,29 +23,30 @@
         </AnchorPane>
       <HBox prefHeight="48.0" prefWidth="640.0">
          <children>
-            <Label text="Familienaam" />
+            <Label prefHeight="21.0" prefWidth="101.0" text="Familienaam" />
             <JFXTextField fx:id="lastnameField" />
-            <Label text="Voornaam" />
+            <Label prefHeight="21.0" prefWidth="89.0" text="Voornaam" />
             <JFXTextField fx:id="firstnameField" />
          </children>
       </HBox>
         <HBox prefHeight="52.0" prefWidth="640.0">
             <children>
-                <Label prefHeight="33.0" styleClass="text" text="Type" />
+                <Label prefHeight="31.0" prefWidth="45.0" styleClass="text" text="Type" />
                 <JFXComboBox fx:id="typeComboBox" prefHeight="25.0" prefWidth="246.0" />
-                <Label prefHeight="33.0" styleClass="text" text="Status" />
+                <Label prefHeight="31.0" prefWidth="69.0" styleClass="text" text="Status" />
                 <JFXComboBox fx:id="statusComboBox" prefHeight="31.0" prefWidth="304.0" />
             </children>
         </HBox>
       <HBox prefHeight="60.0" prefWidth="640.0">
          <children>
-            <Label text="Email" />
+            <Label prefHeight="21.0" prefWidth="60.0" text="Email" />
             <JFXTextField fx:id="emailField" prefHeight="31.0" prefWidth="448.0" />
          </children>
       </HBox>
       <HBox prefHeight="54.0" prefWidth="640.0">
          <children>
             <JFXButton fx:id="commitButton" />
+            <AnchorPane prefHeight="31.0" prefWidth="65.0" />
             <JFXButton fx:id="closeButton" text="Sluiten" />
          </children></HBox>
     </children>
