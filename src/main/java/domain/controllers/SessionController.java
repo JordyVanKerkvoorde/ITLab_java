@@ -54,7 +54,7 @@ public class SessionController {
     public void updateSession(Session updatedSession) {
         Session old = getSessionById(updatedSession.getSessionId());
         if (old == null) {
-            throw new NullPointerException("Sessie niet gevonden.");
+            sessionDao.createSession(updatedSession);
         }
         sessionDao.updateSession(updatedSession);
     }

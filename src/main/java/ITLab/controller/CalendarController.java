@@ -87,6 +87,7 @@ public class CalendarController {
     public void loadSessions() {
         sessionCalendar.clear();
         for (Session session : SessionController.getInstance().getSessions()) {
+            System.out.println(session);
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             Session s = new Session(session);

@@ -93,6 +93,10 @@ public class Session {
         return sessionId;
     }
 
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -122,14 +126,16 @@ public class Session {
     }
 
     public void setResponsible(User responsible) {
-        if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
-            //throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
-        }
-        if(responsible.getUserType().equals(UserType.USER)){
-            responsible.setUserType(UserType.RESPONSIBLE);
-        }
 
-        this.responsible = responsible;
+        if (responsible != null) {
+//            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
+//                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+//            }
+//            if(responsible.getUserType().equals(UserType.USER)){
+//                responsible.setUserType(UserType.RESPONSIBLE);
+//            }
+            this.responsible = responsible;
+        }
     }
 
     public LocalDateTime getStart() {

@@ -115,6 +115,7 @@ public class PopOverController implements Initializable {
             session.setLocation(LocationController.getInstance().getLocations().get(0));
             session.setDescription("Nog geen beschrijving");
             session.setStartAndEnd(tabPane.getSessionEntry().getStartAsLocalDateTime(), tabPane.getSessionEntry().getEndAsLocalDateTime());
+            System.out.println(session.getSessionId());
         }
         title.setText(session.getTitle());
         title.textProperty().addListener((observableValue, oldValue, newValue) -> {

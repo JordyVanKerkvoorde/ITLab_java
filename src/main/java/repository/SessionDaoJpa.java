@@ -1,5 +1,6 @@
 package repository;
 
+import domain.controllers.SessionController;
 import domain.model.session.Session;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,10 +14,14 @@ public class SessionDaoJpa extends GenericDaoJpa<Session> implements SessionDao 
 
     @Override
     public void createSession(Session session){
-        try{
+        try {
+            if (session.getSessionId() == 0) {
+                session.setSessionId(SessionController.getInstance().getSessions().size() + 1);
+            }
             startTransaction();
-            update(session);
+            insert(session);
             commitTransaction();
+
 
         }catch (Exception e){
             e.printStackTrace();
