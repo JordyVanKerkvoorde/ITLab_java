@@ -65,11 +65,23 @@ public class Session {
         initLists();
     }
 
+    public Session(Session session) {
+        setTitle(session.title);
+        setDescription(session.description);
+        setResponsible(session.responsible);
+//        setStart(start);
+//        setEnd(end);
+        setStartAndEnd(session.start, session.end);
+        setLocation(session.location);
+        setCapacity(session.capacity);
+        initLists();
+    }
+
     public Session() {
         initLists();
     }
 
-    public void initLists(){
+    public void initLists() {
         userSessions = new ArrayList<>();
         feedback = new ArrayList<>();
         presentUsers = new ArrayList<>();
@@ -111,7 +123,7 @@ public class Session {
 
     public void setResponsible(User responsible) {
         if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
-            throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+            //throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
         }
         if(responsible.getUserType().equals(UserType.USER)){
             responsible.setUserType(UserType.RESPONSIBLE);
@@ -152,7 +164,7 @@ public class Session {
 
     public void setCapacity(int capacity) {
         if(location.getCapacity() < capacity || capacity <= 0){
-            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
+            //throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
 
         this.capacity = capacity;

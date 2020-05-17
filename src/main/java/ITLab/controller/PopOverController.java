@@ -6,6 +6,7 @@ import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.*;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import domain.MockData;
+import domain.controllers.SessionController;
 import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
@@ -32,6 +33,8 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class PopOverController implements Initializable {
+    @FXML
+    public JFXButton saveButton;
     @FXML
     private JFXEventTabPane tabPane;
     @FXML
@@ -84,8 +87,18 @@ public class PopOverController implements Initializable {
     private Label afwezigLabelPercentage;
     @FXML
     private Label aanwezigLabel;
+
     public Session session;
 
+    private CalendarController calendarController;
+
+    public CalendarController getCalendarController() {
+        return calendarController;
+    }
+
+    public void setCalendarController(CalendarController calendarController) {
+        this.calendarController = calendarController;
+    }
 
     public PopOverController() {
 
@@ -93,27 +106,29 @@ public class PopOverController implements Initializable {
 
     public void setSessionEntry() {
         session = tabPane.getSessionEntry().getUserObject();
-        Entry<Session> sessionEntry = tabPane.getSessionEntry();
         title.setText(session.getTitle());
-        Bindings.bindBidirectional(sessionEntry.titleProperty(), title.textProperty());
-        title.textProperty().addListener((observableValue, oldValue, newValue) -> session.setTitle(newValue));
-        campus.getItems().addAll(Location.getLocationStrings());
-        campus.getSelectionModel().select(session.getLocation().getCampus().toString());
+        title.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            session.setTitle(newValue);
+        });
+        try {
+            campus.getItems().addAll(Location.getLocationStrings());
+            campus.getSelectionModel().select(session.getLocation().getCampus().toString());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         room.setText(session.getLocation().getLocationId());
         description.setText(session.getDescription());
         startDate.setValue(session.getStart().toLocalDate());
         startTime.set24HourView(true);
         startTime.setValue(session.getStart().toLocalTime());
         startTime.valueProperty().addListener((observableValue, localTime, t1) -> {
-            sessionEntry.setInterval(t1, endTime.getValue());
-            session.setStartAndEnd(LocalDateTime.of(sessionEntry.getStartDate(), sessionEntry.getStartTime()), session.getEnd());
+            session.setStartAndEnd(LocalDateTime.of(startDate.getValue(), startTime.getValue()), session.getEnd());
         });
         endDate.setValue(session.getEnd().toLocalDate());
         endTime.set24HourView(true);
         endTime.setValue(session.getEnd().toLocalTime());
         endTime.valueProperty().addListener((observableValue, localTime, t1) -> {
-            sessionEntry.setInterval(startTime.getValue(), t1);
-            session.setStartAndEnd(session.getStart(), LocalDateTime.of(sessionEntry.getEndDate(), sessionEntry.getEndTime()));
+            session.setStartAndEnd(session.getStart(), LocalDateTime.of(endDate.getValue(), endTime.getValue()));
         });
         tabPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/tabpane.css")).toExternalForm());
         tabPane.setPrefSize(550.0, 640.0);
@@ -159,5 +174,9 @@ public class PopOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpStyle();
+        saveButton.setOnAction((actionEvent) -> {
+            SessionController.getInstance().updateSession(session);
+            calendarController.loadSessions();
+        });
     }
 }
