@@ -2,13 +2,16 @@ package ITLab.controller;
 
 import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.*;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import domain.MockData;
 import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import domain.model.session.SessionEntry;
 import domain.model.user.User;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,8 +23,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.eclipse.persistence.jaxb.json.JsonSchemaOutputResolver;
+import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class PopOverController implements Initializable {
@@ -77,25 +84,37 @@ public class PopOverController implements Initializable {
     private Label afwezigLabelPercentage;
     @FXML
     private Label aanwezigLabel;
-    public Session sessionEntry;
+    public Session session;
+
 
     public PopOverController() {
 
     }
 
     public void setSessionEntry() {
-        sessionEntry = tabPane.getSession();
-        title.setText(sessionEntry.getTitle());
+        session = tabPane.getSessionEntry().getUserObject();
+        Entry<Session> sessionEntry = tabPane.getSessionEntry();
+        title.setText(session.getTitle());
+        Bindings.bindBidirectional(sessionEntry.titleProperty(), title.textProperty());
+        title.textProperty().addListener((observableValue, oldValue, newValue) -> session.setTitle(newValue));
         campus.getItems().addAll(Location.getLocationStrings());
-        campus.getSelectionModel().select(sessionEntry.getLocation().getCampus().toString());
-        room.setText(sessionEntry.getLocation().getLocationId());
-        description.setText(sessionEntry.getDescription());
-        startDate.setValue(sessionEntry.getStart().toLocalDate());
+        campus.getSelectionModel().select(session.getLocation().getCampus().toString());
+        room.setText(session.getLocation().getLocationId());
+        description.setText(session.getDescription());
+        startDate.setValue(session.getStart().toLocalDate());
         startTime.set24HourView(true);
-        startTime.setValue(sessionEntry.getStart().toLocalTime());
-        endDate.setValue(sessionEntry.getEnd().toLocalDate());
+        startTime.setValue(session.getStart().toLocalTime());
+        startTime.valueProperty().addListener((observableValue, localTime, t1) -> {
+            sessionEntry.setInterval(t1, endTime.getValue());
+            session.setStartAndEnd(LocalDateTime.of(sessionEntry.getStartDate(), sessionEntry.getStartTime()), session.getEnd());
+        });
+        endDate.setValue(session.getEnd().toLocalDate());
         endTime.set24HourView(true);
-        endTime.setValue(sessionEntry.getEnd().toLocalTime());
+        endTime.setValue(session.getEnd().toLocalTime());
+        endTime.valueProperty().addListener((observableValue, localTime, t1) -> {
+            sessionEntry.setInterval(startTime.getValue(), t1);
+            session.setStartAndEnd(session.getStart(), LocalDateTime.of(sessionEntry.getEndDate(), sessionEntry.getEndTime()));
+        });
         tabPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/tabpane.css")).toExternalForm());
         tabPane.setPrefSize(550.0, 640.0);
         tab1.setText("Overzicht");

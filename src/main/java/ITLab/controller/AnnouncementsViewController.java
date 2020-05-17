@@ -51,22 +51,21 @@ public class AnnouncementsViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         announcementObservableList = FXCollections.observableArrayList();
-        announcementObservableList.addAll(announcementController.getAnnouncements());
-
-        announcementsListView.setItems(announcementObservableList);
-        announcementsListView.getItems().sort(new Comparator<Announcement>() {
-            @Override
-            public int compare(Announcement o1, Announcement o2) {
-                if(o1.getPostTime().equals(o2.getPostTime())){
+        Thread thread = new Thread(() -> {
+            announcementObservableList.addAll(announcementController.getAnnouncements());
+            announcementsListView.setItems(announcementObservableList);
+            announcementsListView.getItems().sort((o1, o2) -> {
+                if (o1.getPostTime().equals(o2.getPostTime())) {
                     return 0;
                 }
-                if(o1.getPostTime().isBefore(o2.getPostTime())){
+                if (o1.getPostTime().isBefore(o2.getPostTime())) {
                     return 1;
-                }else{
+                } else {
                     return 0;
                 }
-            }
+            });
         });
+        thread.start();
         announcementsListView.setCellFactory(announcementListView -> new AnnouncementCell());
         commitButton.setOnAction(event -> createAnnouncement(event));
         setStyle();

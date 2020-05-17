@@ -4,10 +4,17 @@ import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import domain.MockData;
+import domain.controllers.SessionController;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import org.eclipse.persistence.internal.jaxb.json.schema.model.JsonType;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,35 +28,45 @@ public class CalendarController {
     private CalendarView calendarView;
 
     public CalendarController() {
+        // creating the view
         calendarView = new CalendarView();
         calendarView.setShowAddCalendarButton(false);
         calendarView.setShowPageToolBarControls(false);
         Calendar sessionCalendar = new Calendar("Sessions");
         sessionCalendar.setStyle(Calendar.Style.STYLE2);
 
+
+        // setting the source
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().add(sessionCalendar);
-        for (Session session : MockData.mockSessions) {
+        for (Session session : SessionController.getInstance().getSessions()) {
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             setListeners(session, sessionEntry);
             sessionCalendar.addEntry(sessionEntry);
         }
+
+        // creating the popover scene
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
             JFXEventTabPane popup = loader.load();
             PopOverController popOverController = loader.getController();
+            // setting the controller of the popup
             popup.setPopOverController(popOverController);
-            popup.parentProperty().addListener((observableValue, parent, t1) -> {
-                if (parent == null) {
-                    // TODO: write userObject to DB on change to null
-                }
+            // if popover loses parent => it's closed save to db
+            popup.focusedProperty().addListener((observable) -> {
+                // update or add to db
+                System.out.println(observable);
+                Session session = popup.getSessionEntry().getUserObject();
+
+                System.out.println(session);
+                //SessionController.getInstance().updateSession(session);
             });
-            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Session) param.getEntry().getUserObject()));
+            // set scene visible when entry is clicked
+            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Entry<Session>) param.getEntry()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println();
         sessionCalendar.addEventHandler(this::handelCalendarEvent);
         calendarView.getCalendarSources().clear();
         calendarView.getCalendarSources().add(myCalendarSource);

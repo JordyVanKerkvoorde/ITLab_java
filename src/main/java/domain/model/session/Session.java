@@ -6,7 +6,9 @@ import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
