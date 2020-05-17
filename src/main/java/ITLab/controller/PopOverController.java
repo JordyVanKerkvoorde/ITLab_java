@@ -35,6 +35,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class PopOverController implements Initializable {
+
     @FXML
     public JFXButton saveButton;
     @FXML
@@ -110,6 +111,7 @@ public class PopOverController implements Initializable {
         session = tabPane.getSessionEntry().getUserObject();
         if (session == null) {
             session = new Session();
+//            session.setSessionId(SessionController.getInstance().getSessions().size() + 1);
             tabPane.getSessionEntry().setUserObject(session);
             session.setTitle(tabPane.getSessionEntry().getTitle());
             session.setLocation(LocationController.getInstance().getLocations().get(0));

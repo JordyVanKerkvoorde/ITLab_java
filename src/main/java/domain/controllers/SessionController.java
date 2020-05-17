@@ -54,7 +54,8 @@ public class SessionController {
     public void updateSession(Session updatedSession) {
         Session old = getSessionById(updatedSession.getSessionId());
         if (old == null) {
-            sessionDao.createSession(updatedSession);
+            addSession(updatedSession);
+            sessions.add(updatedSession);
         }
         sessionDao.updateSession(updatedSession);
     }

@@ -15,9 +15,6 @@ public class SessionDaoJpa extends GenericDaoJpa<Session> implements SessionDao 
     @Override
     public void createSession(Session session){
         try {
-            if (session.getSessionId() == 0) {
-                session.setSessionId(SessionController.getInstance().getSessions().size() + 1);
-            }
             startTransaction();
             insert(session);
             commitTransaction();

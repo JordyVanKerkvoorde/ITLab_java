@@ -90,9 +90,9 @@ public class CalendarController {
             System.out.println(session);
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
-            Session s = new Session(session);
             //System.out.println(s);
-            setListeners(s, sessionEntry);
+            setListeners(session, sessionEntry);
+            sessionEntry.setUserObject(session);
             sessionCalendar.addEntry(sessionEntry);
         }
     }

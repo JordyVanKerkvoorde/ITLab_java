@@ -217,10 +217,6 @@ public class Session {
         this.feedback = feedback;
     }
 
-    public void addFeedback(Feedback feedback){
-        this.feedback.add(feedback);
-    }
-
     public boolean isOpened() {
         return isOpened;
     }
