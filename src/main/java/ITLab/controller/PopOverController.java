@@ -2,10 +2,12 @@ package ITLab.controller;
 
 import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.*;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import domain.MockData;
+import domain.controllers.LocationController;
 import domain.controllers.SessionController;
 import domain.model.session.CampusEnum;
 import domain.model.session.Location;
@@ -106,6 +108,14 @@ public class PopOverController implements Initializable {
 
     public void setSessionEntry() {
         session = tabPane.getSessionEntry().getUserObject();
+        if (session == null) {
+            session = new Session();
+            tabPane.getSessionEntry().setUserObject(session);
+            session.setTitle(tabPane.getSessionEntry().getTitle());
+            session.setLocation(LocationController.getInstance().getLocations().get(0));
+            session.setDescription("Nog geen beschrijving");
+            session.setStartAndEnd(tabPane.getSessionEntry().getStartAsLocalDateTime(), tabPane.getSessionEntry().getEndAsLocalDateTime());
+        }
         title.setText(session.getTitle());
         title.textProperty().addListener((observableValue, oldValue, newValue) -> {
             session.setTitle(newValue);
@@ -136,6 +146,12 @@ public class PopOverController implements Initializable {
         tab2.setText("Aanwezigheden");
         tab3.setText("Bestanden");
         setCellFactory();
+    }
+
+    private void setListeners(Entry<Session> sessionEntry) {
+        sessionEntry.titleProperty().addListener((observable, oldValue, newValue) -> sessionEntry.getUserObject().setTitle(newValue));
+        sessionEntry.intervalProperty().addListener(((observable, oldValue, newValue) -> sessionEntry.getUserObject().setStartAndEnd(LocalDateTime.of(newValue.getStartDate(), newValue.getStartTime()),
+                LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()))));
     }
 
     private void setCellFactory() {
