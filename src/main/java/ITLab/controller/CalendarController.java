@@ -5,6 +5,7 @@ import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import domain.MockData;
 import domain.controllers.SessionController;
+import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
@@ -63,6 +64,7 @@ public class CalendarController {
             });
             // set scene visible when entry is clicked
             calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Entry<Session>) param.getEntry()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,6 +96,7 @@ public class CalendarController {
             setListeners(session, sessionEntry);
             sessionEntry.setUserObject(session);
             sessionCalendar.addEntry(sessionEntry);
+
         }
     }
 
