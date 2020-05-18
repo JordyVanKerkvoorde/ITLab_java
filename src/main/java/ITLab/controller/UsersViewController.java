@@ -42,8 +42,6 @@ public class UsersViewController implements Initializable {
     private Label titleLbl;
     @FXML
     private AnchorPane spacing1;
-    @FXML
-    private AnchorPane spacing2;
 
     @FXML
     private TableView<User> userTableView;
@@ -172,7 +170,6 @@ public class UsersViewController implements Initializable {
         anchorpane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
         titleLbl.setFont(getFont(50));
         HBox.setHgrow(spacing1, Priority.ALWAYS);
-        HBox.setHgrow(spacing2, Priority.ALWAYS);
     }
 
     private void updateTableView(){

@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -22,8 +23,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class UserPopoverController implements Initializable {
     @FXML
@@ -43,6 +43,16 @@ public class UserPopoverController implements Initializable {
     private JFXButton commitButton;
     @FXML
     private JFXButton closeButton;
+    @FXML
+    private Label familienaam;
+    @FXML
+    private Label voornaam;
+    @FXML
+    private Label email;
+    @FXML
+    private Label status;
+    @FXML
+    private Label type;
 
     private User user;
 
@@ -115,5 +125,7 @@ public class UserPopoverController implements Initializable {
     private void setStyle() {
         popOver.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
         //titleLbl.setFont(getFont(50));
+        List<Label> labels = new ArrayList<>(Arrays.asList(familienaam, voornaam, email, status, type));
+        labels.forEach(l -> l.setFont(getFont(12)));
     }
 }

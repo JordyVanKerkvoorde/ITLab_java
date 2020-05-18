@@ -9,23 +9,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.UsersViewController">
+<AnchorPane fx:id="anchorpane" prefHeight="521.0" prefWidth="753.0" style="-fx-padding: 15; -fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ITLab.controller.UsersViewController">
     <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
-         <HBox prefHeight="56.0" prefWidth="590.0">
+         <HBox prefHeight="96.0" prefWidth="590.0">
             <children>
-                  <Label fx:id="titleLbl" alignment="CENTER">Users</Label>
-               <AnchorPane fx:id="spacing1" prefHeight="200.0" prefWidth="200.0" />
-                  <JFXButton fx:id="addUserButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" text="Gebruiker toevoegen" />
-               <AnchorPane fx:id="spacing2" prefHeight="200.0" prefWidth="200.0" />
-               <JFXTextField fx:id="searchTx" promptText="Zoeken..." />
+                <Label fx:id="titleLbl" prefHeight="115.0" prefWidth="378.0" text="Gebruikers">
+                    <font>
+                        <Font size="72.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                </Label>
+               <AnchorPane fx:id="spacing1" prefHeight="115.0" prefWidth="137.0" />
+               <VBox prefHeight="115.0" prefWidth="200.0">
+                  <children>
+                     <JFXTextField fx:id="searchTx" prefHeight="25.0" prefWidth="134.0" promptText="Zoeken..." />
+                        <JFXButton fx:id="addUserButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="41.0" prefWidth="195.0" text="Gebruiker toevoegen">
+                        <font>
+                           <Font size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets top="20.0" />
+                        </VBox.margin></JFXButton>
+                  </children>
+               </VBox>
             </children>
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
          </HBox>
-            <TableView fx:id="userTableView" prefHeight="378.0" prefWidth="600.0">
+            <TableView fx:id="userTableView" prefHeight="367.0" prefWidth="703.0" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="familieNaamColumn" prefWidth="75.0" text="Familienaam" />
                     <TableColumn fx:id="voornaamColumn" prefWidth="75.0" text="Voornaam" />
@@ -33,6 +53,9 @@
                     <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
                     <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
                 </columns>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
             </TableView>
         </children>
     </VBox>
