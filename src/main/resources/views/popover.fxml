@@ -59,7 +59,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                </VBox.margin>
             </HBox>
-            <JFXTextArea fx:id="description" prefHeight="64.0" prefWidth="600.0" promptText="Omschrijving...">
+            <JFXTextArea fx:id="description" prefHeight="200.0" prefWidth="600.0" promptText="Omschrijving...">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                </VBox.margin>
