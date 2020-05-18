@@ -96,7 +96,12 @@
                </VBox.margin>
             </VBox>
          </children>
-          <JFXButton fx:id="saveButton" alignment="CENTER" buttonType="RAISED" text="Opslaan"/>
+         <AnchorPane style="-fx-padding: 10px">
+            <HBox>
+               <AnchorPane prefWidth="30"></AnchorPane>
+               <JFXButton fx:id="saveButton" alignment="CENTER" buttonType="RAISED" text="Opslaan" style="-fx-background-color: #549AD0;-fx-text-fill: white; -fx-padding: 5px"/>
+            </HBox>
+         </AnchorPane>
       </VBox>
    </Tab>
    <Tab fx:id="tab2">
