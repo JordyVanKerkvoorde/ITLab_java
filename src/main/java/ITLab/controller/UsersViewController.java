@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import domain.MockData;
+import domain.controllers.UserController;
 import domain.model.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,14 +17,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -37,8 +42,6 @@ public class UsersViewController implements Initializable {
     private Label titleLbl;
     @FXML
     private AnchorPane spacing1;
-    @FXML
-    private AnchorPane spacing2;
 
     @FXML
     private TableView<User> userTableView;
@@ -47,7 +50,7 @@ public class UsersViewController implements Initializable {
     @FXML
     private TableColumn<User, String> voornaamColumn;
     @FXML
-    private TableColumn<User, String> userNameColumn;
+    private TableColumn<User, String> emailColumn;
     @FXML
     private TableColumn<User, String> typeColumn;
     @FXML
@@ -59,11 +62,14 @@ public class UsersViewController implements Initializable {
 
     private ObservableList<User> userObservableList;
 
+    private static UserController userController = UserController.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userObservableList = FXCollections.observableArrayList();
-        userObservableList.addAll(MockData.mockUsers);
-
+//        userObservableList.addAll(MockData.mockUsers);
+        Thread thread = new Thread(() -> userObservableList.addAll(userController.getUsers()));
+        thread.start();
         setColumnFactories();
         setColumnWidth();
         userTableView.getItems().addAll(userObservableList);
@@ -101,7 +107,10 @@ public class UsersViewController implements Initializable {
             root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Gebruiker aanpassen");
-            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            stage.setScene(scene);
             stage.setResizable(false);
             stage.showAndWait();
             updateTableView();
@@ -113,7 +122,7 @@ public class UsersViewController implements Initializable {
     private void setColumnWidth() {
         familieNaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
         voornaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
-        userNameColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.395));
+        emailColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.395));
         typeColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.1));
         statusColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.1));
     }
@@ -121,7 +130,7 @@ public class UsersViewController implements Initializable {
     private void setColumnFactories() {
         familieNaamColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         voornaamColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
     }
@@ -161,12 +170,11 @@ public class UsersViewController implements Initializable {
         anchorpane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
         titleLbl.setFont(getFont(50));
         HBox.setHgrow(spacing1, Priority.ALWAYS);
-        HBox.setHgrow(spacing2, Priority.ALWAYS);
     }
 
     private void updateTableView(){
         userObservableList.clear();
-        userObservableList.addAll(MockData.mockUsers);
+        userObservableList.addAll(userController.getUsers());
         userTableView.refresh();
     }
 }

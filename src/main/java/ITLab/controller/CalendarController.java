@@ -4,11 +4,18 @@ import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import domain.MockData;
+import domain.controllers.SessionController;
 import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import org.eclipse.persistence.internal.jaxb.json.schema.model.JsonType;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -20,44 +27,47 @@ import static com.calendarfx.model.CalendarEvent.ENTRY_CALENDAR_CHANGED;
 
 public class CalendarController {
     private CalendarView calendarView;
+    private Calendar sessionCalendar;
+    private CalendarSource myCalendarSource;
 
     public CalendarController() {
+        // creating the view
         calendarView = new CalendarView();
         calendarView.setShowAddCalendarButton(false);
         calendarView.setShowPageToolBarControls(false);
-        Calendar sessionCalendar = new Calendar("Sessions");
+        sessionCalendar = new Calendar("Sessions");
         sessionCalendar.setStyle(Calendar.Style.STYLE2);
-
-        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        // setting the source
+        myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().add(sessionCalendar);
-        for (Session session : MockData.mockSessions) {
+        for (Session session : SessionController.getInstance().getSessions()) {
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
             setListeners(session, sessionEntry);
             sessionCalendar.addEntry(sessionEntry);
         }
+
+
+        // creating the popover scene
         try {
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("views/popover.fxml")));
             JFXEventTabPane popup = loader.load();
             PopOverController popOverController = loader.getController();
+            popOverController.setCalendarController(this);
+            // setting the controller of the popup
             popup.setPopOverController(popOverController);
-            popup.parentProperty().addListener((observableValue, parent, t1) -> {
-                if (parent == null) {
-                    // TODO: write userObject to DB on change to null
-                }
+            // if popover loses parent => it's closed save to db
+            popup.focusedProperty().addListener((observable) -> {
+                // update or add to db
+                Session session = popup.getSessionEntry().getUserObject();
+                //SessionController.getInstance().updateSession(session);
             });
-            calendarView.setEntryDetailsPopOverContentCallback(param -> {
-                Session session = (Session) param.getEntry().getUserObject();
-                if (session.getDescription() == null) {
-                    session.setDescription("No description set");
-                    session.setLocation(new Location("no location set", CampusEnum.SCHOONMEERSEN, 1000));
-                }
-                return popup.setSession((Session) param.getEntry().getUserObject());
-            });
+            // set scene visible when entry is clicked
+            calendarView.setEntryDetailsPopOverContentCallback(param -> popup.setSession((Entry<Session>) param.getEntry()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println();
         sessionCalendar.addEventHandler(this::handelCalendarEvent);
         calendarView.getCalendarSources().clear();
         calendarView.getCalendarSources().add(myCalendarSource);
@@ -76,23 +86,42 @@ public class CalendarController {
                 LocalDateTime.of(newValue.getEndDate(), newValue.getEndTime()))));
     }
 
-    private void handelCalendarEvent(CalendarEvent event) {
-        if (event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()) {
-            try {
-                @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
-                Session session = new Session();
-                entry.setUserObject(session);
-                session.setTitle(entry.getTitle());
-                Location location = new Location();
-                session.setLocation(location);
-                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
-                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-                MockData.mockSessions.add(session);
-                System.out.println(session);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+    public void loadSessions() {
+        sessionCalendar.clear();
+        for (Session session : SessionController.getInstance().getSessions()) {
+            System.out.println(session);
+            // id, title, start/end date
+            Entry<Session> sessionEntry = new Entry<>();
+            //System.out.println(s);
+            setListeners(session, sessionEntry);
+            sessionEntry.setUserObject(session);
+            sessionCalendar.addEntry(sessionEntry);
+
         }
+    }
+
+    private void handelCalendarEvent(CalendarEvent event) {
+//        if (event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()) {
+//            try {
+//                // this method gets called when a new event is created in the calendar
+//                // a new Session has to be created and listeners have to be added to the new
+//                // Entry<Session> that updates the Session object that has to be in the db
+//                // session.sessionId won't be set because that has to happen in db
+//                @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
+//                Session session = new Session();
+//                entry.setUserObject(session);
+//                session.setTitle(entry.getTitle());
+//                Location location = new Location();
+//                session.setLocation(location);
+//                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
+//                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
+////                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
+////                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
+//                MockData.mockSessions.add(session);
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
     }
 
     private void setUpdateThread() {

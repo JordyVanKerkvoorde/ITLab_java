@@ -5,6 +5,7 @@ import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.JFXDrawer;
 import domain.MockData;
+import domain.controllers.AnnouncementController;
 import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
@@ -51,7 +52,6 @@ public class MainController implements Initializable, Callback {
         loadSidepanel();
         loadCalendar();
     }
-
 
     @Override
     public void loadAnnouncements() {

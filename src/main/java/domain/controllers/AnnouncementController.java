@@ -12,13 +12,23 @@ public class AnnouncementController {
     private AnnouncementDAO announcementDAO;
     private List<Announcement> announcements;
 
-    public AnnouncementController() {
+    private static final AnnouncementController instance = new AnnouncementController();
+
+    private AnnouncementController() {
         announcementDAO = new AnnouncementDAOJpa();
         loadAnnouncements();
     }
 
+    public static AnnouncementController getInstance() {
+        return instance;
+    }
+
     public void loadAnnouncements() {
         announcements = announcementDAO.findAll();
+    }
+
+    public List<Announcement> getAnnouncements() {
+        return this.announcements;
     }
 
     public Announcement getAnnouncementById(int id){
@@ -27,6 +37,7 @@ public class AnnouncementController {
 
     public void addAnnouncement(Announcement announcement) {
         announcementDAO.createAnnouncement(announcement);
+        announcements.add(announcement);
     }
 
     public void updateAnnouncement(Announcement newValue) {
@@ -34,6 +45,6 @@ public class AnnouncementController {
         if (old == null) {
             throw new NullPointerException("Aankondiging niet gevonden");
         }
-        announcementDAO.updateAnnouncement(old, newValue);
+        announcementDAO.updateAnnouncement(newValue);
     }
 }

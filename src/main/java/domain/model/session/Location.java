@@ -17,17 +17,11 @@ public class Location {
     private CampusEnum campus;
     @Column(name = "Capacity")
     private int Capacity;
-    @Transient
-    private static List<String> enumString;
 
     public Location(String locationId, CampusEnum campus, int capacity) {
         this.locationId = locationId;
         this.campus = campus;
         Capacity = capacity;
-        enumString = new ArrayList<>();
-        for (CampusEnum e : CampusEnum.values()) {
-            enumString.add(e.toString());
-        }
     }
 
     public Location() {
@@ -54,6 +48,10 @@ public class Location {
     }
 
     public static List<String> getLocationStrings() {
+        List<String> enumString = new ArrayList<>();
+        for (CampusEnum e : CampusEnum.values()) {
+            enumString.add(e.toString());
+        }
         return enumString;
     }
 

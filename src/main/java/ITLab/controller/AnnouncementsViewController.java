@@ -2,6 +2,7 @@ package ITLab.controller;
 
 import com.jfoenix.controls.*;
 import domain.MockData;
+import domain.controllers.AnnouncementController;
 import domain.model.session.Announcement;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -22,10 +23,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
@@ -47,26 +45,27 @@ public class AnnouncementsViewController implements Initializable {
 
     private ObservableList<Announcement> announcementObservableList;
 
+    private static AnnouncementController announcementController = AnnouncementController.getInstance();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         announcementObservableList = FXCollections.observableArrayList();
-        announcementObservableList.addAll(MockData.mockAnnouncements);
-
-        announcementsListView.setItems(announcementObservableList);
-        announcementsListView.getItems().sort(new Comparator<Announcement>() {
-            @Override
-            public int compare(Announcement o1, Announcement o2) {
-                if(o1.getPostTime().equals(o2.getPostTime())){
+        Thread thread = new Thread(() -> {
+            announcementObservableList.addAll(announcementController.getAnnouncements());
+            announcementsListView.setItems(announcementObservableList);
+            announcementsListView.getItems().sort((o1, o2) -> {
+                if (o1.getPostTime().equals(o2.getPostTime())) {
                     return 0;
                 }
-                if(o1.getPostTime().isBefore(o2.getPostTime())){
+                if (o1.getPostTime().isBefore(o2.getPostTime())) {
                     return 1;
-                }else{
+                } else {
                     return 0;
                 }
-            }
+            });
         });
+        thread.start();
         announcementsListView.setCellFactory(announcementListView -> new AnnouncementCell());
         commitButton.setOnAction(event -> createAnnouncement(event));
         setStyle();
@@ -87,7 +86,8 @@ public class AnnouncementsViewController implements Initializable {
     private void createAnnouncement(ActionEvent event) {
         try {
             Announcement announcement = new Announcement(inputArea.getText());
-            MockData.mockAnnouncements.add(announcement);
+//            ann
+            announcementController.addAnnouncement(announcement);
             announcementObservableList.add(0, announcement);
             inputArea.clear();
         } catch (IllegalArgumentException e) {

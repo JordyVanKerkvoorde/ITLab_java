@@ -3,6 +3,7 @@ package ITLab.controller;
 import ITLab.components.WindowButtons;
 import com.jfoenix.controls.*;
 import domain.MockData;
+import domain.controllers.AnnouncementController;
 import domain.model.Mail;
 import domain.model.session.Announcement;
 import javafx.event.ActionEvent;
@@ -53,6 +54,8 @@ public class AnnouncementPopoverController implements Initializable {
         this.announcement = announcement;
     }
 
+    private static AnnouncementController announcementController = AnnouncementController.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         closeButton.setOnAction(event -> close(event));
@@ -84,6 +87,7 @@ public class AnnouncementPopoverController implements Initializable {
         try {
             announcement.setMessage(messageArea.getText());
             announcement.setMailed(false);
+            announcementController.updateAnnouncement(announcement);
             close(event);
         } catch (IllegalArgumentException e) {
             JFXDialogLayout content = new JFXDialogLayout();
