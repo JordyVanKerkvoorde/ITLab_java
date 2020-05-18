@@ -7,7 +7,7 @@ import domain.model.session.Session;
 import javafx.beans.property.Property;
 
 public class JFXEventTabPane extends JFXTabPane {
-    private Session session;
+    private Entry<Session> sessionEntry;
     private PopOverController popOverController;
 
     public PopOverController getPopOverController() {
@@ -18,12 +18,12 @@ public class JFXEventTabPane extends JFXTabPane {
         this.popOverController = popOverController;
     }
 
-    public Session getSession() {
-        return session;
+    public Entry<Session> getSessionEntry() {
+        return sessionEntry;
     }
 
-    public JFXEventTabPane setSession(Session session) {
-        this.session = session;
+    public JFXEventTabPane setSession(Entry<Session> sessionEntry) {
+        this.sessionEntry = sessionEntry;
         popOverController.setSessionEntry();
         return this;
     }

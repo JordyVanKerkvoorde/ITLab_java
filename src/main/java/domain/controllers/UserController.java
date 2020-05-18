@@ -10,9 +10,16 @@ import java.util.List;
 public class UserController {
     private UserDao userDao;
     private List<User> users;
-    public UserController() {
+
+    private static final UserController instance = new UserController();
+
+    private UserController() {
         this.userDao = new UserDaoJpa();
         loadUsers();
+    }
+
+    public static UserController getInstance() {
+        return instance;
     }
 
     private void loadUsers() {
@@ -23,6 +30,10 @@ public class UserController {
 
     public User getUserByASPId(String id){
         return users.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     public void addUser(User user) {
@@ -39,7 +50,7 @@ public class UserController {
         if (old == null) {
             throw new NullPointerException("Gebruiker niet gevonden.");
         }
-        userDao.updateUser(old, updatedUser);
+        userDao.updateUser(updatedUser);
 
     }
 

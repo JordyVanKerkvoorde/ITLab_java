@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import domain.MockData;
+import domain.controllers.UserController;
 import domain.model.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,7 +52,7 @@ public class UsersViewController implements Initializable {
     @FXML
     private TableColumn<User, String> voornaamColumn;
     @FXML
-    private TableColumn<User, String> userNameColumn;
+    private TableColumn<User, String> emailColumn;
     @FXML
     private TableColumn<User, String> typeColumn;
     @FXML
@@ -63,11 +64,14 @@ public class UsersViewController implements Initializable {
 
     private ObservableList<User> userObservableList;
 
+    private static UserController userController = UserController.getInstance();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userObservableList = FXCollections.observableArrayList();
-        userObservableList.addAll(MockData.mockUsers);
-
+//        userObservableList.addAll(MockData.mockUsers);
+        Thread thread = new Thread(() -> userObservableList.addAll(userController.getUsers()));
+        thread.start();
         setColumnFactories();
         setColumnWidth();
         userTableView.getItems().addAll(userObservableList);
@@ -120,7 +124,7 @@ public class UsersViewController implements Initializable {
     private void setColumnWidth() {
         familieNaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
         voornaamColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.2));
-        userNameColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.395));
+        emailColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.395));
         typeColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.1));
         statusColumn.prefWidthProperty().bind(userTableView.widthProperty().multiply(0.1));
     }
@@ -128,7 +132,7 @@ public class UsersViewController implements Initializable {
     private void setColumnFactories() {
         familieNaamColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         voornaamColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("userStatus"));
     }
@@ -173,7 +177,7 @@ public class UsersViewController implements Initializable {
 
     private void updateTableView(){
         userObservableList.clear();
-        userObservableList.addAll(MockData.mockUsers);
+        userObservableList.addAll(userController.getUsers());
         userTableView.refresh();
     }
 }

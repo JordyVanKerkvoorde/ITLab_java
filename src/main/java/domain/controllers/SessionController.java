@@ -12,9 +12,15 @@ public class SessionController {
     private SessionDao sessionDao;
     private List<Session> sessions;
 
-    public SessionController() {
+    private static final SessionController instance = new SessionController();
+
+    private SessionController() {
         this.sessionDao = new SessionDaoJpa();
         loadSessions();
+    }
+
+    public static SessionController getInstance() {
+        return instance;
     }
 
     public void setSessionDao(SessionDao sessionDao) {
@@ -48,8 +54,9 @@ public class SessionController {
     public void updateSession(Session updatedSession) {
         Session old = getSessionById(updatedSession.getSessionId());
         if (old == null) {
-            throw new NullPointerException("Sessie niet gevonden.");
+            addSession(updatedSession);
+            sessions.add(updatedSession);
         }
-        sessionDao.updateSession(old, updatedSession);
+        sessionDao.updateSession(updatedSession);
     }
 }

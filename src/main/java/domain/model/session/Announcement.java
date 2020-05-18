@@ -16,7 +16,7 @@ public class Announcement{
     private LocalDateTime postTime;
     @Column(name="Message")
     private String message;
-   // @Column(name="Mailed");
+    @Column(name = "Mailed")
     private boolean mailed;
 
     public Announcement(String message) {

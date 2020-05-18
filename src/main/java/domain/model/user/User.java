@@ -10,7 +10,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private String id;
     @Column(name = "UserId")
@@ -47,6 +47,7 @@ public class User {
         setUserName(userName);
         setEmail(email);
         setEmailConfirmed(emailConfirmed);
+
     }
 
     //JPA
@@ -55,6 +56,10 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {

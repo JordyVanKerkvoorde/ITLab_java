@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import domain.MockData;
+import domain.controllers.UserController;
 import domain.model.user.User;
 import domain.model.user.UserStatus;
 import domain.model.user.UserType;
@@ -37,13 +38,15 @@ public class UserPopoverController implements Initializable {
     @FXML
     private JFXComboBox<UserStatus> statusComboBox;
     @FXML
-    private JFXTextField usernameField;
+    private JFXTextField emailField;
     @FXML
     private JFXButton commitButton;
     @FXML
     private JFXButton closeButton;
 
     private User user;
+
+    private static UserController userController = UserController.getInstance();
 
 
     public UserPopoverController(User user) {
@@ -72,13 +75,21 @@ public class UserPopoverController implements Initializable {
     }
 
     private void saveUser(ActionEvent event) {
+        user.setEmailConfirmed(true);
         user.setLastName(lastnameField.getText());
         user.setFirstName(firstnameField.getText());
-        user.setUserName(usernameField.getText());
+        user.setUserName(emailField.getText());
+        user.setEmail(emailField.getText());
         user.setUserStatus(statusComboBox.getValue());
         user.setUserType(typeComboBox.getValue());
-        if(!MockData.mockUsers.contains(user)){
-            MockData.mockUsers.add(user);
+//        if(!MockData.mockUsers.contains(user)){
+//            MockData.mockUsers.add(user);
+//        }
+        if (!userController.getUsers().contains(user)) {
+            user.setId(Integer.toString(emailField.getText().hashCode()));
+            userController.addUser(user);
+        } else {
+            userController.updateUser(user);
         }
         close(event);
     }
@@ -88,7 +99,7 @@ public class UserPopoverController implements Initializable {
         firstnameField.setText(user.getFirstName());
         typeComboBox.setValue(user.getUserType());
         statusComboBox.setValue(user.getUserStatus());
-        usernameField.setText(user.getUserName());
+        emailField.setText(user.getUserName());
     }
 
     private void close(ActionEvent event) {

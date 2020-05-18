@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="448.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="popOver" prefHeight="448.0" prefWidth="715.0" style="-fx-border-color: BLACK; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" stylesheets="@../stylesheet/announcementsview.css">
@@ -73,7 +74,7 @@
               </HBox>
             <HBox prefHeight="60.0" prefWidth="640.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="111.0" text="Gebruikersnaam" />
+                  <Label prefHeight="21.0" prefWidth="60.0" text="Email" />
                   <JFXTextField fx:id="usernameField" prefHeight="31.0" prefWidth="586.0" />
                </children>
                <padding>

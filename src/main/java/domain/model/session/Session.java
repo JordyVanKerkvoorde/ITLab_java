@@ -6,7 +6,9 @@ import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +65,23 @@ public class Session {
         initLists();
     }
 
+    public Session(Session session) {
+        setTitle(session.title);
+        setDescription(session.description);
+        setResponsible(session.responsible);
+//        setStart(start);
+//        setEnd(end);
+        setStartAndEnd(session.start, session.end);
+        setLocation(session.location);
+        setCapacity(session.capacity);
+        initLists();
+    }
+
     public Session() {
         initLists();
     }
 
-    public void initLists(){
+    public void initLists() {
         userSessions = new ArrayList<>();
         feedback = new ArrayList<>();
         presentUsers = new ArrayList<>();
@@ -77,6 +91,10 @@ public class Session {
 
     public int getSessionId() {
         return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getTitle() {
@@ -108,14 +126,16 @@ public class Session {
     }
 
     public void setResponsible(User responsible) {
-        if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
-            throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
-        }
-        if(responsible.getUserType().equals(UserType.USER)){
-            responsible.setUserType(UserType.RESPONSIBLE);
-        }
 
-        this.responsible = responsible;
+        if (responsible != null) {
+//            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
+//                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+//            }
+//            if(responsible.getUserType().equals(UserType.USER)){
+//                responsible.setUserType(UserType.RESPONSIBLE);
+//            }
+            this.responsible = responsible;
+        }
     }
 
     public LocalDateTime getStart() {
@@ -150,7 +170,7 @@ public class Session {
 
     public void setCapacity(int capacity) {
         if(location.getCapacity() < capacity || capacity <= 0){
-            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
+            //throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
 
         this.capacity = capacity;
@@ -195,10 +215,6 @@ public class Session {
 
     public void setFeedback(List<Feedback> feedback) {
         this.feedback = feedback;
-    }
-
-    public void addFeedback(Feedback feedback){
-        this.feedback.add(feedback);
     }
 
     public boolean isOpened() {

@@ -8,6 +8,7 @@ import domain.MockData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import repository.GenericDaoJpa;
 
 public class SidePanelController implements Initializable {
 
@@ -57,6 +58,7 @@ public class SidePanelController implements Initializable {
 
     @FXML
     private void exit(ActionEvent event) {
+        GenericDaoJpa.closePersistency();
         System.exit(0);
     }
 

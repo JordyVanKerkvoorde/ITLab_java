@@ -19,6 +19,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXListCell?>
 <?import ITLab.components.JFXEventTabPane?>
+<?import com.jfoenix.controls.JFXButton?>
 <JFXEventTabPane id="o" fx:id="tabPane" prefHeight="550.0" prefWidth="550.0" styleClass="popover"
                  xmlns="http://javafx.com/javafx/8.0.251" xmlns:fx="http://javafx.com/fxml/1"
                  fx:controller="ITLab.controller.PopOverController">
@@ -95,6 +96,7 @@
                </VBox.margin>
             </VBox>
          </children>
+          <JFXButton fx:id="saveButton" alignment="CENTER" buttonType="RAISED" text="Opslaan"/>
       </VBox>
    </Tab>
    <Tab fx:id="tab2">
