@@ -2,6 +2,8 @@ package domain.model.session;
 
 import domain.model.user.User;
 import domain.model.user.UserSession;
+import domain.model.user.UserStatus;
+import domain.model.user.UserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -122,12 +124,12 @@ public class Session {
     public void setResponsible(User responsible) {
 
         if (responsible != null) {
-//            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
-//                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
-//            }
-//            if(responsible.getUserType().equals(UserType.USER)){
-//                responsible.setUserType(UserType.RESPONSIBLE);
-//            }
+            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
+                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+            }
+            if(responsible.getUserType().equals(UserType.USER)){
+                responsible.setUserType(UserType.RESPONSIBLE);
+            }
             this.responsible = responsible;
         }
     }
@@ -164,7 +166,7 @@ public class Session {
 
     public void setCapacity(int capacity) {
         if(location.getCapacity() < capacity || capacity <= 0){
-            //throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
+            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
 
         this.capacity = capacity;
