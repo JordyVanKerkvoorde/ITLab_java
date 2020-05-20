@@ -61,14 +61,14 @@ public class UserPopoverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboBoxes();
-        closeButton.setOnAction(event -> close(event));
+        closeButton.setOnAction(this::close);
         if (user == null) {
             user =  new User();
             commitButton.setText("Aanmaken");
-            commitButton.setOnAction(event -> saveUser(event));
+            commitButton.setOnAction(this::saveUser);
         } else {
             commitButton.setText("Opslaan");
-            commitButton.setOnAction(event -> saveUser(event));
+            commitButton.setOnAction(this::saveUser);
             fillUserData();
         }
         setStyle();
@@ -87,9 +87,7 @@ public class UserPopoverController implements Initializable {
         user.setEmail(emailField.getText());
         user.setUserStatus(statusComboBox.getValue());
         user.setUserType(typeComboBox.getValue());
-//        if(!MockData.mockUsers.contains(user)){
-//            MockData.mockUsers.add(user);
-//        }
+
         if (!userController.getUsers().contains(user)) {
             user.setId(Integer.toString(emailField.getText().hashCode()));
             userController.addUser(user);
@@ -119,7 +117,6 @@ public class UserPopoverController implements Initializable {
 
     private void setStyle() {
         popOver.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
-        //titleLbl.setFont(getFont(50));
         List<Label> labels = new ArrayList<>(Arrays.asList(familienaam, voornaam, email, status, type));
         labels.forEach(l -> l.setFont(getFont(12)));
     }

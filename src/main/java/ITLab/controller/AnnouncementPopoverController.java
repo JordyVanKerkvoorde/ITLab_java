@@ -50,10 +50,9 @@ public class AnnouncementPopoverController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        closeButton.setOnAction(event -> close(event));
-        saveButton.setOnAction(event -> save(event));
+        closeButton.setOnAction(this::close);
+        saveButton.setOnAction(this::save);
         messageArea.setText(announcement.getMessage());
-        System.out.println(announcement.getMessage());
         closeButton.setFont(getFont(closeButton.getFont().getSize()));
         saveButton.setFont(getFont(saveButton.getFont().getSize()));
         messageArea.setFont(getFont(messageArea.getFont().getSize() - 2));

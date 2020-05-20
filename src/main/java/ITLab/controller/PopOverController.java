@@ -97,38 +97,31 @@ public class PopOverController implements Initializable {
         session = tabPane.getSessionEntry().getUserObject();
         if (session == null) {
             session = new Session();
-//            session.setSessionId(SessionController.getInstance().getSessions().size() + 1);
             tabPane.getSessionEntry().setUserObject(session);
             session.setTitle(tabPane.getSessionEntry().getTitle());
             session.setLocation(LocationController.getInstance().getLocations().get(0));
             session.setDescription("Nog geen beschrijving");
             session.setStartAndEnd(tabPane.getSessionEntry().getStartAsLocalDateTime(), tabPane.getSessionEntry().getEndAsLocalDateTime());
-            System.out.println(session.getSessionId());
+
         }
         title.setText(session.getTitle());
-        title.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            session.setTitle(newValue);
-        });
+        title.textProperty().addListener((observableValue, oldValue, newValue) -> session.setTitle(newValue));
         try {
             campus.getItems().addAll(Location.getLocationStrings());
             campus.getSelectionModel().select(session.getLocation().getCampus().toString());
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         room.setText(session.getLocation().getLocationId());
         description.setText(session.getDescription());
         startDate.setValue(session.getStart().toLocalDate());
         startTime.set24HourView(true);
         startTime.setValue(session.getStart().toLocalTime());
-        startTime.valueProperty().addListener((observableValue, localTime, t1) -> {
-            session.setStartAndEnd(LocalDateTime.of(startDate.getValue(), startTime.getValue()), session.getEnd());
-        });
+        startTime.valueProperty().addListener((observableValue, localTime, t1) -> session.setStartAndEnd(LocalDateTime.of(startDate.getValue(), startTime.getValue()), session.getEnd()));
         endDate.setValue(session.getEnd().toLocalDate());
         endTime.set24HourView(true);
         endTime.setValue(session.getEnd().toLocalTime());
-        endTime.valueProperty().addListener((observableValue, localTime, t1) -> {
-            session.setStartAndEnd(session.getStart(), LocalDateTime.of(endDate.getValue(), endTime.getValue()));
-        });
+        endTime.valueProperty().addListener((observableValue, localTime, t1) -> session.setStartAndEnd(session.getStart(), LocalDateTime.of(endDate.getValue(), endTime.getValue())));
         tabPane.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/tabpane.css")).toExternalForm());
         tabPane.setPrefSize(550.0, 640.0);
         tab1.setText("Overzicht");
@@ -154,7 +147,6 @@ public class PopOverController implements Initializable {
                 } else {
                     setText(item.getFirstName() + " " + item.getLastName());
                 }
-                this.setOnMouseClicked(e -> System.out.println(item));
             }
         });
         ingeschreven.getItems().addAll(MockData.mockUsers);

@@ -6,7 +6,5 @@ public interface Callback {
 
     void loadAnnouncements();
 
-    void loadStatistics();
-
     void loadUsers();
 }

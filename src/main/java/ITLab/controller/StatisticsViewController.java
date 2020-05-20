@@ -39,7 +39,6 @@ public class StatisticsViewController implements Initializable {
         Bindings.bindBidirectional(anchorPane.prefWidthProperty(), stackPane.prefWidthProperty());
         Bindings.bindBidirectional(anchorPane.prefHeightProperty(), vbox.prefHeightProperty());
         Bindings.bindBidirectional(anchorPane.prefWidthProperty(), vbox.prefWidthProperty());
-        System.out.println(stackPane.getWidth() + " " + stackPane.getHeight());
     }
 
 }

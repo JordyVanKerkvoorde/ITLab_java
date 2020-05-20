@@ -50,9 +50,6 @@ public class Mail implements Runnable {
 
         });
 
-        // Used to debug SMTP issues
-        session.setDebug(true);
-
         try {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
@@ -71,10 +68,8 @@ public class Mail implements Runnable {
             // Now set the actual message
             message.setText(body);
 
-            System.out.println("sending...");
             // Send message
             Transport.send(message);
-            System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }

@@ -23,7 +23,6 @@ public class UserController {
     }
 
     private void loadUsers() {
-        // TODO: maybe optimise this
         users = userDao.findAll();
 
     }
@@ -37,7 +36,6 @@ public class UserController {
     }
 
     public void addUser(User user) {
-        //TODO: email already used
         if (users.stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))){
             throw new AlreadyExistsException("Er bestaat al een gebruiker met dit e-mailadres.");
         }

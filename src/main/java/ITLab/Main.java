@@ -22,7 +22,6 @@ public class Main extends Application {
         //stage.getIcons().add(new Image("../resources/images/itlab.png"));
         //stage.getIcons().add(new Image(Main.class.getResourceAsStream("../resources/images/itlab.png\"")));
         stage.show();
-        System.out.println("javafx version" + com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
     }
 
 

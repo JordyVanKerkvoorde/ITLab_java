@@ -2,6 +2,7 @@ package domain.model.user;
 
 import domain.model.session.Media;
 import org.apache.commons.validator.routines.EmailValidator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -153,18 +154,6 @@ public class User {
     public List<UserSession> getUserSessions() {
         return userSessions;
     }
-
-//    public void addUserSession(UserSession userSession){
-//        for (UserSession us: userSessions ) {
-//            if (us.getUser().equals(userSession.getUser())) {
-//                throw new IllegalArgumentException("De gebruiker is al ingeschreven op de sessie.");
-//            }
-//        }
-//        if(!userSession.getSession().equals(this)){
-//            throw new IllegalArgumentException("Dit is niet de juiste sessie waaraan de usersessie moet toegevoegd worden.");
-//        }
-//        userSessions.add(userSession);
-//    }
 
 
     @Override

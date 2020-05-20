@@ -61,18 +61,6 @@ public class Session {
         initLists();
     }
 
-    public Session(Session session) {
-        setTitle(session.title);
-        setDescription(session.description);
-        setResponsible(session.responsible);
-//        setStart(start);
-//        setEnd(end);
-        setStartAndEnd(session.start, session.end);
-        setLocation(session.location);
-        setCapacity(session.capacity);
-        initLists();
-    }
-
     public Session() {
         initLists();
     }

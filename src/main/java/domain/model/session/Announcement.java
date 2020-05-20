@@ -21,7 +21,6 @@ public class Announcement{
     public Announcement(String message) {
         //Is de postTime niet gelijk aan LocalDateTime.now()?
         setPostTime();
-//        this.postTime = postTime;
         setMessage(message);
     }
 
