@@ -65,7 +65,6 @@ public class UsersViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userObservableList = FXCollections.observableArrayList();
-//        userObservableList.addAll(MockData.mockUsers);
         Thread thread = new Thread(() -> userObservableList.addAll(userController.getUsers()));
         thread.start();
         setColumnFactories();

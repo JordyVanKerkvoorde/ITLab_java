@@ -81,16 +81,17 @@ public class PopOverController implements Initializable {
 
     private CalendarController calendarController;
 
+
+    public PopOverController() {
+
+    }
+
     public CalendarController getCalendarController() {
         return calendarController;
     }
 
     public void setCalendarController(CalendarController calendarController) {
         this.calendarController = calendarController;
-    }
-
-    public PopOverController() {
-
     }
 
     public void setSessionEntry() {
