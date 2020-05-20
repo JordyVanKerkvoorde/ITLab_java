@@ -3,7 +3,6 @@ package domain.model.session;
 import domain.model.user.User;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name= "Feedback")

@@ -1,6 +1,5 @@
 package ITLab.controller;
 
-import com.jfoenix.controls.JFXMasonryPane;
 import domain.model.session.Session;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;

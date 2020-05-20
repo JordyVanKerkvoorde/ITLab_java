@@ -1,14 +1,13 @@
 package ITLab.controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import domain.MockData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import repository.GenericDaoJpa;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SidePanelController implements Initializable {
 

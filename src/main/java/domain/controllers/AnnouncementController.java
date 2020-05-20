@@ -1,7 +1,6 @@
 package domain.controllers;
 
 import domain.model.session.Announcement;
-import domain.model.user.User;
 import repository.AnnouncementDAO;
 import repository.AnnouncementDAOJpa;
 

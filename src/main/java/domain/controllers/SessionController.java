@@ -4,9 +4,7 @@ import domain.model.session.Session;
 import repository.SessionDao;
 import repository.SessionDaoJpa;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class SessionController {
     private SessionDao sessionDao;

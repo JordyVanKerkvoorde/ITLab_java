@@ -3,27 +3,16 @@ package ITLab.controller;
 import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.*;
 import com.calendarfx.view.CalendarView;
-import domain.MockData;
 import domain.controllers.SessionController;
-import domain.model.session.CampusEnum;
-import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import org.eclipse.persistence.internal.jaxb.json.schema.model.JsonType;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
-
-import static com.calendarfx.model.CalendarEvent.ENTRY_CALENDAR_CHANGED;
 
 public class CalendarController {
     private CalendarView calendarView;

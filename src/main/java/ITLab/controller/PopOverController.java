@@ -2,39 +2,22 @@ package ITLab.controller;
 
 import ITLab.components.JFXEventTabPane;
 import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
-import com.calendarfx.view.CalendarView;
 import com.jfoenix.controls.*;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import domain.MockData;
 import domain.controllers.LocationController;
 import domain.controllers.SessionController;
-import domain.model.session.CampusEnum;
 import domain.model.session.Location;
 import domain.model.session.Session;
-import domain.model.session.SessionEntry;
 import domain.model.user.User;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import org.eclipse.persistence.jaxb.json.JsonSchemaOutputResolver;
-import org.w3c.dom.ls.LSOutput;
 
-import javax.swing.*;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 public class PopOverController implements Initializable {

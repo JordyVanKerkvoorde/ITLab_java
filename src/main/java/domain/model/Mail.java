@@ -1,8 +1,5 @@
 package domain.model;
 
-
-
-
 import domain.model.user.User;
 
 import javax.mail.*;
