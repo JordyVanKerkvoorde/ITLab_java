@@ -1,6 +1,5 @@
 package ITLab.controller;
 
-import ITLab.components.WindowButtons;
 import com.jfoenix.controls.*;
 import domain.MockData;
 import domain.controllers.AnnouncementController;
@@ -10,20 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.application.Platform;
-import sun.jvm.hotspot.debugger.ThreadAccess;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,10 +50,9 @@ public class AnnouncementPopoverController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        closeButton.setOnAction(event -> close(event));
-        saveButton.setOnAction(event -> save(event));
+        closeButton.setOnAction(this::close);
+        saveButton.setOnAction(this::save);
         messageArea.setText(announcement.getMessage());
-        System.out.println(announcement.getMessage());
         closeButton.setFont(getFont(closeButton.getFont().getSize()));
         saveButton.setFont(getFont(saveButton.getFont().getSize()));
         messageArea.setFont(getFont(messageArea.getFont().getSize() - 2));

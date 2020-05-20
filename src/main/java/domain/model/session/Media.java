@@ -1,7 +1,6 @@
 package domain.model.session;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Media")

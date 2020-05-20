@@ -1,29 +1,21 @@
 package ITLab.controller;
 
 import ITLab.components.JFXEventTabPane;
-import com.calendarfx.model.*;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
-import domain.MockData;
 import domain.controllers.SessionController;
-import domain.model.session.CampusEnum;
-import domain.model.session.Location;
 import domain.model.session.Session;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import org.eclipse.persistence.internal.jaxb.json.schema.model.JsonType;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
-
-import static com.calendarfx.model.CalendarEvent.ENTRY_CALENDAR_CHANGED;
 
 public class CalendarController {
     private CalendarView calendarView;
@@ -68,7 +60,6 @@ public class CalendarController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sessionCalendar.addEventHandler(this::handelCalendarEvent);
         calendarView.getCalendarSources().clear();
         calendarView.getCalendarSources().add(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
@@ -89,39 +80,13 @@ public class CalendarController {
     public void loadSessions() {
         sessionCalendar.clear();
         for (Session session : SessionController.getInstance().getSessions()) {
-            System.out.println(session);
             // id, title, start/end date
             Entry<Session> sessionEntry = new Entry<>();
-            //System.out.println(s);
             setListeners(session, sessionEntry);
             sessionEntry.setUserObject(session);
             sessionCalendar.addEntry(sessionEntry);
 
         }
-    }
-
-    private void handelCalendarEvent(CalendarEvent event) {
-//        if (event.getEventType() == ENTRY_CALENDAR_CHANGED && event.isEntryAdded()) {
-//            try {
-//                // this method gets called when a new event is created in the calendar
-//                // a new Session has to be created and listeners have to be added to the new
-//                // Entry<Session> that updates the Session object that has to be in the db
-//                // session.sessionId won't be set because that has to happen in db
-//                @SuppressWarnings("unchecked") Entry<Session> entry = (Entry<Session>) event.getEntry();
-//                Session session = new Session();
-//                entry.setUserObject(session);
-//                session.setTitle(entry.getTitle());
-//                Location location = new Location();
-//                session.setLocation(location);
-//                session.setStartAndEnd(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()),
-//                        LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-////                session.setStart(LocalDateTime.of(entry.getStartDate(), entry.getStartTime()));
-////                session.setEnd(LocalDateTime.of(entry.getEndDate(), entry.getEndTime()));
-//                MockData.mockSessions.add(session);
-//            } catch (Exception e) {
-//                System.out.println(e);
-//            }
-//        }
     }
 
     private void setUpdateThread() {

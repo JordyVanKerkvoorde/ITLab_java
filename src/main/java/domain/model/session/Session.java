@@ -6,9 +6,7 @@ import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,23 +55,9 @@ public class Session {
         setTitle(title);
         setDescription(description);
         setResponsible(responsible);
-//        setStart(start);
-//        setEnd(end);
         setStartAndEnd(start, end);
         setLocation(location);
         setCapacity(capacity);
-        initLists();
-    }
-
-    public Session(Session session) {
-        setTitle(session.title);
-        setDescription(session.description);
-        setResponsible(session.responsible);
-//        setStart(start);
-//        setEnd(end);
-        setStartAndEnd(session.start, session.end);
-        setLocation(session.location);
-        setCapacity(session.capacity);
         initLists();
     }
 
@@ -128,12 +112,12 @@ public class Session {
     public void setResponsible(User responsible) {
 
         if (responsible != null) {
-//            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
-//                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
-//            }
-//            if(responsible.getUserType().equals(UserType.USER)){
-//                responsible.setUserType(UserType.RESPONSIBLE);
-//            }
+            if(!responsible.getUserStatus().equals(UserStatus.ACTIVE)){
+                throw new IllegalArgumentException("De persoon die je verantwoordelijk wilt maken is geen actieve gebruiker.");
+            }
+            if(responsible.getUserType().equals(UserType.USER)){
+                responsible.setUserType(UserType.RESPONSIBLE);
+            }
             this.responsible = responsible;
         }
     }
@@ -170,7 +154,7 @@ public class Session {
 
     public void setCapacity(int capacity) {
         if(location.getCapacity() < capacity || capacity <= 0){
-            //throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
+            throw new IllegalArgumentException("De capaciteit van de sessie is groter dan wat de locatie aankan of is kleiner of gelijk aan 0.");
         }
 
         this.capacity = capacity;

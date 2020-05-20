@@ -1,14 +1,13 @@
 package ITLab.controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import domain.MockData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import repository.GenericDaoJpa;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SidePanelController implements Initializable {
 
@@ -37,19 +36,13 @@ public class SidePanelController implements Initializable {
     @FXML
     private void selectPanel(ActionEvent event) {
         JFXButton btn = (JFXButton) event.getSource();
-        System.out.println(btn.getText());
         switch (btn.getText()) {
             case "Kalender": // calendar
                 callback.loadCalendar();
                 break;
             case "Aankondigingen":
-//                callback.unloadCalendar();
                 callback.loadAnnouncements();
                 break;
-//            case "Statistics":
-////                MockData.mockSessions.forEach(e -> System.out.println(e));
-//                callback.loadStatistics();
-//                break;
             case "Gebruikers":
                 callback.loadUsers();
                 break;

@@ -1,7 +1,6 @@
 package domain.model.session;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 @Entity
 @Table(name="Announcements")
@@ -22,7 +21,6 @@ public class Announcement{
     public Announcement(String message) {
         //Is de postTime niet gelijk aan LocalDateTime.now()?
         setPostTime();
-//        this.postTime = postTime;
         setMessage(message);
     }
 

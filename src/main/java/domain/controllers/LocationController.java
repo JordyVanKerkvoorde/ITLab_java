@@ -1,7 +1,6 @@
 package domain.controllers;
 
 import domain.model.session.Location;
-import domain.model.session.Session;
 import repository.LocationDao;
 import repository.LocationDaoJpa;
 

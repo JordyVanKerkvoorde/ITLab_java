@@ -3,21 +3,16 @@ package ITLab.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import domain.MockData;
 import domain.controllers.UserController;
 import domain.model.user.User;
 import domain.model.user.UserStatus;
 import domain.model.user.UserType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -66,14 +61,14 @@ public class UserPopoverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeComboBoxes();
-        closeButton.setOnAction(event -> close(event));
+        closeButton.setOnAction(this::close);
         if (user == null) {
             user =  new User();
             commitButton.setText("Aanmaken");
-            commitButton.setOnAction(event -> saveUser(event));
+            commitButton.setOnAction(this::saveUser);
         } else {
             commitButton.setText("Opslaan");
-            commitButton.setOnAction(event -> saveUser(event));
+            commitButton.setOnAction(this::saveUser);
             fillUserData();
         }
         setStyle();
@@ -92,9 +87,7 @@ public class UserPopoverController implements Initializable {
         user.setEmail(emailField.getText());
         user.setUserStatus(statusComboBox.getValue());
         user.setUserType(typeComboBox.getValue());
-//        if(!MockData.mockUsers.contains(user)){
-//            MockData.mockUsers.add(user);
-//        }
+
         if (!userController.getUsers().contains(user)) {
             user.setId(Integer.toString(emailField.getText().hashCode()));
             userController.addUser(user);
@@ -124,7 +117,6 @@ public class UserPopoverController implements Initializable {
 
     private void setStyle() {
         popOver.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("stylesheet/announcementsview.css")).toExternalForm());
-        //titleLbl.setFont(getFont(50));
         List<Label> labels = new ArrayList<>(Arrays.asList(familienaam, voornaam, email, status, type));
         labels.forEach(l -> l.setFont(getFont(12)));
     }

@@ -1,7 +1,6 @@
 package ITLab.controller;
 
 import com.jfoenix.controls.*;
-import domain.MockData;
 import domain.controllers.AnnouncementController;
 import domain.model.session.Announcement;
 import javafx.beans.binding.Bindings;
@@ -24,7 +23,6 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;

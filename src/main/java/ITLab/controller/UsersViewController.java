@@ -1,10 +1,7 @@
 package ITLab.controller;
 
-import ITLab.components.UserCell;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-import domain.MockData;
 import domain.controllers.UserController;
 import domain.model.user.User;
 import javafx.collections.FXCollections;
@@ -16,8 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +27,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -67,7 +65,6 @@ public class UsersViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userObservableList = FXCollections.observableArrayList();
-//        userObservableList.addAll(MockData.mockUsers);
         Thread thread = new Thread(() -> userObservableList.addAll(userController.getUsers()));
         thread.start();
         setColumnFactories();
